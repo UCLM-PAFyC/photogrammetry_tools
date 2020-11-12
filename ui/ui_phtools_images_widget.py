@@ -182,8 +182,6 @@ class PhToolsQImagesWidget(QFrame,
             self.first_click = False
         elif points_count > 0:
             last_point = self.tool_digitize_feature.points()[points_count-1]
-            # import pydevd_pycharm
-            # pydevd_pycharm.settrace('localhost', port=54100, stdoutToServer=True, stderrToServer=True)
             digitized_points = self.tool_digitize_feature.points()
             digitized_points[points_count - 1] = QgsPointXY(last_point.x() + 20, last_point.y() + 20)
             self.tool_digitize_feature.setPoints(digitized_points)
