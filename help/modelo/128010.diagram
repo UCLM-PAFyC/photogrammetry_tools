@@ -1,0 +1,163 @@
+format 221
+
+classcanvas 128010 class_ref 128010 // PhotogrammetryManager
+  classdiagramsettings member_max_width 0 end
+  xyz 338 568 2000
+end
+classcanvas 128138 class_ref 128138 // PointCloud
+  classdiagramsettings member_max_width 0 end
+  xyz 212 652 2000
+end
+classcanvas 128394 class_ref 128266 // LAS_LAZ
+  classdiagramsettings member_max_width 0 end
+  xyz 150 732 2000
+end
+classcanvas 128650 class_ref 128394 // Spatialite
+  classdiagramsettings member_max_width 0 end
+  xyz 254 732 2000
+end
+classcanvas 129034 class_ref 128522 // DEM
+  classdiagramsettings member_max_width 0 end
+  xyz 549 681 2000
+end
+classcanvas 130442 class_ref 128650 // TIN
+  classdiagramsettings member_max_width 0 end
+  xyz 414 746 2000
+end
+classcanvas 130570 class_ref 128778 // Raster
+  classdiagramsettings member_max_width 0 end
+  xyz 684 748 2000
+end
+classcanvas 131466 class_ref 128906 // Camera
+  classdiagramsettings member_max_width 0 end
+  xyz 136 500 2000
+end
+classcanvas 131722 class_ref 129034 // Calibration
+  classdiagramsettings member_max_width 0 end
+  xyz 115 316 2000
+end
+classcanvas 131978 class_ref 129162 // AgisoftFrame
+  classdiagramsettings member_max_width 0 end
+  xyz 17 399 2000
+end
+classcanvas 132234 class_ref 129290 // BlockTriangulation
+  classdiagramsettings member_max_width 0 end
+  xyz 350 440 2000
+end
+classcanvas 132490 class_ref 129418 // Image
+  classdiagramsettings member_max_width 0 end
+  xyz 379 323 2000
+end
+classcanvas 132874 class_ref 129546 // AbsoluteOrientation
+  classdiagramsettings member_max_width 0 end
+  xyz 533 330 2000
+end
+classcanvas 133130 class_ref 129674 // AgisofAOModel
+  classdiagramsettings member_max_width 0 end
+  xyz 543 241 2000
+end
+classcanvas 133386 class_ref 129802 // CRS
+  classdiagramsettings member_max_width 0 end
+  xyz 579 609 2000
+end
+relationcanvas 128266 relation_ref 128010 // <association>
+  from ref 128010 z 2001 to ref 128138
+  no_role_a no_role_b
+  multiplicity_a_pos 293 654 3000 multiplicity_b_pos 358 609 3000
+end
+relationcanvas 128522 relation_ref 128138 // <generalisation>
+  from ref 128138 z 2001 to ref 128394
+  no_role_a no_role_b
+  no_multiplicity_a no_multiplicity_b
+end
+relationcanvas 128906 relation_ref 128266 // <generalisation>
+  from ref 128138 z 2001 to ref 128650
+  no_role_a no_role_b
+  no_multiplicity_a no_multiplicity_b
+end
+relationcanvas 129674 relation_ref 128522 // <association>
+  from ref 128010 z 2001 to ref 129034
+  no_role_a no_role_b
+  multiplicity_a_pos 534 697 3000 multiplicity_b_pos 451 620 3000
+end
+relationcanvas 130954 relation_ref 128778 // <generalisation>
+  from ref 129034 z 2001 to ref 130570
+  no_role_a no_role_b
+  no_multiplicity_a no_multiplicity_b
+end
+relationcanvas 131082 relation_ref 128906 // <generalisation>
+  from ref 129034 z 2001 to ref 130442
+  no_role_a no_role_b
+  no_multiplicity_a no_multiplicity_b
+end
+relationcanvas 131210 relation_ref 129034 // <association>
+  from ref 130442 z 2001 to ref 128138
+  no_role_a no_role_b
+  multiplicity_a_pos 294 700 3000 multiplicity_b_pos 397 765 3000
+end
+relationcanvas 131338 relation_ref 129162 // <association>
+  from ref 130442 z 2001 to ref 130570
+  no_role_a no_role_b
+  multiplicity_a_pos 667 773 3000 multiplicity_b_pos 468 772 3000
+end
+relationcanvas 131594 relation_ref 129290 // <association>
+  from ref 128010 z 2001 to ref 131466
+  no_role_a no_role_b
+  multiplicity_a_pos 200 534 3000 multiplicity_b_pos 331 576 3000
+end
+relationcanvas 132106 relation_ref 129546 // <generalisation>
+  from ref 131722 z 2001 to ref 131978
+  no_role_a no_role_b
+  no_multiplicity_a no_multiplicity_b
+end
+relationcanvas 132362 relation_ref 129674 // <association>
+  from ref 128010 z 2001 to ref 132234
+  no_role_a no_role_b
+  multiplicity_a_pos 381 485 3000 multiplicity_b_pos 397 549 3000
+end
+relationcanvas 132618 relation_ref 129802 // <composition>
+  from ref 132234 z 2001 to ref 132490
+  no_role_a no_role_b
+  multiplicity_a_pos 388 368 3000 multiplicity_b_pos 389 421 3000
+end
+relationcanvas 132746 relation_ref 129930 // <association>
+  from ref 132490 z 2001 to ref 131722
+  no_role_a no_role_b
+  multiplicity_a_pos 195 342 3000 multiplicity_b_pos 364 348 3000
+end
+relationcanvas 133002 relation_ref 130058 // <association>
+  from ref 132490 z 2001 to ref 132874
+  no_role_a no_role_b
+  multiplicity_a_pos 506 353 3000 multiplicity_b_pos 435 349 3000
+end
+relationcanvas 133258 relation_ref 130186 // <generalisation>
+  from ref 132874 z 2001 to ref 133130
+  no_role_a no_role_b
+  no_multiplicity_a no_multiplicity_b
+end
+relationcanvas 133514 relation_ref 130314 // <association>
+  from ref 128010 z 2001 to ref 133386
+  no_role_a no_role_b
+  multiplicity_a_pos 562 630 3000 multiplicity_b_pos 502 612 3000
+end
+relationcanvas 134538 relation_ref 130698 // <association>
+  from ref 128138 z 2001 to ref 133386
+  no_role_a no_role_b
+  multiplicity_a_pos 562 636 3000 multiplicity_b_pos 294 671 3000
+end
+relationcanvas 134666 relation_ref 130826 // <association>
+  from ref 132874 z 2001 to ref 133386
+  no_role_a no_role_b
+  multiplicity_a_pos 584 590 3000 multiplicity_b_pos 580 375 3000
+end
+relationcanvas 134794 relation_ref 130954 // <association>
+  from ref 133386 z 2001 to ref 130570
+  no_role_a no_role_b
+  multiplicity_a_pos 673 729 3000 multiplicity_b_pos 604 654 3000
+end
+relationcanvas 134922 relation_ref 137482 // <association>
+  from ref 132490 z 2001 to ref 131466
+  no_role_a no_role_b
+  multiplicity_a_pos 195 499 3000 multiplicity_b_pos 352 358 3000
+end
+end

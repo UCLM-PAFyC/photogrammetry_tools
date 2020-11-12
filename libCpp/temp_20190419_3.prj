@@ -1,0 +1,10 @@
+Photogrammetry Project
+- Number of processes ......................................# 1
+- Process (CREATE_DB,ADD_POINTCLOUD,ADD_ROI) ...............# ADD_EO
+  - Database file name .....................................# "C:\MetashapeProjects\Candado\PhotogrammetryTools\dhl_20190419.sqlite"
+  - Source photogrammetric tool ............................# Agisoft Metashape
+  - Input type (File,) .....................................# File
+    - File format (OmegaPhiKappaTxt,) ......................# OmegaPhiKappaTxt
+    - File .................................................# "C:\MetashapeProjects\Candado\export\cameras_omphka.txt"
+  - CRS (libCRS/EPSG/proj4/wkt) ............................# 25830
+    Height type (ORTHOMETRIC_HEIGHT,ELLIPSOID_HEIGHT) ......# ORTHOMETRIC_HEIGHT

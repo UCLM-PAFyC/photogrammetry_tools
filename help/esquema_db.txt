@@ -1,0 +1,108 @@
+sql="CREATE TABLE projects(";
+sql+="id INTEGER NOT NULL primary key autoincrement,";
+sql+="crs_description text NOT NULL,";
+sql+="crs_proj4_string text NOT NULL,";
+sql+="epsg_code INTEGER NOT NULL,";
+sql+="height_type text NOT NULL,";
+sql+="grid_size DOUBLE NOT NULL,";
+sql+="type text NOT NULL,";
+sql+="parameters text NOT NULL);";
+  
+sql="CREATE TABLE rois (";
+sql+="id INTEGER NOT NULL PRIMARY KEY autoincrement,";
+sql+="file TEXT NOT NULL,";
+sql+="roi_id TEXT NOT NULL);";
+sql="SELECT AddGeometryColumn('rois','the_geom',#SRID_VALUE#,'polygon', 'xy');";
+
+sql="CREATE TABLE cameras (";
+sql+="id INTEGER NOT NULL PRIMARY KEY autoincrement,";
+sql+="make TEXT NOT NULL,";
+sql+="model TEXT NOT NULL,";
+sql+="type TEXT NOT NULL,"; // RGB,Thermal,Multispectral,Hyperspectral
+sql+="parameters TEXT,"; // por definir
+sql+="focal DOUBLE NOT NULL,";
+sql+="focal_35mm DOUBLE NOT NULL,";
+sql+="columns INTEGER NOT NULL,";
+sql+="rows INTEGER NOT NULL,";
+sql+="pixel_size DOUBLE NOT NULL);";
+
+sql="CREATE TABLE oris(";
+sql+="id INTEGER NOT NULL PRIMARY KEY autoincrement,";
+sql+="code TEXT NOT NULL UNIQUE,";
+sql+="description TEXT);";
+
+sql="CREATE TABLE io_models(";
+sql+="  id integer not null primary key autoincrement,";
+sql+="  type text not null,";
+sql+="  description text not null);";
+sql+="insert into io_models (type,description) values('Agisoft Metashape: frame','Agisoft metashape frame camera model');";
+sql+="insert into io_models (type,description) values('Agisoft Metashape: fisheye','Agisoft metashape fisheye camera model');";
+sql+="insert into io_models (type,description) values('Agisoft Metashape: spherical cameras (equirectangular projection)','Agisoft metashape spherical cameras (equirectangular projection) camera model');";
+sql+="insert into io_models (type,description) values('Agisoft Metashape: spherical cameras (cylindrical projection)','Agisoft metashape spherical cameras (cylindrical projection) camera model');";
+
+sql="CREATE TABLE ios (";
+sql+="id INTEGER NOT NULL PRIMARY KEY autoincrement,";
+sql+="model_id INTEGER NOT NULL,";
+sql+="ori_id INTEGER NOT NULL,";
+sql+="parameters text NOT NULL,";
+sql+="CONSTRAINT fk_model_id FOREIGN KEY (model_id) REFERENCES ios_models (id),";
+sql+="CONSTRAINT fk_ori_id FOREIGN KEY (ori_id) REFERENCES oris (id));";
+
+sql="CREATE TABLE eo_models(";
+sql+="  id integer not null primary key autoincrement,";
+sql+="  type text not null,";
+sql+="  description text not null);";
+sql+="insert into eo_models (type,description) values('metashape_pin-hole','Agisoft metashape pin-hole camera projective model');";
+
+sql="CREATE TABLE eos (";
+sql+="id INTEGER NOT NULL PRIMARY KEY autoincrement,";
+sql+="model_id INTEGER NOT NULL,";
+sql+="ori_id INTEGER NOT NULL,";
+sql+="epsg_code INTEGER NOT NULL,";
+sql+="height_type text NOT NULL,";
+sql+="parameters text NOT NULL,";
+sql+="CONSTRAINT fk_model_id FOREIGN KEY (model_id) REFERENCES eos_models (id),";
+sql+="CONSTRAINT fk_ori_id FOREIGN KEY (ori_id) REFERENCES oris (id));";
+
+sql="CREATE TABLE images (";
+sql+="id INTEGER NOT NULL PRIMARY KEY autoincrement,";
+sql+="file_name TEXT NOT NULL,";
+sql+="path TEXT NOT NULL,";
+sql+="camera_id INTEGER NOT NULL,";
+sql+="enabled INTEGER NOT NULL,";
+sql+="CONSTRAINT fk_camera_id FOREIGN KEY (image_id) REFERENCES cameras(id));";
+
+sql="CREATE TABLE images_fp (";
+sql+="id INTEGER NOT NULL PRIMARY KEY autoincrement,";
+sql+="image_id INTEGER NOT NULL,";
+sql+="CONSTRAINT fk_image_id FOREIGN KEY (image_id) REFERENCES images (id));";
+
+sql="SELECT AddGeometryColumn('images_fp','the_geom',#SRID_VALUE#,'polygon', 'xy');";
+
+sql="CREATE TABLE images_pc (";
+sql+="id INTEGER NOT NULL PRIMARY KEY autoincrement,";
+sql+="image_id INTEGER NOT NULL,";
+sql+="CONSTRAINT fk_image_id FOREIGN KEY (image_id) REFERENCES images (id));";
+
+sql="SELECT AddGeometryColumn('images_pc','the_geom',#SRID_VALUE#,'point', 'xy');";
+
+sql="CREATE TABLE images_ios(";
+sql+="id INTEGER NOT NULL PRIMARY KEY autoincrement,";
+sql+="image_id INTEGER NOT NULL,";
+sql+="io_id INTEGER NOT NULL,";
+sql+="CONSTRAINT fk_image_id FOREIGN KEY (image_id) REFERENCES images(id),";
+sql+="CONSTRAINT fk_io_id FOREIGN KEY (io_id) REFERENCES ios(id));";
+
+sql="CREATE TABLE images_eos(";
+sql+="id INTEGER NOT NULL PRIMARY KEY autoincrement,";
+sql+="image_id INTEGER NOT NULL,";
+sql+="eo_id INTEGER NOT NULL,";
+sql+="CONSTRAINT fk_image_id FOREIGN KEY (image_id) REFERENCES images(id),";
+sql+="CONSTRAINT fk_eo_id FOREIGN KEY (eo_id) REFERENCES eos(id));";
+
+sql="CREATE TABLE os(";
+sql+="id INTEGER NOT NULL PRIMARY KEY autoincrement,";
+sql+="code TEXT NOT NULL,";
+sql+="description TEXT);";
+
+  

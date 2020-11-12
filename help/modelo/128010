@@ -1,0 +1,498 @@
+format 221
+"modelo" // modelo
+  revision 3
+  modified_by 10 "David.Hernandez"
+  // class settings
+  
+  classdiagramsettings member_max_width 0 end
+  
+  classcompositediagramsettings end
+  
+  usecasediagramsettings end
+  
+  sequencediagramsettings end
+  
+  collaborationdiagramsettings end
+  
+  objectdiagramsettings end
+  
+  objectcompositediagramsettings end
+  
+  componentdiagramsettings
+   end
+  
+  deploymentdiagramsettings
+   end
+  
+  statediagramsettings
+   end
+  
+  activitydiagramsettings
+   end
+  
+  usecaseview 128010 "modelo"
+    
+    usecasediagramsettings end
+    
+    sequencediagramsettings end
+    
+    collaborationdiagramsettings end
+    
+    classdiagramsettings member_max_width 0 end
+    
+    classcompositediagramsettings end
+    
+    objectdiagramsettings end
+    
+    objectcompositediagramsettings end
+    
+    statediagramsettings
+     end
+    
+    activitydiagramsettings
+     end
+    classdiagram 128010 "modelo"
+      classdiagramsettings draw_all_relations no member_max_width 0 end
+      size A4
+    end
+
+    class 128010 "PhotogrammetryManager"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      classrelation 128010 // <association>
+	relation 128010 ----
+	  a role_name "" multiplicity "*" private
+	    classrelation_ref 128010 // <association>
+	  b role_name "" multiplicity "1" private
+	    classrelation_ref 128138 // <association>
+      end
+
+      classrelation 128778 // <association>
+	relation 128522 ----
+	  a role_name "" multiplicity "*" private
+	    classrelation_ref 128778 // <association>
+	  b role_name "" multiplicity "1" private
+	    classrelation_ref 128906 // <association>
+      end
+
+      classrelation 130058 // <association>
+	relation 129290 ----
+	  a role_name "" multiplicity "1..*" private
+	    classrelation_ref 130058 // <association>
+	  b role_name "" multiplicity "1" private
+	    classrelation_ref 130186 // <association>
+      end
+
+      classrelation 130698 // <association>
+	relation 129674 ----
+	  a role_name "" multiplicity "1..*" private
+	    classrelation_ref 130698 // <association>
+	  b role_name "" multiplicity "1" private
+	    classrelation_ref 130826 // <association>
+      end
+
+      classrelation 131850 // <association>
+	relation 130314 ----
+	  a role_name "" multiplicity "1" private
+	    classrelation_ref 131850 // <association>
+	  b role_name "" multiplicity "1" private
+	    classrelation_ref 131978 // <association>
+      end
+    end
+
+    class 128138 "PointCloud"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      classrelation 128138 // <association>
+	relation_ref 128010 // <association>
+      end
+
+      classrelation 128266 // <generalisation>
+	relation 128138 ---|>
+	  a public
+	    classrelation_ref 128266 // <generalisation>
+	  b parent class_ref 128266 // LAS_LAZ
+      end
+
+      classrelation 128394 // <generalisation>
+	relation 128266 ---|>
+	  a public
+	    classrelation_ref 128394 // <generalisation>
+	  b parent class_ref 128394 // Spatialite
+      end
+
+      classrelation 129162 // <association>
+	relation_ref 128650 // <association>
+      end
+
+      classrelation 129674 // <association>
+	relation_ref 129034 // <association>
+      end
+
+      classrelation 132618 // <association>
+	relation 130698 ----
+	  a role_name "" multiplicity "1" private
+	    classrelation_ref 132618 // <association>
+	  b role_name "" multiplicity "*" private
+	    classrelation_ref 132746 // <association>
+      end
+    end
+
+    class 128266 "LAS_LAZ"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+    end
+
+    class 128394 "Spatialite"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+    end
+
+    class 128522 "DEM"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      classrelation 128522 // <association>
+	relation 128394 ----
+	  a role_name "" private
+	    classrelation_ref 128522 // <association>
+	  b role_name "" private
+	    classrelation_ref 128650 // <association>
+      end
+
+      classrelation 128650 // <association>
+	relation_ref 128394 // <association>
+      end
+
+      classrelation 128906 // <association>
+	relation_ref 128522 // <association>
+      end
+
+      classrelation 129034 // <association>
+	relation 128650 ----
+	  a role_name "" multiplicity "1" private
+	    classrelation_ref 129034 // <association>
+	  b role_name "" multiplicity "0..1" private
+	    classrelation_ref 129162 // <association>
+      end
+
+      classrelation 129290 // <generalisation>
+	relation 128778 ---|>
+	  a public
+	    classrelation_ref 129290 // <generalisation>
+	  b parent class_ref 128778 // Raster
+      end
+
+      classrelation 129418 // <generalisation>
+	relation 128906 ---|>
+	  a public
+	    classrelation_ref 129418 // <generalisation>
+	  b parent class_ref 128650 // TIN
+      end
+
+      classrelation 132106 // <association>
+	relation 130442 ----
+	  a role_name "" private
+	    classrelation_ref 132106 // <association>
+	  b role_name "" private
+	    classrelation_ref 132234 // <association>
+      end
+
+      classrelation 132234 // <association>
+	relation_ref 130442 // <association>
+      end
+
+      classrelation 132362 // <association>
+	relation 130570 ----
+	  a role_name "" multiplicity "1" private
+	    classrelation_ref 132362 // <association>
+	  b role_name "" multiplicity "*" private
+	    classrelation_ref 132490 // <association>
+      end
+    end
+
+    class 128650 "TIN"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      classrelation 129546 // <association>
+	relation 129034 ----
+	  a role_name "" multiplicity "1" private
+	    classrelation_ref 129546 // <association>
+	  b role_name "" multiplicity "1" private
+	    classrelation_ref 129674 // <association>
+      end
+
+      classrelation 129802 // <association>
+	relation 129162 ----
+	  a role_name "" multiplicity "1" private
+	    classrelation_ref 129802 // <association>
+	  b role_name "" multiplicity "1" private
+	    classrelation_ref 129930 // <association>
+      end
+    end
+
+    class 128778 "Raster"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      classrelation 129930 // <association>
+	relation_ref 129162 // <association>
+      end
+
+      classrelation 133258 // <association>
+	relation_ref 130954 // <association>
+      end
+    end
+
+    class 128906 "Camera"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      classrelation 130186 // <association>
+	relation_ref 129290 // <association>
+      end
+
+      classrelation 130314 // <association>
+	relation 129418 ----
+	  a role_name "" multiplicity "1..*" private
+	    classrelation_ref 130314 // <association>
+	  b role_name "" multiplicity "1" private
+	    classrelation_ref 130442 // <association>
+      end
+
+      classrelation 139914 // <association>
+	relation_ref 137482 // <association>
+      end
+    end
+
+    class 129034 "Calibration"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      classrelation 130442 // <association>
+	relation_ref 129418 // <association>
+      end
+
+      classrelation 130570 // <generalisation>
+	relation 129546 ---|>
+	  a public
+	    classrelation_ref 130570 // <generalisation>
+	  b parent class_ref 129162 // AgisoftFrame
+      end
+
+      classrelation 131338 // <association>
+	relation_ref 129930 // <association>
+      end
+    end
+
+    class 129162 "AgisoftFrame"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+    end
+
+    class 129290 "BlockTriangulation"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      classrelation 130826 // <association>
+	relation_ref 129674 // <association>
+      end
+
+      classrelation 130954 // <composition>
+	relation 129802 *---
+	  a role_name "" multiplicity "*" private
+	    classrelation_ref 130954 // <composition>
+	  b role_name "" multiplicity "1" private
+	    classrelation_ref 131082 // <composition>
+      end
+    end
+
+    class 129418 "Image"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      classrelation 131082 // <composition>
+	relation_ref 129802 // <composition>
+      end
+
+      classrelation 131210 // <association>
+	relation 129930 ----
+	  a role_name "" multiplicity "1" private
+	    classrelation_ref 131210 // <association>
+	  b role_name "" multiplicity "*" private
+	    classrelation_ref 131338 // <association>
+      end
+
+      classrelation 131466 // <association>
+	relation 130058 ----
+	  a role_name "" multiplicity "1..*" private
+	    classrelation_ref 131466 // <association>
+	  b role_name "" multiplicity "1" private
+	    classrelation_ref 131594 // <association>
+      end
+
+      classrelation 139786 // <association>
+	relation 137482 ----
+	  a role_name "" multiplicity "1" private
+	    classrelation_ref 139786 // <association>
+	  b role_name "" multiplicity "1..*" private
+	    classrelation_ref 139914 // <association>
+      end
+    end
+
+    class 129546 "AbsoluteOrientation"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      classrelation 131594 // <association>
+	relation_ref 130058 // <association>
+      end
+
+      classrelation 131722 // <generalisation>
+	relation 130186 ---|>
+	  a public
+	    classrelation_ref 131722 // <generalisation>
+	  b parent class_ref 129674 // AgisofAOModel
+      end
+
+      classrelation 132874 // <association>
+	relation 130826 ----
+	  a role_name "" multiplicity "1" private
+	    classrelation_ref 132874 // <association>
+	  b role_name "" multiplicity "*" private
+	    classrelation_ref 133002 // <association>
+      end
+    end
+
+    class 129674 "AgisofAOModel"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+    end
+
+    class 129802 "CRS"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      classrelation 131978 // <association>
+	relation_ref 130314 // <association>
+      end
+
+      classrelation 132490 // <association>
+	relation_ref 130570 // <association>
+      end
+
+      classrelation 132746 // <association>
+	relation_ref 130698 // <association>
+      end
+
+      classrelation 133002 // <association>
+	relation_ref 130826 // <association>
+      end
+
+      classrelation 133130 // <association>
+	relation 130954 ----
+	  a role_name "" multiplicity "*" private
+	    classrelation_ref 133130 // <association>
+	  b role_name "" multiplicity "1" private
+	    classrelation_ref 133258 // <association>
+      end
+    end
+  end
+end

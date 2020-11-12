@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="15eb851b-c3c4-4ce5-a6a4-c78a593877fb" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FavoritesManager">
+    <favorites_list name="photogrammetry_tools" />
+  </component>
+  <component name="ProjectId" id="1ctUspJ2igVG5GUc5qzdwjX2st1" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../photogrammetry_tools_old" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+  </component>
+  <component name="RunManager">
+    <configuration name="photogrammetry_tools" type="PyRemoteDebugConfigurationType" factoryName="Python Remote Debug" activateToolWindowBeforeRun="false">
+      <module name="photogrammetry_tools" />
+      <option name="PORT" value="54100" />
+      <option name="HOST" value="localhost" />
+      <PathMappingSettings>
+        <option name="pathMappings">
+          <list />
+        </option>
+      </PathMappingSettings>
+      <option name="REDIRECT_OUTPUT" value="true" />
+      <option name="SUSPEND_AFTER_CONNECT" value="true" />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
+  <component name="StructureViewFactory">
+    <option name="ACTIVE_ACTIONS" value=",ALPHA_COMPARATOR,SHOW_INHERITED" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="15eb851b-c3c4-4ce5-a6a4-c78a593877fb" name="Default Changelist" comment="" />
+      <created>1554449461648</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1554449461648</updated>
+      <workItem from="1554449463089" duration="831000" />
+      <workItem from="1556296515741" duration="997000" />
+      <workItem from="1556302156840" duration="908000" />
+      <workItem from="1556350864608" duration="2585000" />
+      <workItem from="1556376868784" duration="851000" />
+      <workItem from="1556379246916" duration="1222000" />
+      <workItem from="1557388017382" duration="634000" />
+      <workItem from="1558340784874" duration="45000" />
+      <workItem from="1560423986850" duration="332000" />
+      <workItem from="1561129706383" duration="5453000" />
+      <workItem from="1561138790121" duration="7675000" />
+      <workItem from="1561306524036" duration="2937000" />
+      <workItem from="1561367040405" duration="1392000" />
+      <workItem from="1562224944939" duration="776000" />
+      <workItem from="1562253911877" duration="981000" />
+      <workItem from="1570637315759" duration="568000" />
+      <workItem from="1571408693884" duration="3327000" />
+      <workItem from="1573288394473" duration="13000" />
+      <workItem from="1573894505269" duration="3272000" />
+      <workItem from="1573978424796" duration="7050000" />
+      <workItem from="1574868281551" duration="1275000" />
+      <workItem from="1575013300234" duration="2720000" />
+      <workItem from="1575272933960" duration="824000" />
+      <workItem from="1575306733165" duration="44000" />
+      <workItem from="1575473421378" duration="5778000" />
+      <workItem from="1575564291775" duration="1157000" />
+      <workItem from="1576136455286" duration="615000" />
+      <workItem from="1576148907858" duration="689000" />
+      <workItem from="1576325985314" duration="774000" />
+      <workItem from="1576395340746" duration="1774000" />
+      <workItem from="1576484791117" duration="2113000" />
+      <workItem from="1576600419399" duration="1358000" />
+      <workItem from="1576775456742" duration="992000" />
+      <workItem from="1576916794495" duration="864000" />
+      <workItem from="1577726976033" duration="611000" />
+      <workItem from="1584875678584" duration="2443000" />
+      <workItem from="1585993914380" duration="567000" />
+      <workItem from="1588325957550" duration="2164000" />
+      <workItem from="1588354005580" duration="603000" />
+      <workItem from="1588406929068" duration="2266000" />
+      <workItem from="1588693435903" duration="2346000" />
+      <workItem from="1588759078731" duration="3640000" />
+      <workItem from="1588773159260" duration="2967000" />
+      <workItem from="1588846401297" duration="1991000" />
+      <workItem from="1588859520210" duration="1858000" />
+      <workItem from="1588931580755" duration="611000" />
+      <workItem from="1588951634443" duration="2394000" />
+      <workItem from="1589048607906" duration="608000" />
+      <workItem from="1589267596349" duration="42000" />
+      <workItem from="1591347594086" duration="4699000" />
+      <workItem from="1591606657761" duration="3026000" />
+      <workItem from="1591634191629" duration="772000" />
+      <workItem from="1591690612883" duration="1252000" />
+      <workItem from="1595854297359" duration="79000" />
+      <workItem from="1601369092789" duration="206000" />
+      <workItem from="1601369328461" duration="9888000" />
+      <workItem from="1601622077487" duration="11549000" />
+      <workItem from="1601652799193" duration="8464000" />
+      <workItem from="1601662625178" duration="303000" />
+      <workItem from="1601882314203" duration="11133000" />
+      <workItem from="1601899261205" duration="2220000" />
+      <workItem from="1601907473315" duration="21000" />
+      <workItem from="1601907504141" duration="6153000" />
+      <workItem from="1601966185699" duration="7112000" />
+      <workItem from="1602228231152" duration="1969000" />
+      <workItem from="1602647822895" duration="9866000" />
+      <workItem from="1603789036691" duration="600000" />
+      <workItem from="1604312956985" duration="1786000" />
+      <workItem from="1604576756174" duration="9022000" />
+      <workItem from="1604650389592" duration="3694000" />
+      <workItem from="1604661074129" duration="3009000" />
+      <workItem from="1604906972977" duration="10847000" />
+      <workItem from="1604992516695" duration="2908000" />
+      <workItem from="1605088642165" duration="987000" />
+      <workItem from="1605110962481" duration="1199000" />
+      <workItem from="1605164525564" duration="378000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="734" y="355" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1601907450313">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="734" y="355" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1601907450313" />
+    <state x="1035" y="403" width="1124" height="593" key="#xdebugger.evaluate" timestamp="1604908156492">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="1035" y="403" width="1124" height="593" key="#xdebugger.evaluate/0.0.2560.1400@0.0.2560.1400" timestamp="1604908156492" />
+    <state width="1783" height="466" key="DebuggerActiveHint" timestamp="1604994200185">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state width="1783" height="466" key="DebuggerActiveHint/0.0.2560.1400@0.0.2560.1400" timestamp="1604994200185" />
+    <state x="1059" y="455" key="FileChooserDialogImpl" timestamp="1604661580595">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="1059" y="455" key="FileChooserDialogImpl/0.0.2560.1400@0.0.2560.1400" timestamp="1604661580595" />
+    <state width="2517" height="374" key="GridCell.Tab.0.bottom" timestamp="1604919937999">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state width="2517" height="374" key="GridCell.Tab.0.bottom/0.0.2560.1400@0.0.2560.1400" timestamp="1604919937999" />
+    <state width="2517" height="374" key="GridCell.Tab.0.center" timestamp="1604919937999">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state width="2517" height="374" key="GridCell.Tab.0.center/0.0.2560.1400@0.0.2560.1400" timestamp="1604919937999" />
+    <state width="2517" height="374" key="GridCell.Tab.0.left" timestamp="1604919937999">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state width="2517" height="374" key="GridCell.Tab.0.left/0.0.2560.1400@0.0.2560.1400" timestamp="1604919937999" />
+    <state width="2517" height="374" key="GridCell.Tab.0.right" timestamp="1604919937999">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state width="2517" height="374" key="GridCell.Tab.0.right/0.0.2560.1400@0.0.2560.1400" timestamp="1604919937999" />
+    <state width="2517" height="374" key="GridCell.Tab.1.bottom" timestamp="1604919937999">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state width="2517" height="374" key="GridCell.Tab.1.bottom/0.0.2560.1400@0.0.2560.1400" timestamp="1604919937999" />
+    <state width="2517" height="374" key="GridCell.Tab.1.center" timestamp="1604919937999">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state width="2517" height="374" key="GridCell.Tab.1.center/0.0.2560.1400@0.0.2560.1400" timestamp="1604919937999" />
+    <state width="2517" height="374" key="GridCell.Tab.1.left" timestamp="1604919937999">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state width="2517" height="374" key="GridCell.Tab.1.left/0.0.2560.1400@0.0.2560.1400" timestamp="1604919937999" />
+    <state width="2517" height="374" key="GridCell.Tab.1.right" timestamp="1604919937999">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state width="2517" height="374" key="GridCell.Tab.1.right/0.0.2560.1400@0.0.2560.1400" timestamp="1604919937999" />
+    <state x="781" y="343" key="SettingsEditor" timestamp="1601914099615">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="781" y="343" key="SettingsEditor/0.0.2560.1400@0.0.2560.1400" timestamp="1601914099615" />
+    <state x="976" y="524" key="com.intellij.ide.util.TipDialog" timestamp="1605164547301">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="976" y="524" key="com.intellij.ide.util.TipDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1605164547301" />
+  </component>
+</project>

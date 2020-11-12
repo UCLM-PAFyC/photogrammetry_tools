@@ -1,0 +1,14 @@
+Photogrammetry Project
+- Number of processes ......................................# 2
+- Process (CREATE_DB,ADD_POINTCLOUD,ADD_ROI) ...............# CREATE_DB
+  - Database file name .....................................# "H:\Eiffage\vueloPhantom4ProRTK\phTools\phTools_pozocanada.sqlite"
+  - Database CRS (libCRS/EPSG/proj4/wkt) ...................# 25830
+    Height type (ORTHOMETRIC_HEIGHT,ELLIPSOID_HEIGHT) ......# ORTHOMETRIC_HEIGHT
+  - Grid size ..............................................# 100.0
+  - Project Type (Generic,Metashape) .......................# Metashape
+  - Project parameters (par1@v@value1@p@par2@v@value2...) ..# Company@v@UCLM@p@Author@v@David Hernandez Lopez
+- Process (CREATE_DB,ADD_POINTCLOUD,ADD_ROI) ...............# ADD_ROI
+  - Database file name .....................................# "H:\Eiffage\vueloPhantom4ProRTK\phTools\phTools_pozocanada.sqlite"
+  - ROI File ...............................................# "H:\Eiffage\vueloPhantom4ProRTK\shapefiles\roi.shp"
+    Field id (None for all features ) ......................# None
+      Field id values (separed by ; ignored si None) .......# 
