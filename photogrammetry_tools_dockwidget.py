@@ -59,14 +59,14 @@ from PyQt5.QtWidgets import QTextEdit,QPushButton,QVBoxLayout
 from .ui.ui_phtools_images_widget import PhToolsQImagesWidget
 from PyQt5 import QtGui, QtWidgets, uic
 from PyQt5.QtCore import pyqtSignal
-from qgis.gui import QgsMapToolDigitizeFeature, QgsMapMouseEvent, QgsAdvancedDigitizingDockWidget
+from qgis.gui import QgsMapToolDigitizeFeature, QgsMapMouseEvent, QgsAdvancedDigitizingDockWidget, QgsMapToolPan
 
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'photogrammetry_tools_dockwidget_base.ui'))
 
 
 class QgsPhToolDigitizeFeature(QgsMapToolDigitizeFeature):
-    canvasPressSignal = pyqtSignal(QgsPointXY)
+    canvasPressSignal = pyqtSignal(QgsMapMouseEvent)
 
     def __init__(self, canvas, cdw):
         self.canvas = canvas
@@ -76,7 +76,15 @@ class QgsPhToolDigitizeFeature(QgsMapToolDigitizeFeature):
 
     def canvasPressEvent(self, e: QgsMapMouseEvent):
         e.ignore()
-        self.canvasPressSignal.emit(e.mapPoint())
+        self.canvasPressSignal.emit(e)
+        # self.canvasPressSignal.emit(e.mapPoint())
+
+class QgsPhToolPan(QgsMapToolPan):
+    canvasPressSignal = pyqtSignal(QgsPointXY)
+
+    def __init__(self, canvas):
+        self.canvas = canvas
+        super(QgsMapToolPan, self).__init__(self.canvas)
 
 class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
 
@@ -566,6 +574,7 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         self.layerTreeProjectName = None
         self.layerTreePCTiles = None
         self.layerTreePCTilesName = None
+        self.image_paths = None
         self.loadedTiles = []
 
         # set projectManagement active
@@ -900,6 +909,9 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
             if self.existsOrientations:
                 self.processingToolsPage.setEnabled(True)
             return
+        self.KK = QgsPhToolPan(self.iface.mapCanvas())
+        self.KK.activate()
+
 
         tilesTableName = PTDefinitions.CONST_SPATIALITE_LAYERS_TILES_TABLE_NAME
         # layerList = QgsProject.instance().mapLayersByName(tilesTableName)
@@ -1433,27 +1445,20 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
     def updateImagesData(self):
         return
 
-    def openDigitizngUI(self, list_projectedImages):
+    def openDigitizngUI(self, digitizing_point_id, list_projected_images):
+        connection_file_name = self.projectsComboBox.currentText()
+        connection_path = self.connections[connection_file_name]
+        if not self.image_paths:
+            ret = self.iPyProject.ptGetImagesPathFromImagesLabel(connection_path, 'chunk 1')
+            if not (ret[0] == 'False'):
+                self.image_paths = ret[1]
 
-        self.path_workspace = 'C:/uclm/EjemploCandado/metashape/undistorted_images_with_ppa'
-        # self.list_filenames_img = ['DSC05716.JPG', 'DSC05717.JPG', 'DSC05718.JPG', 'DSC05719.JPG'
-        #     , 'DSC05721.JPG', 'DSC05722.JPG', 'DSC05723.JPG', 'DSC05724.JPG']
-        # self.list_filenames_img = ['DSC05716.JPG', 'DSC05717.JPG', 'DSC05718.JPG', 'DSC05719.JPG']
-
-        self.pht_images_widget = PhToolsQImagesWidget(self.iface, self.path_workspace, list_projectedImages,
-                                                      self.iPyProject, self.pt_qt_project, self.tool_digitize_feature)
+        self.pht_images_widget = PhToolsQImagesWidget(self.iface, connection_path, digitizing_point_id,
+                                                      self.image_paths, list_projected_images, self.iPyProject,
+                                                      self.pt_qt_project, self.tool_digitize_feature)
         self.pht_images_dock = QDockWidget("Images")
         self.pht_images_dock.setWidget(self.pht_images_widget)
         self.iface.addDockWidget(Qt.RightDockWidgetArea, self.pht_images_dock)
-
-        # path_workspace = self.dlg.lineEdit_pathWorkspace.text()
-        # path_workspace = 'D:/W10_Bibliotecas/Documentos/01_Projects/06_Eiffage/03_data/metashape/undistorted_images_with_ppa'
-        # list_filenames_img = ['DSC05716.JPG', 'DSC05717.JPG', 'DSC05718.JPG', 'DSC05719.JPG', 'DSC05720.JPG',
-        #                       'DSC05721.JPG', 'DSC05722.JPG', 'DSC05723.JPG', 'DSC05724.JPG', 'DSC05725.JPG']
-        # self.pht_qmainwindow = PhToolsQMainWindow(self.iface,
-        #                                           path_workspace,
-        #                                           list_filenames_img)
-        # self.pht_qmainwindow.show()
 
     def digitize_feature(self):
         self.iface.mapCanvas().setMapTool(self.tool_digitize_feature)
@@ -1462,7 +1467,7 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         layer = self.iface.activeLayer()
         layer.addFeature(feature)
 
-    def onCanvasPressSignal(self, mapPoint):
+    def onCanvasPressSignal(self, mouse_event):
         crs = QgsProject.instance().crs()
         isValidCrs = crs.isValid()
         crsAuthId = crs.authid()
@@ -1474,29 +1479,31 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
             msgBox.exec_()
             return
         crsEpsgCode = int(crsAuthId.replace('EPSG:', ''))
-        # self.msgBox = QMessageBox()
-        # self.msgBox.setIcon(QMessageBox.Information)
-        # self.msgBox.setWindowTitle("---")
-        # self.msgBox.setText("Selected CRS is not EPSG: {}; x:{} y:{}".format(crsEpsgCode, mapPoint.x(), mapPoint.y()))
-        # self.msgBox.exec_()
 
         connectionFileName = self.projectsComboBox.currentText()
         connectionPath = self.connections[connectionFileName]
 
-        pointCoordinates = []
-        pointCoordinates.append(mapPoint.x())
-        pointCoordinates.append(mapPoint.y())
-        import pydevd_pycharm
-        pydevd_pycharm.settrace('localhost', port=54100, stdoutToServer=True, stderrToServer=True)
-        ret = self.iPyProject.ptGetProjectedImagesFromObjectPoint(connectionPath,
-                                                                  'chunk 1',
-                                                                  crsEpsgCode,
-                                                                  pointCoordinates,
-                                                                  True)
-        # import pydevd_pycharm
-        # pydevd_pycharm.settrace('localhost', port=54100, stdoutToServer=True, stderrToServer=True)
+        point_coordinates = []
+        point_coordinates.append(mouse_event.mapPoint().x())
+        point_coordinates.append(mouse_event.mapPoint().y())
+        if mouse_event.button() == Qt.RightButton:
+            pass
+            # ret = self.iPyProject.ptGetProjectedImagesFromObjectPoint(connectionPath,
+            #                                                           'chunk 1',
+            #                                                           crsEpsgCode,
+            #                                                           point_coordinates,
+            #                                                           True)
+            # if not (ret[0] == 'False'):
+            #     projected_images = ret[1]
+            #     self.openDigitizngUI(projected_images)
 
-        if not (ret[0] == 'False'):
-            projectedImages = ret[1]
-            imageLabels = list(projectedImages.keys())
-            self.openDigitizngUI(projectedImages)
+        elif mouse_event.button() == Qt.LeftButton:
+            # import pydevd_pycharm
+            # pydevd_pycharm.settrace('localhost', port=54100, stdoutToServer=True, stderrToServer=True)
+            ret = self.iPyProject.ptAddObjectPoint(connectionPath, 'chunk 1', crsEpsgCode, point_coordinates, True)
+            if not (ret[0] == 'False'):
+                point_id = ret[1]
+                ret = self.iPyProject.ptGetObjectPointProjectedImages(connectionPath, 'chunk 1', point_id, crsEpsgCode)
+                projected_images = ret[5]
+                self.openDigitizngUI(point_id, projected_images)
+                pass

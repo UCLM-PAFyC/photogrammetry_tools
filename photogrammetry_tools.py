@@ -48,6 +48,7 @@ sys.path.append(libCppPath)
 os.environ["PATH"] += os.pathsep + libCppPath
 from libCpp.libPyPhotogrammetryTools import IPyPTProject
 from . import PTDefinitions
+import logging
 
 class PhotogrammetyTools:
     """QGIS Plugin Implementation."""
@@ -63,6 +64,9 @@ class PhotogrammetyTools:
         # pydevd.settrace('localhost',port=54100,stdoutToServer=True,stderrToServer=True)
 
         self.path_plugin = pluginPath
+        logging.basicConfig(filename=os.path.join(pluginPath, 'ph_tools.log'), filemode='w',
+                            format='%(asctime)s %(message)s')
+        # logging.basicConfig(filename='c:/ph_tools.log', filemode='w', level=logging.DEBUG, format='%(asctime)s %(message)s')
         self.path_libCpp = libCppPath
         self.current_plugin_name = PTDefinitions.CONST_SETTINGS_PLUGIN_NAME
 

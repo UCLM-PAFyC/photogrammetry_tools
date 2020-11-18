@@ -1,15 +1,22 @@
 # -*- coding: utf-8 -*-
 
+POINT_TYPE_PROJECTED = 0
+POINT_TYPE_MATCHED = 1
+POINT_TYPE_MEASURED = 2
+INITIAL_SCALE_FACTOR = 0.01
+
 # Import PyQt5 classes
+# from constant import *
+import logging
 from PyQt5 import uic
 from PyQt5.QtWidgets import (QFrame, QGridLayout, QMainWindow, QAction, QLabel, QGroupBox, QTreeWidgetItem, QCheckBox,
-                             QComboBox, QToolButton, QDockWidget, QSizePolicy)
-from PyQt5.QtCore import QFileInfo, Qt
-from PyQt5.QtGui import QIcon, QFont, QPalette
+                             QComboBox, QToolButton, QDockWidget, QSizePolicy, QMessageBox)
+from PyQt5.QtCore import QFileInfo, Qt, pyqtSignal, QObject
+from PyQt5.QtGui import QIcon, QFont, QPalette, QColor
 
 # Import QGIS classes
-from qgis.gui import QgsMapCanvas, QgsMapToolZoom, QgsMapToolPan, QgsMapLayerComboBox
-from qgis.core import QgsProject, QgsRasterLayer, QgsPointXY
+from qgis.gui import QgsMapCanvas, QgsMapToolZoom, QgsMapToolPan, QgsMapLayerComboBox, QgsMapMouseEvent
+from qgis.core import QgsProject, QgsRasterLayer, QgsPointXY, QgsPoint
 
 # Import Python classes
 import os
@@ -26,20 +33,24 @@ class PhToolsQImagesWidget(QFrame,
 
     def __init__(self,
                  iface,
-                 path_workspace,
+                 connection_path,
+                 digitizing_point_id,
+                 image_paths,
                  projected_images,
                  iPyProject,
                  pt_qt_project,
-                 tool_digitize_feature,
+                 digitizing_feature_tool,
                  parent=None):
 
         self.iface = iface
-        self.path_workspace = path_workspace
+        self.connection_path = connection_path
+        self.image_paths = image_paths
         self.projected_images = projected_images
-        self.tool_digitize_feature = tool_digitize_feature
+        self.digitizing_feature_tool = digitizing_feature_tool
         self.pt_qt_project = pt_qt_project
-        self.iPyProject = iPyProject
+        self.i_py_project = iPyProject
         self.first_click = True
+        self.digitizing_point_id = digitizing_point_id
 
         super(PhToolsQImagesWidget, self).__init__(parent)
         self.setupUi(self)
@@ -52,29 +63,40 @@ class PhToolsQImagesWidget(QFrame,
         #TODOC: initialize list qgis_projects & list qgsmapcavasses
         self.list_qgis_prjs = []
         self.list_qgsmapcavansses = []
+        self.list_qgsmapcavansses_bis = []
 
         # initialize counters
         img_count = 0
         for image_key in self.projected_images:
-            path_rlayer = os.path.normcase(os.path.join(self.path_workspace, image_key))
+            path_rlayer = os.path.normcase(self.image_paths[image_key])
             rlayer = self.rlayer_builder(path_rlayer)
             if img_count == 0:
-                prj, qgsmapcanvas = self.create_groupbox_map_canvas(rlayer, image_key, self.projected_images[image_key],
+                prj, qgsmapcanvas, group_box = self.create_groupbox_map_canvas(rlayer, image_key,
+                                                                    self.projected_images[image_key]['Projected'],
                                                                     img_count)
-                self.list_qgis_prjs.append(prj)
-                self.list_qgsmapcavansses.append(qgsmapcanvas)
-                # prj_bis, qgsmapcanvas_bis = self.create_groupbox_map_canvas(rlayer, filename_img, img_count)
-                # self.list_qgis_prjs.append(prj_bis)
-                # self.list_qgsmapcavansses.append(qgsmapcanvas_bis)
+                # self.list_qgis_prjs.append(prj)
+                # self.list_qgsmapcavansses.append(qgsmapcanvas)
+                self.list_qgsmapcavansses_bis.append(ImageCanvas(self.i_py_project, self.connection_path, prj,
+                                                                 self.digitizing_point_id, qgsmapcanvas, image_key,
+                                                                 self.digitizing_feature_tool, group_box))
+
             else:
-                prj, qgsmapcanvas = self.create_groupbox_map_canvas(rlayer, image_key, self.projected_images[image_key],
+                prj, qgsmapcanvas, group_box = self.create_groupbox_map_canvas(rlayer, image_key,
+                                                                    self.projected_images[image_key]['Projected'],
                                                                     img_count)
-                self.list_qgis_prjs.append(prj)
+                # self.list_qgis_prjs.append(prj)
                 # qgsmapcanvas.xyCoordinates.connect(self.on_xyCoordinates())
-                self.list_qgsmapcavansses.append(qgsmapcanvas)
+                # self.list_qgsmapcavansses.append(qgsmapcanvas)
+                self.list_qgsmapcavansses_bis.append(ImageCanvas(self.i_py_project, self.connection_path, prj,
+                                                                 self.digitizing_point_id, qgsmapcanvas, image_key,
+                                                                 self.digitizing_feature_tool, group_box))
+            self.list_qgsmapcavansses_bis[img_count].pointMeasured.connect(self.on_image_point_measured)
             img_count += 1
-        if img_count:
-            self.list_qgsmapcavansses[0].extentsChanged.connect(self.on_extent_changed)
+        # if img_count:
+        #     self.list_qgsmapcavansses[0].extentsChanged.connect(self.on_extent_changed)
+        #     self.pantool = QgsPhToolPan(self.list_qgsmapcavansses[0])
+        #     self.pantool.activate()
+
 
     def create_groupbox_map_canvas(self,
                                    rlayer,
@@ -90,7 +112,7 @@ class PhToolsQImagesWidget(QFrame,
         qgsmapcanvas.zoomToFullExtent()
         # qgsmapcanvas.zoomWithCenter(projected_point[0], -1.0 * projected_point[1], True)
         extent = qgsmapcanvas.extent()
-        extent.scale(0.1, QgsPointXY(projected_point[0], -1.0 * projected_point[1]))
+        extent.scale(INITIAL_SCALE_FACTOR, QgsPointXY(projected_point[0], -1.0 * projected_point[1]))
         qgsmapcanvas.setExtent(extent)
         qgsmapcanvas.setContentsMargins(0, 0, 0, 0)
 
@@ -172,31 +194,7 @@ class PhToolsQImagesWidget(QFrame,
 
         self.verticalLayout_images.addWidget(group_box)
 
-        return prj, qgsmapcanvas
-
-    def on_extent_changed(self):
-        # import pydevd_pycharm
-        # pydevd_pycharm.settrace('localhost', port=54100, stdoutToServer=True, stderrToServer=True)
-        points_count = self.tool_digitize_feature.size()
-        if self.first_click:
-            self.first_click = False
-        elif points_count > 0:
-            last_point = self.tool_digitize_feature.points()[points_count-1]
-            digitized_points = self.tool_digitize_feature.points()
-            digitized_points[points_count - 1] = QgsPointXY(last_point.x() + 20, last_point.y() + 20)
-            self.tool_digitize_feature.setPoints(digitized_points)
-            # self.tool_digitize_feature.undo()
-
-            # ******************************************************************************************
-            # point_id = self.iPyProject.ptCratePointFromObjectPoint(connectionPath, 'chunk 1', crsEpsgCode, pointCoordinates,
-            #                                                   True)
-            # point = self.iPyProject.ptGetPointFromId(point_id)
-            self.pt_qt_project.points[last_point.x(), last_point.y(), 0] = 'point'
-            # self.tool_digitize_feature.addVertex(QgsPointXY(point.x(), point.y())
-            # digitized_points[points_count - 1] = QgsPointXY(point.x(), point.y())
-            # self.tool_digitize_feature.setPoints(digitized_points)
-            # ******************************************************************************************
-
+        return prj, qgsmapcanvas, group_box
 
     def rlayer_builder(self,
                        path_rlayer):
@@ -276,3 +274,131 @@ class PhToolsQImagesWidget(QFrame,
                     qgsmapcavas_ribbon_img.zoomScale(scale_magnified)
                     self.current_scale_main_img = current_scale
                 contador += 1
+
+    def on_image_point_measured(self):
+        measured_images = {}
+        for canvas in self.list_qgsmapcavansses_bis:
+            # If exists measured point
+            if canvas.image_points[2]:
+                measured_images[canvas.image_name] = [canvas.image_points[2].x(), -1.0*canvas.image_points[2].y()]
+        # import pydevd_pycharm
+        # pydevd_pycharm.settrace('localhost', port=54100, stdoutToServer=True, stderrToServer=True)
+        if len(measured_images):
+            crs = QgsProject.instance().crs()
+            is_valid_crs = crs.isValid()
+            crs_auth_id = crs.authid()
+            if not "EPSG:" in crs_auth_id:
+                msg_box = QMessageBox()
+                msg_box.setIcon(QMessageBox.Information)
+                msg_box.setWindowTitle("---")
+                msg_box.setText("Selected CRS is not EPSG")
+                msg_box.exec_()
+                return
+            crs_epsg_code = int(crs_auth_id.replace('EPSG:', ''))
+
+            # # TODO: CHUNK!!!
+            logging.warning('#')
+            logging.warning('i_py_project.ptGetObjectPointFromMeasuredImages({},{},{},{},{},{})'.format(
+                            self.connection_path, 'chunk 1',
+                            self.digitizing_point_id, crs_epsg_code, True,
+                            measured_images))
+            ret = self.i_py_project.ptGetObjectPointFromMeasuredImages(self.connection_path, 'chunk 1',
+                                                                       self.digitizing_point_id, crs_epsg_code, True,
+                                                                       measured_images)
+            logging.warning(str(ret))
+            if ret[0] == 'True':
+                points_count = self.digitizing_feature_tool.size()
+                digitized_points = self.digitizing_feature_tool.points()
+                digitized_points[points_count - 1] = QgsPointXY(ret[2][0], ret[2][1])
+                self.digitizing_feature_tool.setPoints(digitized_points)
+
+                # digitized_points_sequence = self.digitizing_feature_tool.pointsZM()
+                # digitized_points_sequence[points_count - 1] = QgsPoint(QgsPointXY(ret[2][0], ret[2][1]))
+                # self.digitizing_feature_tool.setPoints(digitized_points_sequence)
+
+
+class QgsPhToolPan(QgsMapToolPan):
+    canvasPressSignal = pyqtSignal(QgsPointXY)
+
+    def __init__(self, canvas):
+        self.canvas = canvas
+        super(QgsMapToolPan, self).__init__(self.canvas)
+
+    def canvasDoubleClickEvent(self, e: QgsMapMouseEvent):
+        self.canvas.zoomIn()
+
+
+class ImageCanvas(QObject):
+    """
+        Canvas Item and auxiliary data for image canvas list
+    """
+    pointMeasured = pyqtSignal()
+
+    def __init__(self, i_py_project, connection_path, qgis_project, digitizing_point_id, canvas, image_name,
+                                                                         digitizing_feature_tool, group_box):
+        super(QObject, self).__init__()
+        self.canvas = canvas
+        self.image_name = image_name
+        self.digitizing_feature_tool = digitizing_feature_tool
+        self.connection_path = connection_path
+        self.i_py_project = i_py_project
+        self.qgis_project = qgis_project
+        self.group_box = group_box
+        """
+        pt.POINT_TYPE_PROJECTED: QgsPoint(0, 0, 0)
+        """
+        self.image_points = {POINT_TYPE_PROJECTED: None,
+                             POINT_TYPE_MATCHED: None,
+                             POINT_TYPE_MEASURED: None}
+
+        self.canvas.extentsChanged.connect(self.on_extent_changed)
+        self.pan_tool = QgsPhToolPan(self.canvas)
+        self.pan_tool.activate()
+        self.first_click = True
+        self.digitizing_point_id = digitizing_point_id
+
+    def on_extent_changed(self):
+        points_count = self.digitizing_feature_tool.size()
+        if self.first_click:
+            self.first_click = False
+        elif points_count > 0:
+            last_point = self.digitizing_feature_tool.points()[points_count - 1]
+
+            crs = QgsProject.instance().crs()
+            isValidCrs = crs.isValid()
+            crsAuthId = crs.authid()
+            if not "EPSG:" in crsAuthId:
+                msgBox = QMessageBox()
+                msgBox.setIcon(QMessageBox.Information)
+                msgBox.setWindowTitle("---")
+                msgBox.setText("Selected CRS is not EPSG")
+                msgBox.exec_()
+                return
+            crsEpsgCode = int(crsAuthId.replace('EPSG:', ''))
+
+            # import pydevd_pycharm
+            # pydevd_pycharm.settrace('localhost', port=54100, stdoutToServer=True, stderrToServer=True)
+            current_center = self.canvas.center()
+            """ QgsPointXY """
+            self.image_points[POINT_TYPE_MEASURED] = current_center
+            self.setMeasuredColor(True)
+            self.pointMeasured.emit()
+
+    def setMeasuredColor(self, measured):
+
+        if measured:
+            font = self.group_box.font()
+            font.setBold(True)
+            self.group_box.setFont(font)
+            palette = self.group_box.palette()
+            palette.setColor(QPalette.Normal, QPalette.ColorRole.WindowText, QColor('Green'))
+            self.group_box.setPalette(palette)
+        else:
+            font = self.group_box.font()
+            font.setBold(False)
+            self.group_box.setFont(font)
+            palette = self.group_box.palette()
+            palette.setColor(QPalette.Normal, QPalette.ColorRole.WindowText, QColor('Green'))
+            self.group_box.setPalette(palette)
+
+
