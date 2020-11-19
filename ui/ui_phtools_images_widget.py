@@ -63,7 +63,7 @@ class PhToolsQImagesWidget(QFrame,
         #TODOC: initialize list qgis_projects & list qgsmapcavasses
         self.list_qgis_prjs = []
         self.list_qgsmapcavansses = []
-        self.list_qgsmapcavansses_bis = []
+        self.list_qgsmapcavansses_dic = {}
 
         # initialize counters
         img_count = 0
@@ -76,21 +76,23 @@ class PhToolsQImagesWidget(QFrame,
                                                                     img_count)
                 # self.list_qgis_prjs.append(prj)
                 # self.list_qgsmapcavansses.append(qgsmapcanvas)
-                self.list_qgsmapcavansses_bis.append(ImageCanvas(self.i_py_project, self.connection_path, prj,
+                self.list_qgsmapcavansses_dic[image_key] = ImageCanvas(self.i_py_project, self.connection_path, prj,
                                                                  self.digitizing_point_id, qgsmapcanvas, image_key,
-                                                                 self.digitizing_feature_tool, group_box))
+                                                                 self.digitizing_feature_tool, group_box)
+
 
             else:
                 prj, qgsmapcanvas, group_box = self.create_groupbox_map_canvas(rlayer, image_key,
                                                                     self.projected_images[image_key]['Projected'],
                                                                     img_count)
-                # self.list_qgis_prjs.append(prj)
+
                 # qgsmapcanvas.xyCoordinates.connect(self.on_xyCoordinates())
-                # self.list_qgsmapcavansses.append(qgsmapcanvas)
-                self.list_qgsmapcavansses_bis.append(ImageCanvas(self.i_py_project, self.connection_path, prj,
+
+                self.list_qgsmapcavansses_dic[image_key] = ImageCanvas(self.i_py_project, self.connection_path, prj,
                                                                  self.digitizing_point_id, qgsmapcanvas, image_key,
-                                                                 self.digitizing_feature_tool, group_box))
-            self.list_qgsmapcavansses_bis[img_count].pointMeasured.connect(self.on_image_point_measured)
+                                                                 self.digitizing_feature_tool, group_box)
+
+            self.list_qgsmapcavansses_dic[image_key].pointMeasured.connect(self.on_image_point_measured)
             img_count += 1
         # if img_count:
         #     self.list_qgsmapcavansses[0].extentsChanged.connect(self.on_extent_changed)
@@ -277,10 +279,11 @@ class PhToolsQImagesWidget(QFrame,
 
     def on_image_point_measured(self):
         measured_images = {}
-        for canvas in self.list_qgsmapcavansses_bis:
+        for image_key in self.list_qgsmapcavansses_dic.keys():
             # If exists measured point
-            if canvas.image_points[2]:
-                measured_images[canvas.image_name] = [canvas.image_points[2].x(), -1.0*canvas.image_points[2].y()]
+            image_canvas = self.list_qgsmapcavansses_dic[image_key]
+            if image_canvas.image_points[2]:
+                measured_images[image_key] = [image_canvas.image_points[2].x(), -1.0*image_canvas.image_points[2].y()]
         # import pydevd_pycharm
         # pydevd_pycharm.settrace('localhost', port=54100, stdoutToServer=True, stderrToServer=True)
         if len(measured_images):
@@ -310,11 +313,21 @@ class PhToolsQImagesWidget(QFrame,
                 points_count = self.digitizing_feature_tool.size()
                 digitized_points = self.digitizing_feature_tool.points()
                 digitized_points[points_count - 1] = QgsPointXY(ret[2][0], ret[2][1])
-                self.digitizing_feature_tool.setPoints(digitized_points)
-
+                # Deprecated: setPoints
                 # digitized_points_sequence = self.digitizing_feature_tool.pointsZM()
                 # digitized_points_sequence[points_count - 1] = QgsPoint(QgsPointXY(ret[2][0], ret[2][1]))
                 # self.digitizing_feature_tool.setPoints(digitized_points_sequence)
+
+                self.digitizing_feature_tool.setPoints(digitized_points)
+                # Matches:
+                if len(ret[5]):
+                    for image_key in ret[5].keys():
+                        if 'Matched' in ret[5][image_key].keys():
+                            matched_point = QgsPointXY(ret[5][image_key]['Matched'][0],
+                                                       -1.0*ret[5][image_key]['Matched'][1])
+                            self.list_qgsmapcavansses_dic[image_key].image_points[POINT_TYPE_MATCHED] = matched_point
+                            if 'Measured' not in ret[5][image_key].keys():
+                                self.list_qgsmapcavansses_dic[image_key].centerCanvas(matched_point)
 
 
 class QgsPhToolPan(QgsMapToolPan):
@@ -362,22 +375,6 @@ class ImageCanvas(QObject):
         if self.first_click:
             self.first_click = False
         elif points_count > 0:
-            last_point = self.digitizing_feature_tool.points()[points_count - 1]
-
-            crs = QgsProject.instance().crs()
-            isValidCrs = crs.isValid()
-            crsAuthId = crs.authid()
-            if not "EPSG:" in crsAuthId:
-                msgBox = QMessageBox()
-                msgBox.setIcon(QMessageBox.Information)
-                msgBox.setWindowTitle("---")
-                msgBox.setText("Selected CRS is not EPSG")
-                msgBox.exec_()
-                return
-            crsEpsgCode = int(crsAuthId.replace('EPSG:', ''))
-
-            # import pydevd_pycharm
-            # pydevd_pycharm.settrace('localhost', port=54100, stdoutToServer=True, stderrToServer=True)
             current_center = self.canvas.center()
             """ QgsPointXY """
             self.image_points[POINT_TYPE_MEASURED] = current_center
@@ -400,5 +397,21 @@ class ImageCanvas(QObject):
             palette = self.group_box.palette()
             palette.setColor(QPalette.Normal, QPalette.ColorRole.WindowText, QColor('Green'))
             self.group_box.setPalette(palette)
+
+    def centerCanvas(self, point):
+        """ center de canvas extent in point
+            Parameters:
+            point (QgsPointXY)
+        """
+        # import pydevd_pycharm
+        # pydevd_pycharm.settrace('localhost', port=54100, stdoutToServer=True, stderrToServer=True)
+        self.canvas.extentsChanged.disconnect(self.on_extent_changed)
+
+        extent = self.canvas.extent()
+        extent.scale(1, point)
+        self.canvas.setExtent(extent)
+
+        self.canvas.extentsChanged.connect(self.on_extent_changed)
+
 
 
