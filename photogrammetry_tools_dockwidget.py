@@ -24,6 +24,7 @@
 
 import os
 import sys,os
+import logging
 from osgeo import osr
 from decimal import Decimal
 from PyQt5.QtCore import QSettings, QTranslator, qVersion, QCoreApplication, QFileInfo, QDir, QObject
@@ -1500,10 +1501,21 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         elif mouse_event.button() == Qt.LeftButton:
             # import pydevd_pycharm
             # pydevd_pycharm.settrace('localhost', port=54100, stdoutToServer=True, stderrToServer=True)
+            logging.warning('#')
+            logging.warning('i_py_project.ptAddObjectPoint({},{},{},{},{})'.format(
+                connectionPath, 'chunk 1',
+                crsEpsgCode, point_coordinates, True))
             ret = self.iPyProject.ptAddObjectPoint(connectionPath, 'chunk 1', crsEpsgCode, point_coordinates, True)
+            logging.warning(str(ret))
             if not (ret[0] == 'False'):
                 point_id = ret[1]
-                ret = self.iPyProject.ptGetObjectPointProjectedImages(connectionPath, 'chunk 1', point_id, crsEpsgCode)
+                logging.warning('#')
+                logging.warning('i_py_project.ptGetObjectPointProjectedImages({},{},{},{})'.format(
+                    connectionPath, 'chunk 1', point_id,
+                    crsEpsgCode))
+                ret = self.iPyProject.ptGetObjectPointProjectedImages(connectionPath, 'chunk 1', point_id, crsEpsgCode,
+                                                                      [])
+                logging.warning(str(ret))
                 projected_images = ret[5]
                 self.openDigitizngUI(point_id, projected_images)
                 pass

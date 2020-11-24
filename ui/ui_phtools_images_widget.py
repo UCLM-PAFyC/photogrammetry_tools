@@ -12,7 +12,7 @@ from PyQt5 import uic
 from PyQt5.QtWidgets import (QFrame, QGridLayout, QMainWindow, QAction, QLabel, QGroupBox, QTreeWidgetItem, QCheckBox,
                              QComboBox, QToolButton, QDockWidget, QSizePolicy, QMessageBox)
 from PyQt5.QtCore import QFileInfo, Qt, pyqtSignal, QObject
-from PyQt5.QtGui import QIcon, QFont, QPalette, QColor
+from PyQt5.QtGui import QIcon, QFont, QPalette, QColor, QWheelEvent
 
 # Import QGIS classes
 from qgis.gui import QgsMapCanvas, QgsMapToolZoom, QgsMapToolPan, QgsMapLayerComboBox, QgsMapMouseEvent
@@ -93,6 +93,7 @@ class PhToolsQImagesWidget(QFrame,
                                                                  self.digitizing_feature_tool, group_box)
 
             self.list_qgsmapcavansses_dic[image_key].pointMeasured.connect(self.on_image_point_measured)
+            self.list_qgsmapcavansses_dic[image_key].canvas.setWheelFactor(1.0)
             img_count += 1
         # if img_count:
         #     self.list_qgsmapcavansses[0].extentsChanged.connect(self.on_extent_changed)
@@ -284,8 +285,8 @@ class PhToolsQImagesWidget(QFrame,
             image_canvas = self.list_qgsmapcavansses_dic[image_key]
             if image_canvas.image_points[2]:
                 measured_images[image_key] = [image_canvas.image_points[2].x(), -1.0*image_canvas.image_points[2].y()]
-        # import pydevd_pycharm
-        # pydevd_pycharm.settrace('localhost', port=54100, stdoutToServer=True, stderrToServer=True)
+        import pydevd_pycharm
+        pydevd_pycharm.settrace('localhost', port=54100, stdoutToServer=True, stderrToServer=True)
         if len(measured_images):
             crs = QgsProject.instance().crs()
             is_valid_crs = crs.isValid()
@@ -307,7 +308,7 @@ class PhToolsQImagesWidget(QFrame,
                             measured_images))
             ret = self.i_py_project.ptGetObjectPointFromMeasuredImages(self.connection_path, 'chunk 1',
                                                                        self.digitizing_point_id, crs_epsg_code, True,
-                                                                       measured_images)
+                                                                       measured_images, [])
             logging.warning(str(ret))
             if ret[0] == 'True':
                 points_count = self.digitizing_feature_tool.size()
@@ -338,7 +339,22 @@ class QgsPhToolPan(QgsMapToolPan):
         super(QgsMapToolPan, self).__init__(self.canvas)
 
     def canvasDoubleClickEvent(self, e: QgsMapMouseEvent):
-        self.canvas.zoomIn()
+        e.accept()
+        # self.canvas.zoomIn()
+
+    def wheelEvent(self, e: QWheelEvent):
+        # import pydevd_pycharm
+        # pydevd_pycharm.settrace('localhost', port=54100, stdoutToServer=True, stderrToServer=True)
+        if e.angleDelta().y() > 0:
+            self.canvas.setWheelFactor(2)
+            self.canvas.zoomIn()
+            self.canvas.setWheelFactor(1)
+        elif e.angleDelta().y() < 0:
+            self.canvas.setWheelFactor(2)
+            self.canvas.zoomOut()
+            self.canvas.setWheelFactor(1)
+
+        e.accept()
 
 
 class ImageCanvas(QObject):
@@ -366,7 +382,8 @@ class ImageCanvas(QObject):
 
         self.canvas.extentsChanged.connect(self.on_extent_changed)
         self.pan_tool = QgsPhToolPan(self.canvas)
-        self.pan_tool.activate()
+        # self.pan_tool.activate()
+        self.canvas.setMapTool(self.pan_tool)
         self.first_click = True
         self.digitizing_point_id = digitizing_point_id
 
@@ -388,14 +405,14 @@ class ImageCanvas(QObject):
             font.setBold(True)
             self.group_box.setFont(font)
             palette = self.group_box.palette()
-            palette.setColor(QPalette.Normal, QPalette.ColorRole.WindowText, QColor('Green'))
+            palette.setColor(QPalette.Normal, QPalette.ColorRole.WindowText, QColor(78, 255, 83))
             self.group_box.setPalette(palette)
         else:
             font = self.group_box.font()
             font.setBold(False)
             self.group_box.setFont(font)
             palette = self.group_box.palette()
-            palette.setColor(QPalette.Normal, QPalette.ColorRole.WindowText, QColor('Green'))
+            palette.setColor(QPalette.Normal, QPalette.ColorRole.WindowText, QColor(78, 255, 83))
             self.group_box.setPalette(palette)
 
     def centerCanvas(self, point):
