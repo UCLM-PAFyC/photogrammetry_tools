@@ -4,6 +4,7 @@ POINT_TYPE_PROJECTED = 0
 POINT_TYPE_MATCHED = 1
 POINT_TYPE_MEASURED = 2
 INITIAL_SCALE_FACTOR = 0.01
+WHEEL_FACTOR = 2
 
 # Import PyQt5 classes
 # from constant import *
@@ -93,7 +94,7 @@ class PhToolsQImagesWidget(QFrame,
                                                                  self.digitizing_feature_tool, group_box)
 
             self.list_qgsmapcavansses_dic[image_key].pointMeasured.connect(self.on_image_point_measured)
-            self.list_qgsmapcavansses_dic[image_key].canvas.setWheelFactor(1.0)
+            # self.list_qgsmapcavansses_dic[image_key].canvas.setWheelFactor(1.0)
             img_count += 1
         # if img_count:
         #     self.list_qgsmapcavansses[0].extentsChanged.connect(self.on_extent_changed)
@@ -346,13 +347,13 @@ class QgsPhToolPan(QgsMapToolPan):
         # import pydevd_pycharm
         # pydevd_pycharm.settrace('localhost', port=54100, stdoutToServer=True, stderrToServer=True)
         if e.angleDelta().y() > 0:
-            self.canvas.setWheelFactor(2)
+            # self.canvas.setWheelFactor(WHEEL_FACTOR)
             self.canvas.zoomIn()
-            self.canvas.setWheelFactor(1)
+            # self.canvas.setWheelFactor(1)
         elif e.angleDelta().y() < 0:
-            self.canvas.setWheelFactor(2)
+            # self.canvas.setWheelFactor(WHEEL_FACTOR)
             self.canvas.zoomOut()
-            self.canvas.setWheelFactor(1)
+            # self.canvas.setWheelFactor(1)
 
         e.accept()
 
