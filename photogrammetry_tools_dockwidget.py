@@ -75,10 +75,20 @@ class QgsPhToolDigitizeFeature(QgsMapToolDigitizeFeature):
         super(QgsPhToolDigitizeFeature, self).__init__(self.canvas, self.cdw)
         # self.canvasPressSignal.connect(self.onCanvasPressSignal)
 
-    def canvasPressEvent(self, e: QgsMapMouseEvent):
-        e.ignore()
+    # def canvasPressEvent(self, e: QgsMapMouseEvent):
+    #     # e.ignore()
+    #     self.canvasPressSignal.emit(e)
+    #     # self.canvasPressSignal.emit(e.mapPoint())
+
+    def canvasReleaseEvent(self, e: QgsMapMouseEvent):
+        super().cadCanvasReleaseEvent(e)
+        # import pydevd_pycharm
+        # pydevd_pycharm.settrace('localhost', port=54100, stdoutToServer=True, stderrToServer=True)
+        if self.mode() == 1:  # CapturePoint
+            points = self.points()
+            layer = self.currentVectorLayer()
+            pass
         self.canvasPressSignal.emit(e)
-        # self.canvasPressSignal.emit(e.mapPoint())
 
 class QgsPhToolPan(QgsMapToolPan):
     canvasPressSignal = pyqtSignal(QgsPointXY)
@@ -1465,6 +1475,8 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         self.iface.mapCanvas().setMapTool(self.tool_digitize_feature)
 
     def ondigitizingCompleted(self, feature):
+        # import pydevd_pycharm
+        # pydevd_pycharm.settrace('localhost', port=54100, stdoutToServer=True, stderrToServer=True)
         layer = self.iface.activeLayer()
         layer.addFeature(feature)
 
@@ -1510,12 +1522,12 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
             if not (ret[0] == 'False'):
                 point_id = ret[1]
                 logging.warning('#')
-                logging.warning('i_py_project.ptGetObjectPointProjectedImages({},{},{},{})'.format(
+                logging.warning('i_py_project.ptGetObjectPointProjectedImages({},{},{},{},{},[])'.format(
                     connectionPath, 'chunk 1', point_id,
-                    crsEpsgCode))
+                    crsEpsgCode, True))
                 ret = self.iPyProject.ptGetObjectPointProjectedImages(connectionPath, 'chunk 1', point_id, crsEpsgCode,
-                                                                      [])
+                                                                      True, [])
                 logging.warning(str(ret))
                 projected_images = ret[5]
                 self.openDigitizngUI(point_id, projected_images)
-                pass
+        mouse_event.accept()

@@ -5,6 +5,7 @@ POINT_TYPE_MATCHED = 1
 POINT_TYPE_MEASURED = 2
 INITIAL_SCALE_FACTOR = 0.01
 WHEEL_FACTOR = 2
+CANVAS_RLAYER_EXTENT_FACTOR = 3.0
 
 # Import PyQt5 classes
 # from constant import *
@@ -281,13 +282,16 @@ class PhToolsQImagesWidget(QFrame,
 
     def on_image_point_measured(self):
         measured_images = {}
+        disabled_images = []
         for image_key in self.list_qgsmapcavansses_dic.keys():
             # If exists measured point
             image_canvas = self.list_qgsmapcavansses_dic[image_key]
-            if image_canvas.image_points[2]:
+            if not image_canvas.group_box.isChecked():
+                disabled_images.append(image_key)
+            elif image_canvas.image_points[2]:
                 measured_images[image_key] = [image_canvas.image_points[2].x(), -1.0*image_canvas.image_points[2].y()]
-        import pydevd_pycharm
-        pydevd_pycharm.settrace('localhost', port=54100, stdoutToServer=True, stderrToServer=True)
+        # import pydevd_pycharm
+        # pydevd_pycharm.settrace('localhost', port=54100, stdoutToServer=True, stderrToServer=True)
         if len(measured_images):
             crs = QgsProject.instance().crs()
             is_valid_crs = crs.isValid()
@@ -303,15 +307,17 @@ class PhToolsQImagesWidget(QFrame,
 
             # # TODO: CHUNK!!!
             logging.warning('#')
-            logging.warning('i_py_project.ptGetObjectPointFromMeasuredImages({},{},{},{},{},{})'.format(
+            logging.warning('i_py_project.ptGetObjectPointFromMeasuredImages({},{},{},{},{},{},{})'.format(
                             self.connection_path, 'chunk 1',
                             self.digitizing_point_id, crs_epsg_code, True,
-                            measured_images))
+                            measured_images, disabled_images))
             ret = self.i_py_project.ptGetObjectPointFromMeasuredImages(self.connection_path, 'chunk 1',
                                                                        self.digitizing_point_id, crs_epsg_code, True,
-                                                                       measured_images, [])
+                                                                       True, measured_images, [])
             logging.warning(str(ret))
             if ret[0] == 'True':
+                # import pydevd_pycharm
+                # pydevd_pycharm.settrace('localhost', port=54100, stdoutToServer=True, stderrToServer=True)
                 points_count = self.digitizing_feature_tool.size()
                 digitized_points = self.digitizing_feature_tool.points()
                 digitized_points[points_count - 1] = QgsPointXY(ret[2][0], ret[2][1])
@@ -330,6 +336,7 @@ class PhToolsQImagesWidget(QFrame,
                             self.list_qgsmapcavansses_dic[image_key].image_points[POINT_TYPE_MATCHED] = matched_point
                             if 'Measured' not in ret[5][image_key].keys():
                                 self.list_qgsmapcavansses_dic[image_key].centerCanvas(matched_point)
+                                self.list_qgsmapcavansses_dic[image_key].current_center = matched_point
 
 
 class QgsPhToolPan(QgsMapToolPan):
@@ -352,7 +359,15 @@ class QgsPhToolPan(QgsMapToolPan):
             # self.canvas.setWheelFactor(1)
         elif e.angleDelta().y() < 0:
             # self.canvas.setWheelFactor(WHEEL_FACTOR)
-            self.canvas.zoomOut()
+            # import pydevd_pycharm
+            # pydevd_pycharm.settrace('localhost', port=54100, stdoutToServer=True, stderrToServer=True)
+            scale = self.canvas.scale()
+            extent = self.canvas.extent()
+
+            if len(self.canvas.layers()) and \
+                    extent.height() < self.canvas.layers()[0].extent().height() * CANVAS_RLAYER_EXTENT_FACTOR:
+                self.canvas.zoomOut()
+
             # self.canvas.setWheelFactor(1)
 
         e.accept()
@@ -368,6 +383,7 @@ class ImageCanvas(QObject):
                                                                          digitizing_feature_tool, group_box):
         super(QObject, self).__init__()
         self.canvas = canvas
+        self.current_center = self.canvas.center()
         self.image_name = image_name
         self.digitizing_feature_tool = digitizing_feature_tool
         self.connection_path = connection_path
@@ -390,14 +406,21 @@ class ImageCanvas(QObject):
 
     def on_extent_changed(self):
         points_count = self.digitizing_feature_tool.size()
+        # import pydevd_pycharm
+        # pydevd_pycharm.settrace('localhost', port=54100, stdoutToServer=True, stderrToServer=True)
         if self.first_click:
             self.first_click = False
-        elif points_count > 0:
-            current_center = self.canvas.center()
-            """ QgsPointXY """
-            self.image_points[POINT_TYPE_MEASURED] = current_center
-            self.setMeasuredColor(True)
-            self.pointMeasured.emit()
+        elif not self.canvas.layers()[0].extent().contains(self.canvas.center()):
+            self.canvas.setCenter(self.current_center)
+        elif points_count > 0 and not self.current_center == self.canvas.center():
+            if self.digitizing_feature_tool.mode() == 1: # CapturePoint
+                pass
+            else:
+                """ QgsPointXY """
+                self.image_points[POINT_TYPE_MEASURED] = self.canvas.center()
+                self.setMeasuredColor(True)
+                self.pointMeasured.emit()
+        self.current_center = self.canvas.center()
 
     def setMeasuredColor(self, measured):
 
