@@ -77,8 +77,15 @@ class QgsPhToolDigitizeFeature(QgsMapToolDigitizeFeature):
 
     # def canvasPressEvent(self, e: QgsMapMouseEvent):
     #     # e.ignore()
-    #     self.canvasPressSignal.emit(e)
+    #     # self.canvasPressSignal.emit(e)
     #     # self.canvasPressSignal.emit(e.mapPoint())
+    #     if self.mode() == 1:  # CapturePoint
+    #         import pydevd_pycharm
+    #         pydevd_pycharm.settrace('localhost', port=54100, stdoutToServer=True, stderrToServer=True)
+    #         points = self.points()
+    #         layer = self.currentVectorLayer()
+    #         pass
+    #     pass
 
     def canvasReleaseEvent(self, e: QgsMapMouseEvent):
         super().cadCanvasReleaseEvent(e)
@@ -87,6 +94,8 @@ class QgsPhToolDigitizeFeature(QgsMapToolDigitizeFeature):
         if self.mode() == 1:  # CapturePoint
             points = self.points()
             layer = self.currentVectorLayer()
+            feature_count = layer.featureCount()
+            features = layer.getFeatures()
             pass
         self.canvasPressSignal.emit(e)
 
@@ -712,8 +721,6 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         self.tool_digitize_feature = QgsPhToolDigitizeFeature(self.iface.mapCanvas(), self.addw)  # false = in
         self.tool_digitize_feature.setAction(self.action_digitize_feature)
 
-        # import pydevd_pycharm
-        # pydevd_pycharm.settrace('localhost', port=54100, stdoutToServer=True, stderrToServer=True)
         self.tool_digitize_feature.digitizingCompleted.connect(self.ondigitizingCompleted)
         self.tool_digitize_feature.canvasPressSignal.connect(self.onCanvasPressSignal)
 
@@ -838,6 +845,11 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
             msgBox.exec_()
             self.projectsComboBox.setCurrentIndex(0)
             return
+
+        pt_parameters = self.iPyProject.ptGetProcessingToolsCommandParameters('Object point measurement')
+        if pt_parameters[0] == "True":
+            self.tool_digitize_feature.parameters = pt_parameters[1]
+
         ret = self.iPyProject.ptGetProjectType(connectionPath)
         if ret[0] == "False":
             msgBox = QMessageBox(self)
@@ -862,6 +874,7 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         self.projectsComboBox.setEnabled(False)
         self.projectManagementTabWidget.setEnabled(True)
         self.projectManagementTabWidget.setTabEnabled(0, False)
+
         if self.projectType == PTDefinitions.CONST_PROJECT_TYPE_METASHAPE:
             self.projectManagementTabWidget.setTabEnabled(1, True)
             self.projectManagementTabWidget.setTabEnabled(2, False)
@@ -920,9 +933,6 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
             if self.existsOrientations:
                 self.processingToolsPage.setEnabled(True)
             return
-        self.KK = QgsPhToolPan(self.iface.mapCanvas())
-        self.KK.activate()
-
 
         tilesTableName = PTDefinitions.CONST_SPATIALITE_LAYERS_TILES_TABLE_NAME
         # layerList = QgsProject.instance().mapLayersByName(tilesTableName)
@@ -1467,6 +1477,7 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         self.pht_images_widget = PhToolsQImagesWidget(self.iface, connection_path, digitizing_point_id,
                                                       self.image_paths, list_projected_images, self.iPyProject,
                                                       self.pt_qt_project, self.tool_digitize_feature)
+        self.pht_images_widget.debugTextGenerated.connect(self.onDebugTextGenerated)
         self.pht_images_dock = QDockWidget("Images")
         self.pht_images_dock.setWidget(self.pht_images_widget)
         self.iface.addDockWidget(Qt.RightDockWidgetArea, self.pht_images_dock)
@@ -1529,5 +1540,9 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
                                                                       True, [])
                 logging.warning(str(ret))
                 projected_images = ret[5]
+
                 self.openDigitizngUI(point_id, projected_images)
         mouse_event.accept()
+
+    def onDebugTextGenerated(self, debug_str):
+        self.debugTextEdit.append(debug_str)

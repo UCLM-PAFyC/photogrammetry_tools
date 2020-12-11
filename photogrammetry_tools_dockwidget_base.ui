@@ -37,7 +37,7 @@
        </size>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="projectDefinitionPage">
        <property name="geometry">
@@ -45,7 +45,7 @@
          <x>0</x>
          <y>0</y>
          <width>503</width>
-         <height>424</height>
+         <height>401</height>
         </rect>
        </property>
        <attribute name="label">
@@ -241,7 +241,7 @@
                </widget>
               </item>
               <item>
-               <widget class="QgsProjectionSelectionWidget" name="projectQgsProjectionSelectionWidget">
+               <widget class="QgsProjectionSelectionWidget" name="projectQgsProjectionSelectionWidget" native="true">
                 <property name="minimumSize">
                  <size>
                   <width>200</width>
@@ -1055,7 +1055,7 @@
          <x>0</x>
          <y>0</y>
          <width>503</width>
-         <height>424</height>
+         <height>401</height>
         </rect>
        </property>
        <attribute name="label">
@@ -1191,6 +1191,74 @@
            </size>
           </property>
          </spacer>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="digitizingToolsPage">
+       <attribute name="label">
+        <string>Digitizing Tools</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <item>
+         <widget class="QGroupBox" name="debugGroupBox">
+          <property name="title">
+           <string>Debug</string>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_3">
+           <property name="spacing">
+            <number>0</number>
+           </property>
+           <property name="leftMargin">
+            <number>3</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>3</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
+           <item>
+            <widget class="QScrollArea" name="debugScrollArea">
+             <property name="widgetResizable">
+              <bool>true</bool>
+             </property>
+             <widget class="QWidget" name="scrollAreaWidgetContents">
+              <property name="geometry">
+               <rect>
+                <x>0</x>
+                <y>0</y>
+                <width>475</width>
+                <height>366</height>
+               </rect>
+              </property>
+              <layout class="QVBoxLayout" name="verticalLayout_2">
+               <property name="spacing">
+                <number>0</number>
+               </property>
+               <property name="leftMargin">
+                <number>0</number>
+               </property>
+               <property name="topMargin">
+                <number>0</number>
+               </property>
+               <property name="rightMargin">
+                <number>0</number>
+               </property>
+               <property name="bottomMargin">
+                <number>0</number>
+               </property>
+               <item>
+                <widget class="QTextEdit" name="debugTextEdit"/>
+               </item>
+              </layout>
+             </widget>
+            </widget>
+           </item>
+          </layout>
+         </widget>
         </item>
        </layout>
       </widget>
