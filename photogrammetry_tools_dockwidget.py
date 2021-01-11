@@ -61,6 +61,7 @@ from .ui.ui_phtools_images_widget import PhToolsQImagesWidget
 from PyQt5 import QtGui, QtWidgets, uic
 from PyQt5.QtCore import pyqtSignal
 from qgis.gui import QgsMapToolDigitizeFeature, QgsMapMouseEvent, QgsAdvancedDigitizingDockWidget, QgsMapToolPan
+from .highlightFeature import HighlightFeature
 
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'photogrammetry_tools_dockwidget_base.ui'))
@@ -134,6 +135,7 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         self.settings = settings
         self.iPyProject = iPyProject
         self.pt_qt_project = pt_qt_project
+        self.selectedFeature = None
         self.isPTPlugin = False
         if self.current_plugin_name == PTDefinitions.CONST_SETTINGS_PLUGIN_NAME:
             self.isPTPlugin = True
@@ -711,6 +713,18 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         ###################################################
         # Digitizing Tool
         ###################################################
+
+        # Current layer and it't parameters
+        self.__layer = None
+        self.__layergeometryType = None
+        self.__layerwkbType = None
+        self.__hasZ = False
+        self.__hasM = False
+        self.__isMultiType = False
+        self.__isEditMode = False
+
+        self.canvas = self.iface.mapCanvas()
+
         self.action_digitize_feature = QAction(QIcon(":/plugins/photogrammetry_tools/icons/mActionToggleEditing.svg"),
                                                "Edit")
         self.action_digitize_feature.setCheckable(True)
@@ -723,6 +737,44 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
 
         self.tool_digitize_feature.digitizingCompleted.connect(self.ondigitizingCompleted)
         self.tool_digitize_feature.canvasPressSignal.connect(self.onCanvasPressSignal)
+        self.canvas.currentLayerChanged.connect(self.toggle)
+
+        projectCrsId = self.canvas.mapSettings().destinationCrs().srsid()
+        self.highLighter = HighlightFeature(self.canvas,
+                                            True,
+                                            False,
+                                            projectCrsId)
+
+    def __setlayerproperties(self):
+        self.__layergeometryType = self.__layer.geometryType()
+        self.__layerwkbType = self.__layer.wkbType()
+        self.__hasZ = QgsWkbTypes.hasZ(self.__layerwkbType)
+        self.__hasM = QgsWkbTypes.hasM(self.__layerwkbType)
+        self.__isMultiType = QgsWkbTypes.isMultiType(self.__layerwkbType)
+
+    def toggle(self):
+        """ When current layer changed  """
+        self.__layer = self.canvas.currentLayer()
+        # Decide whether the plugin button/menu is enabled or disabled
+        if self.__layer is not None:
+            if self.__layer.type() == QgsMapLayer.VectorLayer:
+                self.__setlayerproperties()
+
+                if self.__layer.isEditable() and (
+                        self.__layergeometryType == QgsWkbTypes.PointGeometry
+                        or self.__layergeometryType == QgsWkbTypes.LineGeometry
+                        or self.__layergeometryType == QgsWkbTypes.PolygonGeometry):
+                    self.__layer.editingStopped.connect(self.toggle)
+                    try:
+                        self.__layer.editingStarted.disconnect(self.toggle)
+                    except Exception:
+                        pass
+                else:
+                    self.__layer.editingStarted.connect(self.toggle)
+                    try:
+                        self.__layer.editingStopped.disconnect(self.toggle)
+                    except Exception:
+                        pass
 
     def loadImagesPcLayer(self):
         imagesPcTableName = None
@@ -1485,11 +1537,119 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
     def digitize_feature(self):
         self.iface.mapCanvas().setMapTool(self.tool_digitize_feature)
 
+    def createCoords(self, coords, feature):
+        """
+        :param coords: reference at empty list
+        :param feature: reference at QgsFeature
+        :return: none
+        """
+        geom = feature.geometry()
+        if self.__layergeometryType == QgsWkbTypes.PointGeometry:
+            coords.append(['1', list()])
+            if self.__isMultiType:
+                for part in geom.constParts():
+                    for vertex in part.vertices():
+                        row = list([vertex.x(), vertex.y()])
+                        if self.__hasZ:
+                            row.append(vertex.z())
+                        if self.__hasM:
+                            row.append(vertex.m())
+                        coords[0][1].append(row)
+            else:
+                for vertex in geom.vertices():
+                    row = list([vertex.x(), vertex.y()])
+                    if self.__hasZ:
+                        row.append(vertex.z())
+                    if self.__hasM:
+                        row.append(vertex.m())
+                    coords[0][1].append(row)
+
+        elif self.__layergeometryType == QgsWkbTypes.LineGeometry:
+            if self.__isMultiType:
+                part_num = 0
+                for part in geom.constParts():
+                    coords.append([str(part_num + 1), list()])
+                    for vertex in part.vertices():
+                        row = list([vertex.x(), vertex.y()])
+                        if self.__hasZ:
+                            row.append(vertex.z())
+                        if self.__hasM:
+                            row.append(vertex.m())
+                        coords[part_num][1].append(row)
+                    part_num = part_num + 1
+            else:
+                coords.append(['1', list()])
+                for vertex in geom.vertices():
+                    row = list([vertex.x(), vertex.y()])
+                    if self.__hasZ:
+                        row.append(vertex.z())
+                    if self.__hasM:
+                        row.append(vertex.m())
+                    coords[0][1].append(row)
+
+        elif self.__layergeometryType == QgsWkbTypes.PolygonGeometry:
+            if self.__isMultiType:
+                part_num = 0
+                ring_num = 0
+                for part in geom.constParts():
+                    ring = part.exteriorRing()
+                    coords.append([str(part_num + 1), list()])
+                    for vertex in ring.vertices():
+                        row = list([vertex.x(), vertex.y()])
+                        if self.__hasZ:
+                            row.append(vertex.z())
+                        if self.__hasM:
+                            row.append(vertex.m())
+                        coords[part_num + ring_num][1].append(row)
+
+                    # If first and last point identical - remove last point
+                    part_list = coords[part_num + ring_num][1]
+                    if part_list[0][0] == part_list[len(part_list) - 1][0] and \
+                            part_list[0][1] == part_list[len(part_list) - 1][1]:
+                        del part_list[-1]
+
+                    part_num = part_num + 1
+
+                    intrings = part.numInteriorRings()
+                    for i in range(intrings):
+                        ring = part.interiorRing(i)
+                        coords.append([str(-(ring_num + 1)), list()])
+                        for vertex in ring.vertices():
+                            row = list([vertex.x(), vertex.y()])
+                            if self.__hasZ:
+                                row.append(vertex.z())
+                            if self.__hasM:
+                                row.append(vertex.m())
+                            coords[part_num + ring_num][1].append(row)
+
+                        # If first and last point identical - remove last point
+                        part_list = coords[part_num + ring_num][1]
+                        if part_list[0][0] == part_list[len(part_list) - 1][0] and \
+                                part_list[0][1] == part_list[len(part_list) - 1][1]:
+                            del part_list[-1]
+
+                        ring_num = ring_num + 1
+
     def ondigitizingCompleted(self, feature):
         # import pydevd_pycharm
         # pydevd_pycharm.settrace('localhost', port=54100, stdoutToServer=True, stderrToServer=True)
         layer = self.iface.activeLayer()
         layer.addFeature(feature)
+        if self.tool_digitize_feature.mode() == 1:  # CapturePoint
+            if self.selectedFeature:
+                layer.deselect(self.selectedFeature.id())
+            self.selectedFeature = feature
+            layer.select(feature.id())
+
+            if self.highLighter:
+                self.highLighter.removeHighlight()
+                coords = list()
+                self.createCoords(coords, feature)
+                self.featureCrsId = layer.crs().srsid()
+                self.highLighter.createHighlight(coords, 0, self.featureCrsId)
+                self.highLighter.changeCurrentVertex(0)
+
+
 
     def onCanvasPressSignal(self, mouse_event):
         crs = QgsProject.instance().crs()
