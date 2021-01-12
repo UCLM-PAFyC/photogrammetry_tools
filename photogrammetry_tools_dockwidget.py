@@ -284,6 +284,9 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         self.existsOrientations = ret[1]
         if self.existsOrientations:
             self.processingToolsPage.setEnabled(True)
+            self.loadImagesPcLayer()
+        self.iface.zoomToActiveLayer()
+        self.iface.mapCanvas().refresh()
         return
 
     def addUndistortedImageFiles(self):
