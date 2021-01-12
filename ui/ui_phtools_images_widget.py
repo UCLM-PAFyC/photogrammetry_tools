@@ -3,8 +3,7 @@
 POINT_TYPE_PROJECTED = 0
 POINT_TYPE_MATCHED = 1
 POINT_TYPE_MEASURED = 2
-# INITIAL_SCALE_FACTOR = 0.01
-INITIAL_SCALE_FACTOR = 1
+INITIAL_SCALE_FACTOR = 0.01
 WHEEL_FACTOR = 2
 CANVAS_RLAYER_EXTENT_FACTOR = 2.0
 
@@ -61,11 +60,39 @@ class PhToolsQImagesWidget(QFrame,
         self.add_ribbon_images()
 
 
+    def add_ribbon_images_map_canvas(self, image_key):
+        path_rlayer = os.path.normcase(self.image_paths[image_key])
+        rlayer = self.rlayer_builder(path_rlayer)
+        rlayer_extent = rlayer.extent()
+        x_offset = abs(rlayer_extent.width() / 2 - self.projected_images[image_key]['Projected'][0])
+        y_offset = abs(rlayer_extent.height() / 2 - self.projected_images[image_key]['Projected'][1])
+        center_offset = math.sqrt(x_offset ** 2 + y_offset ** 2)
+
+        index = 0
+
+        for image in self.list_qgsmapcavansses_dic.keys():
+            if self.list_qgsmapcavansses_dic[image].distance_from_image_center < center_offset:
+                index += 1
+            else:
+                break
+
+        prj, qgsmapcanvas, group_box = self.create_groupbox_map_canvas(rlayer, image_key,
+                                                                       self.projected_images[image_key]['Projected'],
+                                                                       index=index)
+
+        # qgsmapcanvas.xyCoordinates.connect(self.on_xyCoordinates())
+
+        image_canvas = ImageCanvas(self.i_py_project, self.connection_path, prj,
+                                                               self.digitizing_point_id, qgsmapcanvas, image_key,
+                                                               self.digitizing_feature_tool, group_box,
+                                                               center_offset)
+        self.list_qgsmapcavansses_dic[image_key] = image_canvas
+
+        self.list_qgsmapcavansses_dic[image_key].pointMeasured.connect(self.on_image_point_measured)
 
     def add_ribbon_images(self):
         #TODOC: initialize list qgis_projects & list qgsmapcavasses
         self.list_qgis_prjs = []
-        self.list_qgsmapcavansses = []
         self.list_qgsmapcavansses_dic = {}
 
         # initialize counters
@@ -81,8 +108,8 @@ class PhToolsQImagesWidget(QFrame,
             rlayer_extent = rlayer.extent()
             x_offset = abs(rlayer_extent.width()/2 - self.projected_images[image_key]['Projected'][0])
             y_offset = abs(rlayer_extent.height() / 2 - self.projected_images[image_key]['Projected'][1])
-            center_ofset = math.sqrt(x_offset**2 + y_offset**2)
-            offsets[image_key] = [center_ofset, rlayer]
+            center_offset = math.sqrt(x_offset**2 + y_offset**2)
+            offsets[image_key] = [center_offset, rlayer]
         sorted_offsets = dict(sorted(offsets.items(), key=lambda item: item[1]))
         ###
 
@@ -92,18 +119,17 @@ class PhToolsQImagesWidget(QFrame,
             rlayer = sorted_offsets[image_key][1]
 
             prj, qgsmapcanvas, group_box = self.create_groupbox_map_canvas(rlayer, image_key,
-                                                                self.projected_images[image_key]['Projected'],
-                                                                img_count)
+                                                                self.projected_images[image_key]['Projected'])
 
             # qgsmapcanvas.xyCoordinates.connect(self.on_xyCoordinates())
 
             self.list_qgsmapcavansses_dic[image_key] = ImageCanvas(self.i_py_project, self.connection_path, prj,
                                                              self.digitizing_point_id, qgsmapcanvas, image_key,
-                                                             self.digitizing_feature_tool, group_box)
+                                                             self.digitizing_feature_tool, group_box,
+                                                             sorted_offsets[image_key][0])
 
             self.list_qgsmapcavansses_dic[image_key].pointMeasured.connect(self.on_image_point_measured)
             # self.list_qgsmapcavansses_dic[image_key].canvas.setWheelFactor(1.0)
-            img_count += 1
         # if img_count:
         #     self.list_qgsmapcavansses[0].extentsChanged.connect(self.on_extent_changed)
         #     self.pantool = QgsPhToolPan(self.list_qgsmapcavansses[0])
@@ -114,7 +140,7 @@ class PhToolsQImagesWidget(QFrame,
                                    rlayer,
                                    filename_img,
                                    projected_point,
-                                   num_img,
+                                   index=None,
                                    is_main_image=False):
         #TODOC:
         qgsmapcanvas = QgsMapCanvas()
@@ -144,15 +170,15 @@ class PhToolsQImagesWidget(QFrame,
         group_box.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)
 
         # qlabel imagen number
-        qlabel_num_img = QLabel()
-        str_num_img = "Nº img: " + str(num_img)
-        qlabel_num_img.setText(str_num_img)
-        qfont_label_num_img = self.format_qfont(int_size=7)
-        qlabel_num_img.setFont(qfont_label_num_img)
-        qlabel_num_img.setAttribute(Qt.WA_TransparentForMouseEvents)
-        palette = QPalette()
-        palette.setColor(QPalette.WindowText, Qt.blue)
-        qlabel_num_img.setPalette(palette)
+        # qlabel_num_img = QLabel()
+        # str_num_img = "Nº img: " + str(num_img)
+        # qlabel_num_img.setText(str_num_img)
+        # qfont_label_num_img = self.format_qfont(int_size=7)
+        # qlabel_num_img.setFont(qfont_label_num_img)
+        # qlabel_num_img.setAttribute(Qt.WA_TransparentForMouseEvents)
+        # palette = QPalette()
+        # palette.setColor(QPalette.WindowText, Qt.blue)
+        # qlabel_num_img.setPalette(palette)
 
         if is_main_image:
             qgridlayout_mapcanvas_mainimg = QGridLayout()
@@ -161,7 +187,7 @@ class PhToolsQImagesWidget(QFrame,
             group_box.setCheckable(True)
             self.gridLayout_tabImg.addWidget(group_box)
 
-            self.label_numImage.setText(str_num_img)
+            # self.label_numImage.setText(str_num_img)
             self.label_currentCoordinates.setText("Coordinates")
 
             return prj, qgsmapcanvas
@@ -200,11 +226,14 @@ class PhToolsQImagesWidget(QFrame,
         qframe_ribbon_image_layout.addWidget(qgsmapcanvas, 0, 0)
         qframe_ribbon_image_layout.addWidget(crosshair_frame_v, 0, 0)
         qframe_ribbon_image_layout.addWidget(crosshair_frame_h, 0, 0)
-        qframe_ribbon_image_layout.addWidget(qlabel_num_img, 0, 0, Qt.AlignRight|Qt.AlignBottom)
+        # qframe_ribbon_image_layout.addWidget(qlabel_num_img, 0, 0, Qt.AlignRight|Qt.AlignBottom)
         group_box.setLayout(qframe_ribbon_image_layout)
         group_box.setContentsMargins(0, 0, 0, 0)
 
-        self.verticalLayout_images.addWidget(group_box)
+        if index:
+            self.verticalLayout_images.insertWidget(index, group_box)
+        else:
+            self.verticalLayout_images.addWidget(group_box)
 
         return prj, qgsmapcanvas, group_box
 
@@ -267,25 +296,6 @@ class PhToolsQImagesWidget(QFrame,
         else: qfont.setItalic(False)
         return qfont
 
-    def scale_changed_main_img(self, current_scale):
-        #TODOC
-        if self.checkBox_linkZoomMainVsRibbonImgs.isChecked():
-            factor_ui_magnified = float(self.comboBox_zoomFactorMainVsRibbonImgs.currentText())
-            scale_magnified = factor_ui_magnified * current_scale
-            print("scale_main_img_previous: \t" + (str(int(self.current_scale_main_img))))
-            print("current_scale: \t\t\t" +(str(int(current_scale))))
-            print("factor_ui_magnified: \t" + str(factor_ui_magnified))
-            print("scale_magnified: \t\t\t" + str(scale_magnified))
-            print("------------------------")
-
-            contador = 0
-            for qgsmapcavas_ribbon_img in self.list_qgsmapcavansses:
-                if contador == 0:
-                    pass
-                else:
-                    qgsmapcavas_ribbon_img.zoomScale(scale_magnified)
-                    self.current_scale_main_img = current_scale
-                contador += 1
 
     def on_image_point_measured(self):
         measured_images = {}
@@ -334,7 +344,24 @@ class PhToolsQImagesWidget(QFrame,
                 # self.digitizing_feature_tool.setPoints(digitized_points_sequence)
 
                 self.digitizing_feature_tool.setPoints(digitized_points)
-                # Matches:
+
+                ## Eliminar los canvas de las imágenes que ya no intervienen y añadir los nuevos
+                for image_key in self.list_qgsmapcavansses_dic.keys():
+                    if image_key not in ret[5].keys():
+                        import pydevd_pycharm
+                        pydevd_pycharm.settrace('localhost', port=54100, stdoutToServer=True, stderrToServer=True)
+                        self.verticalLayout_images.removeWidget(self.list_qgsmapcavansses_dic[image_key].group_box)
+
+                for image_key in ret[5].keys():
+                    if image_key not in self.list_qgsmapcavansses_dic.keys():
+                        self.projected_images[image_key] = ret[5][image_key]
+                        self.add_ribbon_images_map_canvas(image_key)
+                ##
+
+                self.debugTextGenerated.emit('Número de Imágenes: {}'.format(self.list_qgsmapcavansses_dic.__len__()))
+
+                # import pydevd_pycharm
+                # pydevd_pycharm.settrace('localhost', port=54100, stdoutToServer=True, stderrToServer=True)
                 if len(ret[5]):
                     self.debugTextGenerated.emit('\n---------------------------')
                     self.debugTextGenerated.emit('\n---------------------------')
@@ -399,7 +426,8 @@ class ImageCanvas(QObject):
     pointMeasured = pyqtSignal()
 
     def __init__(self, i_py_project, connection_path, qgis_project, digitizing_point_id, canvas, image_name,
-                                                                         digitizing_feature_tool, group_box):
+                                                                         digitizing_feature_tool, group_box,
+                                                                         distance_from_image_center):
         super(QObject, self).__init__()
         self.canvas = canvas
         self.current_center = self.canvas.center()
@@ -409,6 +437,7 @@ class ImageCanvas(QObject):
         self.i_py_project = i_py_project
         self.qgis_project = qgis_project
         self.group_box = group_box
+        self.distance_from_image_center = distance_from_image_center
         """
         pt.POINT_TYPE_PROJECTED: QgsPoint(0, 0, 0)
         """
