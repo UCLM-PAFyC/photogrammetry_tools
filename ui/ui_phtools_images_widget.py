@@ -14,7 +14,7 @@ from PyQt5 import uic
 from PyQt5.QtWidgets import (QFrame, QGridLayout, QMainWindow, QAction, QLabel, QGroupBox, QTreeWidgetItem, QCheckBox,
                              QComboBox, QToolButton, QDockWidget, QSizePolicy, QMessageBox)
 from PyQt5.QtCore import QFileInfo, Qt, pyqtSignal, QObject
-from PyQt5.QtGui import QIcon, QFont, QPalette, QColor, QWheelEvent
+from PyQt5.QtGui import QIcon, QFont, QPalette, QColor, QWheelEvent, QPixmap
 
 # Import QGIS classes
 from qgis.gui import QgsMapCanvas, QgsMapToolZoom, QgsMapToolPan, QgsMapLayerComboBox, QgsMapMouseEvent
@@ -32,6 +32,8 @@ FORM_CLASS, _ = uic.loadUiType(os.path.join(os.path.dirname(__file__),
 class PhToolsQImagesWidget(QFrame,
                          FORM_CLASS):
     debugTextGenerated = pyqtSignal(str)
+
+    newVertexCoords = pyqtSignal(QgsPointXY)
 
     def __init__(self,
                  iface,
@@ -193,39 +195,68 @@ class PhToolsQImagesWidget(QFrame,
             return prj, qgsmapcanvas
 
         # create central mark
-        hline = QFrame()
-        hline.setFrameShape(QFrame.HLine)
-        hline.setFrameShadow(QFrame.Plain)
-        hline.setMaximumSize(16, 16)
-        hline.setLineWidth(1)
-        hline.setStyleSheet("color:yellow")
+        # hline = QFrame()
+        # hline.setFrameShape(QFrame.HLine)
+        # hline.setFrameShadow(QFrame.Plain)
+        # hline.setMaximumSize(16, 16)
+        # hline.setLineWidth(1)
+        # hline.setStyleSheet("color:red")
+        #
+        # vline = QFrame()
+        # vline.setFrameShape(QFrame.VLine)
+        # vline.setFrameShadow(QFrame.Plain)
+        # vline.setMaximumSize(16, 16)
+        # vline.setLineWidth(1)
+        # vline.setStyleSheet("color:red")
 
-        vline = QFrame()
-        vline.setFrameShape(QFrame.VLine)
-        vline.setFrameShadow(QFrame.Plain)
-        vline.setMaximumSize(16, 16)
-        vline.setLineWidth(1)
-        vline.setStyleSheet("color:yellow")
+        crosshair_label = QLabel()
+        crosshair_label.setWindowFlags(Qt.FramelessWindowHint)
+        p = QPixmap(["16 16 3 1",
+                     "      c None",
+                     ".     c #FF0000",
+                     "+     c #FFFFFF",
+                     "                ",
+                     "       +.+      ",
+                     "      ++.++     ",
+                     "     +.....+    ",
+                     "    +.     .+   ",
+                     "   +.   .   .+  ",
+                     "  +.    .    .+ ",
+                     " ++.    .    .++",
+                     " ... ...+... ...",
+                     " ++.    .    .++",
+                     "  +.    .    .+ ",
+                     "   +.   .   .+  ",
+                     "   ++.     .+   ",
+                     "    ++.....+    ",
+                     "      ++.++     ",
+                     "       +.+      "])
 
-        crosshair_frame_v = QFrame()
-        crosshair_layout_v = QGridLayout()
-        crosshair_frame_v.setLayout(crosshair_layout_v)
-        crosshair_layout_v.addWidget(vline)
-        crosshair_frame_v.setAttribute(Qt.WA_TransparentForMouseEvents)
+        crosshair_label.setAlignment(Qt.AlignCenter)
+        crosshair_label.setPixmap(p)
+        crosshair_label.setAttribute(Qt.WA_TransparentForMouseEvents)
 
-        crosshair_frame_h = QFrame()
-        crosshair_layout_h = QGridLayout()
-        crosshair_frame_h.setLayout(crosshair_layout_h)
-        crosshair_layout_h.addWidget(hline)
-        crosshair_frame_h.setAttribute(Qt.WA_TransparentForMouseEvents)
+        # crosshair_frame_v = QFrame()
+        # crosshair_layout_v = QGridLayout()
+        # crosshair_frame_v.setLayout(crosshair_layout_v)
+        # crosshair_layout_v.addWidget(vline)
+        # crosshair_frame_v.setAttribute(Qt.WA_TransparentForMouseEvents)
+        #
+        # crosshair_frame_h = QFrame()
+        # crosshair_layout_h = QGridLayout()
+        # crosshair_frame_h.setLayout(crosshair_layout_h)
+        # crosshair_layout_h.addWidget(hline)
+        # crosshair_frame_h.setAttribute(Qt.WA_TransparentForMouseEvents)
 
         # add qgsmapcanvas to ribbon
         qframe_ribbon_image_layout = QGridLayout()
         qframe_ribbon_image_layout.setContentsMargins(0, 0, 0, 0)
         qframe_ribbon_image_layout.setAlignment(Qt.AlignCenter)
         qframe_ribbon_image_layout.addWidget(qgsmapcanvas, 0, 0)
-        qframe_ribbon_image_layout.addWidget(crosshair_frame_v, 0, 0)
-        qframe_ribbon_image_layout.addWidget(crosshair_frame_h, 0, 0)
+        # qframe_ribbon_image_layout.addWidget(crosshair_frame_v, 0, 0)
+        # qframe_ribbon_image_layout.addWidget(crosshair_frame_h, 0, 0)
+        qframe_ribbon_image_layout.addWidget(crosshair_label, 0, 0)
+
         # qframe_ribbon_image_layout.addWidget(qlabel_num_img, 0, 0, Qt.AlignRight|Qt.AlignBottom)
         group_box.setLayout(qframe_ribbon_image_layout)
         group_box.setContentsMargins(0, 0, 0, 0)
@@ -333,17 +364,20 @@ class PhToolsQImagesWidget(QFrame,
                                                                        True, False, measured_images, [])
             logging.warning(str(ret))
             if ret[0] == 'True':
-                # import pydevd_pycharm
-                # pydevd_pycharm.settrace('localhost', port=54100, stdoutToServer=True, stderrToServer=True)
-                points_count = self.digitizing_feature_tool.size()
-                digitized_points = self.digitizing_feature_tool.points()
-                digitized_points[points_count - 1] = QgsPointXY(ret[2][0], ret[2][1])
-                # Deprecated: setPoints
-                # digitized_points_sequence = self.digitizing_feature_tool.pointsZM()
-                # digitized_points_sequence[points_count - 1] = QgsPoint(QgsPointXY(ret[2][0], ret[2][1]))
-                # self.digitizing_feature_tool.setPoints(digitized_points_sequence)
+                if self.digitizing_feature_tool.mode() == 1:  # CapturePoint
+                    self.newVertexCoords.emit(QgsPointXY(ret[2][0], ret[2][1]))
+                else:
+                    # import pydevd_pycharm
+                    # pydevd_pycharm.settrace('localhost', port=54100, stdoutToServer=True, stderrToServer=True)
+                    points_count = self.digitizing_feature_tool.size()
+                    digitized_points = self.digitizing_feature_tool.points()
+                    digitized_points[points_count - 1] = QgsPointXY(ret[2][0], ret[2][1])
+                    # Deprecated: setPoints
+                    # digitized_points_sequence = self.digitizing_feature_tool.pointsZM()
+                    # digitized_points_sequence[points_count - 1] = QgsPoint(QgsPointXY(ret[2][0], ret[2][1]))
+                    # self.digitizing_feature_tool.setPoints(digitized_points_sequence)
 
-                self.digitizing_feature_tool.setPoints(digitized_points)
+                    self.digitizing_feature_tool.setPoints(digitized_points)
 
                 ## Eliminar los canvas de las imágenes que ya no intervienen y añadir los nuevos
                 for image_key in self.list_qgsmapcavansses_dic.keys():
@@ -465,10 +499,8 @@ class ImageCanvas(QObject):
             if not reduced_layer_extent.contains(self.canvas.center()):
             # if not self.canvas.layers()[0].extent().contains(self.canvas.center()):
                 self.canvas.setCenter(self.current_center)
-            elif points_count > 0 and not self.current_center == self.canvas.center():
-                if self.digitizing_feature_tool.mode() == 1: # CapturePoint
-                    pass
-                else:
+            elif not self.current_center == self.canvas.center():
+                if points_count > 0 or self.digitizing_feature_tool.mode() == 1: # CapturePoint
                     """ QgsPointXY """
                     self.image_points[POINT_TYPE_MEASURED] = self.canvas.center()
                     self.setMeasuredColor(True)

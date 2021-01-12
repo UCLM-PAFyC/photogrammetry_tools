@@ -740,6 +740,7 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
 
         self.tool_digitize_feature.digitizingCompleted.connect(self.ondigitizingCompleted)
         self.tool_digitize_feature.canvasPressSignal.connect(self.onCanvasPressSignal)
+        self.tool_digitize_feature.deactivated.connect(self.onDigitizeToolDeactivate)
         self.canvas.currentLayerChanged.connect(self.toggle)
 
         projectCrsId = self.canvas.mapSettings().destinationCrs().srsid()
@@ -1537,6 +1538,8 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         self.pht_images_dock.setWidget(self.pht_images_widget)
         self.iface.addDockWidget(Qt.RightDockWidgetArea, self.pht_images_dock)
 
+        self.pht_images_widget.newVertexCoords.connect(self.onNewVertexCoordinates)
+
     def digitize_feature(self):
         self.iface.mapCanvas().setMapTool(self.tool_digitize_feature)
 
@@ -1634,15 +1637,13 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
                         ring_num = ring_num + 1
 
     def ondigitizingCompleted(self, feature):
-        # import pydevd_pycharm
-        # pydevd_pycharm.settrace('localhost', port=54100, stdoutToServer=True, stderrToServer=True)
         layer = self.iface.activeLayer()
         layer.addFeature(feature)
         if self.tool_digitize_feature.mode() == 1:  # CapturePoint
-            if self.selectedFeature:
-                layer.deselect(self.selectedFeature.id())
+            # if self.selectedFeature:
+                # layer.deselect(self.selectedFeature.id())
             self.selectedFeature = feature
-            layer.select(feature.id())
+            # layer.select(feature.id())
 
             if self.highLighter:
                 self.highLighter.removeHighlight()
@@ -1652,7 +1653,27 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
                 self.highLighter.createHighlight(coords, 0, self.featureCrsId)
                 self.highLighter.changeCurrentVertex(0)
 
+    def onNewVertexCoordinates(self, point):
+        # import pydevd_pycharm
+        # pydevd_pycharm.settrace('localhost', port=54100, stdoutToServer=True, stderrToServer=True)
+        if self.tool_digitize_feature.mode() == 1 and self.selectedFeature:  # CapturePoint
+            self.selectedFeature.setGeometry(QgsPoint(point))
+            self.iface.activeLayer().updateFeature(self.selectedFeature)
+            self.canvas.refresh()
 
+            if self.highLighter:
+                self.highLighter.removeHighlight()
+                layer = self.iface.activeLayer()
+                coords = list()
+                self.createCoords(coords, self.selectedFeature)
+                self.featureCrsId = layer.crs().srsid()
+                self.highLighter.createHighlight(coords, 0, self.featureCrsId)
+                self.highLighter.changeCurrentVertex(0)
+
+    def onDigitizeToolDeactivate(self):
+        if self.highLighter:
+            self.highLighter.removeHighlight()
+            # self.highLighter.changeCurrentVertex(-1)
 
     def onCanvasPressSignal(self, mouse_event):
         crs = QgsProject.instance().crs()
