@@ -338,8 +338,7 @@ class PhToolsQImagesWidget(QFrame,
                 disabled_images.append(image_key)
             elif image_canvas.image_points[2]:
                 measured_images[image_key] = [image_canvas.image_points[2].x(), -1.0*image_canvas.image_points[2].y()]
-        # import pydevd_pycharm
-        # pydevd_pycharm.settrace('localhost', port=54100, stdoutToServer=True, stderrToServer=True)
+
         if len(measured_images):
             crs = QgsProject.instance().crs()
             is_valid_crs = crs.isValid()
@@ -364,7 +363,7 @@ class PhToolsQImagesWidget(QFrame,
                                                                        True, False, measured_images, [])
             logging.warning(str(ret))
             if ret[0] == 'True':
-                if self.digitizing_feature_tool.mode() == 1:  # CapturePoint
+                if not self.digitizing_feature_tool.isActive() or self.digitizing_feature_tool.mode() == 1:  # CapturePoint
                     self.newVertexCoords.emit(QgsPointXY(ret[2][0], ret[2][1]))
                 else:
                     # import pydevd_pycharm
@@ -394,8 +393,6 @@ class PhToolsQImagesWidget(QFrame,
 
                 self.debugTextGenerated.emit('Número de Imágenes: {}'.format(self.list_qgsmapcavansses_dic.__len__()))
 
-                # import pydevd_pycharm
-                # pydevd_pycharm.settrace('localhost', port=54100, stdoutToServer=True, stderrToServer=True)
                 if len(ret[5]):
                     self.debugTextGenerated.emit('\n---------------------------')
                     self.debugTextGenerated.emit('\n---------------------------')
@@ -500,11 +497,11 @@ class ImageCanvas(QObject):
             # if not self.canvas.layers()[0].extent().contains(self.canvas.center()):
                 self.canvas.setCenter(self.current_center)
             elif not self.current_center == self.canvas.center():
-                if points_count > 0 or self.digitizing_feature_tool.mode() == 1: # CapturePoint
-                    """ QgsPointXY """
-                    self.image_points[POINT_TYPE_MEASURED] = self.canvas.center()
-                    self.setMeasuredColor(True)
-                    self.pointMeasured.emit()
+                # if points_count > 0 or self.digitizing_feature_tool.mode() == 1: # CapturePoint
+                """ QgsPointXY """
+                self.image_points[POINT_TYPE_MEASURED] = self.canvas.center()
+                self.setMeasuredColor(True)
+                self.pointMeasured.emit()
         self.current_center = self.canvas.center()
 
     def setMeasuredColor(self, measured):

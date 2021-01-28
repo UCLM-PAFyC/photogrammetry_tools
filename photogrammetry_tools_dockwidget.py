@@ -60,11 +60,19 @@ from PyQt5.QtWidgets import QTextEdit,QPushButton,QVBoxLayout
 from .ui.ui_phtools_images_widget import PhToolsQImagesWidget
 from PyQt5 import QtGui, QtWidgets, uic
 from PyQt5.QtCore import pyqtSignal
-from qgis.gui import QgsMapToolDigitizeFeature, QgsMapMouseEvent, QgsAdvancedDigitizingDockWidget, QgsMapToolPan
+from qgis.gui import QgsMapToolDigitizeFeature, QgsMapMouseEvent, QgsAdvancedDigitizingDockWidget, QgsMapToolPan, \
+    QgsMapToolEmitPoint
 from .highlightFeature import HighlightFeature
 
 FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'photogrammetry_tools_dockwidget_base.ui'))
+
+
+class QgsPhToolEditVertex(QgsMapToolEmitPoint):
+    def __init__(self, canvas):
+        self.canvas = canvas
+        super(QgsMapToolEmitPoint, self).__init__(self.canvas)
+
 
 
 class QgsPhToolDigitizeFeature(QgsMapToolDigitizeFeature):
@@ -92,12 +100,12 @@ class QgsPhToolDigitizeFeature(QgsMapToolDigitizeFeature):
         super().cadCanvasReleaseEvent(e)
         # import pydevd_pycharm
         # pydevd_pycharm.settrace('localhost', port=54100, stdoutToServer=True, stderrToServer=True)
-        if self.mode() == 1:  # CapturePoint
-            points = self.points()
-            layer = self.currentVectorLayer()
-            feature_count = layer.featureCount()
-            features = layer.getFeatures()
-            pass
+        # if self.mode() == 1:  # CapturePoint
+        #     points = self.points()
+        #     layer = self.currentVectorLayer()
+        #     feature_count = layer.featureCount()
+        #     features = layer.getFeatures()
+        #     pass
         self.canvasPressSignal.emit(e)
 
 class QgsPhToolPan(QgsMapToolPan):
@@ -713,10 +721,6 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         self.measurementsParametersPushButton.clicked.connect(self.selectMeasurementsParameters)
         self.measurementsProcessPushButton.clicked.connect(self.selectMeasurementsProcess)
 
-        ###################################################
-        # Digitizing Tool
-        ###################################################
-
         # Current layer and it't parameters
         self.__layer = None
         self.__layergeometryType = None
@@ -728,8 +732,18 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
 
         self.canvas = self.iface.mapCanvas()
 
+        projectCrsId = self.canvas.mapSettings().destinationCrs().srsid()
+        self.highLighter = HighlightFeature(self.canvas,
+                                            True,
+                                            False,
+                                            projectCrsId)
+
+        ###################################################
+        # Digitizing Tool
+        ###################################################
+
         self.action_digitize_feature = QAction(QIcon(":/plugins/photogrammetry_tools/icons/mActionToggleEditing.svg"),
-                                               "Edit")
+                                               "Create")
         self.action_digitize_feature.setCheckable(True)
         self.action_digitize_feature.triggered.connect(self.digitize_feature)
         self.digitizing_toolbar = self.iface.addToolBar("PH digitizing")
@@ -743,11 +757,19 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         self.tool_digitize_feature.deactivated.connect(self.onDigitizeToolDeactivate)
         self.canvas.currentLayerChanged.connect(self.toggle)
 
-        projectCrsId = self.canvas.mapSettings().destinationCrs().srsid()
-        self.highLighter = HighlightFeature(self.canvas,
-                                            True,
-                                            False,
-                                            projectCrsId)
+        ###################################################
+        # Photogrammetric vertex edition tool
+        ###################################################
+        self.action_edit_vertex = QAction(QIcon(":/plugins/photogrammetry_tools/icons/mActionToggleEditing.svg"),
+                                               "Edit")
+        self.action_edit_vertex.setCheckable(True)
+        self.action_edit_vertex.triggered.connect(self.edit_vertex)
+        self.digitizing_toolbar.addAction(self.action_edit_vertex)
+        self.tool_edit_vertex = QgsPhToolEditVertex(self.iface.mapCanvas())
+        self.tool_edit_vertex.setAction(self.action_edit_vertex)
+        self.tool_edit_vertex.canvasClicked.connect(self.onEditVertexClicked)
+        self.tool_edit_vertex.deactivated.connect(self.onEditVertexToolDeactivate)
+        ######################################################################
 
     def __setlayerproperties(self):
         self.__layergeometryType = self.__layer.geometryType()
@@ -1543,6 +1565,9 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
     def digitize_feature(self):
         self.iface.mapCanvas().setMapTool(self.tool_digitize_feature)
 
+    def edit_vertex(self):
+        self.iface.mapCanvas().setMapTool(self.tool_edit_vertex)
+
     def createCoords(self, coords, feature):
         """
         :param coords: reference at empty list
@@ -1656,26 +1681,53 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
     def onNewVertexCoordinates(self, point):
         # import pydevd_pycharm
         # pydevd_pycharm.settrace('localhost', port=54100, stdoutToServer=True, stderrToServer=True)
-        if self.tool_digitize_feature.mode() == 1 and self.selectedFeature:  # CapturePoint
-            self.selectedFeature.setGeometry(QgsPoint(point))
-            self.iface.activeLayer().updateFeature(self.selectedFeature)
-            self.canvas.refresh()
+        #TODO: Not only points....
+        if self.selectedFeature:
+            if self.tool_digitize_feature.mode() == 1:  # CapturePoint
+                self.selectedFeature.setGeometry(QgsPoint(point))
+                self.iface.activeLayer().updateFeature(self.selectedFeature)
+                self.canvas.refresh()
 
-            if self.highLighter:
-                self.highLighter.removeHighlight()
-                layer = self.iface.activeLayer()
-                coords = list()
-                self.createCoords(coords, self.selectedFeature)
-                self.featureCrsId = layer.crs().srsid()
-                self.highLighter.createHighlight(coords, 0, self.featureCrsId)
-                self.highLighter.changeCurrentVertex(0)
+                if self.highLighter:
+                    self.highLighter.removeHighlight()
+                    layer = self.iface.activeLayer()
+                    coords = list()
+                    self.createCoords(coords, self.selectedFeature)
+                    self.featureCrsId = layer.crs().srsid()
+                    self.highLighter.createHighlight(coords, 0, self.featureCrsId)
+                    self.highLighter.changeCurrentVertex(0)
+            else:
+                self.selectedFeature.geometry().moveVertex(point.x(), point.y(), self.selected_vertex)
+
 
     def onDigitizeToolDeactivate(self):
         if self.highLighter:
             self.highLighter.removeHighlight()
             # self.highLighter.changeCurrentVertex(-1)
 
+    def onEditVertexToolDeactivate(self):
+        if self.highLighter:
+            self.highLighter.removeHighlight()
+
     def onCanvasPressSignal(self, mouse_event):
+        if mouse_event.button() == Qt.RightButton:
+            pass
+            # ret = self.iPyProject.ptGetProjectedImagesFromObjectPoint(connectionPath,
+            #                                                           'chunk 1',
+            #                                                           crsEpsgCode,
+            #                                                           point_coordinates,
+            #                                                           True)
+            # if not (ret[0] == 'False'):
+            #     projected_images = ret[1]
+            #     self.openDigitizngUI(projected_images)
+
+        elif mouse_event.button() == Qt.LeftButton:
+            self.loadPhMeasureCanvas(mouse_event.mapPoint())
+
+        mouse_event.accept()
+
+
+    def loadPhMeasureCanvas(self, point):
         crs = QgsProject.instance().crs()
         isValidCrs = crs.isValid()
         crsAuthId = crs.authid()
@@ -1692,41 +1744,68 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         connectionPath = self.connections[connectionFileName]
 
         point_coordinates = []
-        point_coordinates.append(mouse_event.mapPoint().x())
-        point_coordinates.append(mouse_event.mapPoint().y())
-        if mouse_event.button() == Qt.RightButton:
-            pass
-            # ret = self.iPyProject.ptGetProjectedImagesFromObjectPoint(connectionPath,
-            #                                                           'chunk 1',
-            #                                                           crsEpsgCode,
-            #                                                           point_coordinates,
-            #                                                           True)
-            # if not (ret[0] == 'False'):
-            #     projected_images = ret[1]
-            #     self.openDigitizngUI(projected_images)
+        point_coordinates.append(point.x())
+        point_coordinates.append(point.y())
 
-        elif mouse_event.button() == Qt.LeftButton:
-            # import pydevd_pycharm
-            # pydevd_pycharm.settrace('localhost', port=54100, stdoutToServer=True, stderrToServer=True)
+        logging.warning('#')
+        logging.warning('i_py_project.ptAddObjectPoint({},{},{},{},{})'.format(
+            connectionPath, 'chunk 1',
+            crsEpsgCode, point_coordinates, True))
+        ret = self.iPyProject.ptAddObjectPoint(connectionPath, 'chunk 1', crsEpsgCode, point_coordinates, True)
+        logging.warning(str(ret))
+        if not (ret[0] == 'False'):
+            point_id = ret[1]
             logging.warning('#')
-            logging.warning('i_py_project.ptAddObjectPoint({},{},{},{},{})'.format(
-                connectionPath, 'chunk 1',
-                crsEpsgCode, point_coordinates, True))
-            ret = self.iPyProject.ptAddObjectPoint(connectionPath, 'chunk 1', crsEpsgCode, point_coordinates, True)
+            logging.warning('i_py_project.ptGetObjectPointProjectedImages({},{},{},{},{},[])'.format(
+                connectionPath, 'chunk 1', point_id,
+                crsEpsgCode, True))
+            ret = self.iPyProject.ptGetObjectPointProjectedImages(connectionPath, 'chunk 1', point_id, crsEpsgCode,
+                                                                  True, [])
             logging.warning(str(ret))
-            if not (ret[0] == 'False'):
-                point_id = ret[1]
-                logging.warning('#')
-                logging.warning('i_py_project.ptGetObjectPointProjectedImages({},{},{},{},{},[])'.format(
-                    connectionPath, 'chunk 1', point_id,
-                    crsEpsgCode, True))
-                ret = self.iPyProject.ptGetObjectPointProjectedImages(connectionPath, 'chunk 1', point_id, crsEpsgCode,
-                                                                      True, [])
-                logging.warning(str(ret))
-                projected_images = ret[5]
+            projected_images = ret[5]
 
-                self.openDigitizngUI(point_id, projected_images)
-        mouse_event.accept()
+            self.openDigitizngUI(point_id, projected_images)
+
+
+    def onEditVertexClicked(self, point):
+        # import pydevd_pycharm
+        # pydevd_pycharm.settrace('localhost', port=54100, stdoutToServer=True, stderrToServer=True)
+        current_layer = self.canvas.currentLayer()
+        if current_layer.isEditable():
+            #TODO: Snap de selección es fijo, buscar mejor estrategia (0.5m)
+            request_rect = QgsRectangle(point.x()-0.5, point.y()-0.5, point.x()+0.5, point.y()+0.5)
+            request = QgsFeatureRequest()
+            request.setFilterRect(request_rect)
+            request.setFlags(QgsFeatureRequest.ExactIntersect)
+            request.setLimit(1)
+            feature_list = list(current_layer.getFeatures(request))
+            if len(feature_list):
+                coords = list()
+                self.createCoords(coords, feature_list[0])
+                if len(coords):
+                    self.featureCrsId = current_layer.crs().srsid()
+                    if self.highLighter:
+                        self.highLighter.removeHighlight()
+                    self.highLighter.createHighlight(coords, 0, self.featureCrsId)
+                    self.selected_vertex = 0
+                    current_vertex = 0
+                    distance = point.distance(coords[0][1][0][0], coords[0][1][0][1])
+#
+                    self.selectedFeature = feature_list[0]
+
+                    for partNum in range(len(coords)):
+                        partcoords = coords[partNum][1]
+                        for coord in partcoords:
+                            current_distance = point.distance(coord[0], coord[1])
+                            if current_distance < distance:
+                                distance = current_distance
+                                self.selected_vertex = current_vertex
+                            current_vertex = current_vertex + 1
+                    self.highLighter.changeCurrentVertex(self.selected_vertex)
+                    self.loadPhMeasureCanvas(point)
+            else:
+                if self.highLighter:
+                    self.highLighter.removeHighlight()
 
     def onDebugTextGenerated(self, debug_str):
         self.debugTextEdit.append(debug_str)
