@@ -41,7 +41,6 @@ from qgis.core import QgsApplication, QgsDataSourceUri, QgsProject
 # from multipleFileSelectorDialog.multiple_file_selector_dialog import * #panel nueva camara
 # # from processListEditionDialog.process_list_edition_dialog import *
 # import PTDefinitions
-# #  dhl
 
 from .multipleFileSelectorDialog.multiple_file_selector_dialog import * #panel nueva camara
 # import MMTDefinitions
