@@ -1619,12 +1619,32 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
                     coords[0][1].append(row)
 
         elif self.__layergeometryType == QgsWkbTypes.PolygonGeometry:
-            if self.__isMultiType:
-                part_num = 0
-                ring_num = 0
-                for part in geom.constParts():
-                    ring = part.exteriorRing()
-                    coords.append([str(part_num + 1), list()])
+            # if self.__isMultiType:
+            part_num = 0
+            ring_num = 0
+            for part in geom.constParts():
+                ring = part.exteriorRing()
+                coords.append([str(part_num + 1), list()])
+                for vertex in ring.vertices():
+                    row = list([vertex.x(), vertex.y()])
+                    if self.__hasZ:
+                        row.append(vertex.z())
+                    if self.__hasM:
+                        row.append(vertex.m())
+                    coords[part_num + ring_num][1].append(row)
+
+                # If first and last point identical - remove last point
+                part_list = coords[part_num + ring_num][1]
+                if part_list[0][0] == part_list[len(part_list) - 1][0] and \
+                        part_list[0][1] == part_list[len(part_list) - 1][1]:
+                    del part_list[-1]
+
+                part_num = part_num + 1
+
+                intrings = part.numInteriorRings()
+                for i in range(intrings):
+                    ring = part.interiorRing(i)
+                    coords.append([str(-(ring_num + 1)), list()])
                     for vertex in ring.vertices():
                         row = list([vertex.x(), vertex.y()])
                         if self.__hasZ:
@@ -1639,27 +1659,7 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
                             part_list[0][1] == part_list[len(part_list) - 1][1]:
                         del part_list[-1]
 
-                    part_num = part_num + 1
-
-                    intrings = part.numInteriorRings()
-                    for i in range(intrings):
-                        ring = part.interiorRing(i)
-                        coords.append([str(-(ring_num + 1)), list()])
-                        for vertex in ring.vertices():
-                            row = list([vertex.x(), vertex.y()])
-                            if self.__hasZ:
-                                row.append(vertex.z())
-                            if self.__hasM:
-                                row.append(vertex.m())
-                            coords[part_num + ring_num][1].append(row)
-
-                        # If first and last point identical - remove last point
-                        part_list = coords[part_num + ring_num][1]
-                        if part_list[0][0] == part_list[len(part_list) - 1][0] and \
-                                part_list[0][1] == part_list[len(part_list) - 1][1]:
-                            del part_list[-1]
-
-                        ring_num = ring_num + 1
+                    ring_num = ring_num + 1
 
     def ondigitizingCompleted(self, feature):
         layer = self.iface.activeLayer()
@@ -1697,7 +1697,27 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
                     self.highLighter.createHighlight(coords, 0, self.featureCrsId)
                     self.highLighter.changeCurrentVertex(0)
             else:
-                self.selectedFeature.geometry().moveVertex(point.x(), point.y(), self.selected_vertex)
+                # import pydevd_pycharm
+                # pydevd_pycharm.settrace('localhost', port=54100, stdoutToServer=True, stderrToServer=True)
+                geometry = self.selectedFeature.geometry()
+                geometry.moveVertex(point.x(), point.y(), self.selected_vertex)
+                self.selectedFeature.setGeometry(geometry)
+                layer = self.iface.activeLayer()
+                layer.beginEditCommand("Feature updated")
+                layer.updateFeature(self.selectedFeature)
+                layer.endEditCommand()
+                # self.__layer.beginEditCommand("Feature updated")
+                # self.__layer.updateFeature(self.selectedFeature)
+                # self.__layer.endEditCommand()
+                self.canvas.refresh()
+                if self.highLighter:
+                    self.highLighter.removeHighlight()
+                    layer = self.iface.activeLayer()
+                    coords = list()
+                    self.createCoords(coords, self.selectedFeature)
+                    self.featureCrsId = layer.crs().srsid()
+                    self.highLighter.createHighlight(coords, 0, self.featureCrsId)
+                    self.highLighter.changeCurrentVertex(self.selected_vertex)
 
 
     def onDigitizeToolDeactivate(self):
@@ -1770,7 +1790,7 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
     def onEditVertexClicked(self, point):
         # import pydevd_pycharm
         # pydevd_pycharm.settrace('localhost', port=54100, stdoutToServer=True, stderrToServer=True)
-        current_layer = self.canvas.currentLayer()
+        current_layer = self.canvas.currentLayer()  
         if current_layer.isEditable():
             #TODO: Snap de selección es fijo, buscar mejor estrategia (0.5m)
             request_rect = QgsRectangle(point.x()-0.5, point.y()-0.5, point.x()+0.5, point.y()+0.5)

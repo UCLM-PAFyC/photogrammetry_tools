@@ -381,8 +381,6 @@ class PhToolsQImagesWidget(QFrame,
                 ## Eliminar los canvas de las imágenes que ya no intervienen y añadir los nuevos
                 for image_key in self.list_qgsmapcavansses_dic.keys():
                     if image_key not in ret[5].keys():
-                        import pydevd_pycharm
-                        pydevd_pycharm.settrace('localhost', port=54100, stdoutToServer=True, stderrToServer=True)
                         self.verticalLayout_images.removeWidget(self.list_qgsmapcavansses_dic[image_key].group_box)
 
                 for image_key in ret[5].keys():
