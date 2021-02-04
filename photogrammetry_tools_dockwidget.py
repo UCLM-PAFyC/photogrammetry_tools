@@ -501,7 +501,6 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         return
 
     def initialize(self):
-        yo = 1
         self.enableMeasurements = False
 
         self.dbFileName = None
