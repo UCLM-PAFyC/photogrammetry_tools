@@ -95,7 +95,7 @@
         <PrintSize>10</PrintSize>
         <Unit>adimensional</Unit>
         <ValueList>true;false</ValueList>
-        <Value>true</Value>
+        <Value>false</Value>
     </Parameter>
     <Parameter>
         <Command>Export_undistorted_to_colmap</Command>
@@ -141,7 +141,7 @@
         <PrintSize>10</PrintSize>
         <Unit>adimensional</Unit>
         <ValueList>true;false</ValueList>
-        <Value>true</Value>
+        <Value>false</Value>
     </Parameter>
     <Parameter>
         <Command>Get images footprints from DSM</Command>
@@ -189,6 +189,34 @@
         <PrintSize>200</PrintSize>
         <Unit>adimensional</Unit>
         <Value>C:/uclm/EjemploCandado/metashape/dsm5cm.tif</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Object point measurement</Command>
+        <Code>OPM_HeightSeparationOutsideDsm</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Double precision number</Type>
+        <Description>Maximum height separation of points outside DSM</Description>
+        <PrintSize>10</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>50.00</Value>
+        <MaximumValue>100.00</MaximumValue>
+        <MinimumValue>0.50</MinimumValue>
+        <PrintPrecision>2</PrintPrecision>
+    </Parameter>
+    <Parameter>
+        <Command>Object point measurement</Command>
+        <Code>OPM_HeightSeparationWithinDsm</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Double precision number</Type>
+        <Description>Maximum height separation of points within DSM</Description>
+        <PrintSize>10</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>5.00</Value>
+        <MaximumValue>20.00</MaximumValue>
+        <MinimumValue>0.50</MinimumValue>
+        <PrintPrecision>2</PrintPrecision>
     </Parameter>
     <Parameter>
         <Command>Object point measurement</Command>
@@ -241,9 +269,9 @@
         <Description>Maximum row parallax in epipolar pair</Description>
         <PrintSize>10</PrintSize>
         <Unit>adimensional</Unit>
-        <Value>10</Value>
+        <Value>8</Value>
         <MaximumValue>50</MaximumValue>
-        <MinimumValue>1</MinimumValue>
+        <MinimumValue>8</MinimumValue>
     </Parameter>
     <Parameter>
         <Command>Object point measurement</Command>
@@ -254,8 +282,8 @@
         <Description>OpenCv's match method, https://docs.opencv.org/3.4/de/da9/tutorial_template_matching.html</Description>
         <PrintSize>10</PrintSize>
         <Unit>adimensional</Unit>
-        <ValueList>TM_SQDIFF;TM_SQDIFF_NORMED;TM_CCORR;TM_CCORR_NORMED;TM_COEFF;TM_COEFF_NORMED</ValueList>
-        <Value>TM_CCORR_NORMED</Value>
+        <ValueList>ALL;TM_SQDIFF_NORMED;TM_CCORR_NORMED;TM_COEFF_NORMED</ValueList>
+        <Value>ALL</Value>
     </Parameter>
     <Parameter>
         <Command>Object point measurement</Command>
@@ -270,19 +298,6 @@
         <MaximumValue>100.00</MaximumValue>
         <MinimumValue>-100.00</MinimumValue>
         <PrintPrecision>2</PrintPrecision>
-    </Parameter>
-    <Parameter>
-        <Command>Object point measurement</Command>
-        <Code>OPM_MatchWindowSize</Code>
-        <Enabled>Yes</Enabled>
-        <Tag></Tag>
-        <Type>Integer number</Type>
-        <Description>Match window size, an odd integer</Description>
-        <PrintSize>10</PrintSize>
-        <Unit>adimensional</Unit>
-        <Value>55</Value>
-        <MaximumValue>111</MaximumValue>
-        <MinimumValue>7</MinimumValue>
     </Parameter>
     <Parameter>
         <Command>Object point measurement</Command>
@@ -309,6 +324,19 @@
         <Unit>adimensional</Unit>
         <ValueList>true;false</ValueList>
         <Value>true</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Object point measurement</Command>
+        <Code>OPM_RamMaximumSize</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Integer number</Type>
+        <Description>RAM maximun size to use, in MBytes</Description>
+        <PrintSize>10</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>1024</Value>
+        <MaximumValue>4096</MaximumValue>
+        <MinimumValue>512</MinimumValue>
     </Parameter>
     <Parameter>
         <Command>Object point measurement</Command>
@@ -445,7 +473,7 @@
         <Description>Report output file.</Description>
         <PrintSize>200</PrintSize>
         <Unit>adimensional</Unit>
-        <Value>C:/uclm/ejemplo_coreses_REDEN/VueloFlirDuoProR/SunArtifacts.txt</Value>
+        <Value>C:/uclm/Ejemplo_PozoCanada/VueloFlirDuoProR/reports/SunArtifacts.txt</Value>
     </Parameter>
     <Parameter>
         <Command>Compute Sun artifacts in images: sun glint and hotspot</Command>
@@ -505,7 +533,7 @@
         <Description>Output path.</Description>
         <PrintSize>200</PrintSize>
         <Unit>adimensional</Unit>
-        <Value>C:/uclm/Ejemplo_PozoCanada/VueloFlirDuoProR/features/output_2021</Value>
+        <Value>C:/uclm/Ejemplo_PozoCanada/VueloFlirDuoProR/features/output</Value>
     </Parameter>
     <Parameter>
         <Command>Features' statistics in images</Command>
@@ -529,6 +557,18 @@
         <PrintSize>200</PrintSize>
         <Unit>adimensional</Unit>
         <Value>C:/uclm/Ejemplo_PozoCanada/VueloFlirDuoProR/features/EjemploHotSpotsPanels_buffer_10cm.shp</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Features' statistics in images</Command>
+        <Code>SFI_WeightInverseGSD</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Value list</Type>
+        <Description>Weight with the inverse of the pixel's GSD</Description>
+        <PrintSize>10</PrintSize>
+        <Unit>adimensional</Unit>
+        <ValueList>true;false</ValueList>
+        <Value>true</Value>
     </Parameter>
     <Parameter>
         <Command>Features' statistics in images</Command>
