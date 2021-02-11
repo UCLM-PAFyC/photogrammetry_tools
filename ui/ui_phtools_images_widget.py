@@ -33,7 +33,8 @@ class PhToolsQImagesWidget(QFrame,
                          FORM_CLASS):
     debugTextGenerated = pyqtSignal(str)
 
-    newVertexCoords = pyqtSignal(QgsPointXY)
+    newVertexCoords = pyqtSignal(QgsPoint)
+    # newVertexCoords = pyqtSignal(QgsPointXY)
 
     def __init__(self,
                  iface,
@@ -364,19 +365,23 @@ class PhToolsQImagesWidget(QFrame,
             logging.warning(str(ret))
             if ret[0] == 'True':
                 if not self.digitizing_feature_tool.isActive() or self.digitizing_feature_tool.mode() == 1:  # CapturePoint
-                    self.newVertexCoords.emit(QgsPointXY(ret[2][0], ret[2][1]))
+                    self.newVertexCoords.emit(QgsPoint(ret[2][0], ret[2][1], ret[2][2]))
                 else:
-                    # import pydevd_pycharm
-                    # pydevd_pycharm.settrace('localhost', port=54100, stdoutToServer=True, stderrToServer=True)
                     points_count = self.digitizing_feature_tool.size()
                     digitized_points = self.digitizing_feature_tool.points()
                     digitized_points[points_count - 1] = QgsPointXY(ret[2][0], ret[2][1])
-                    # Deprecated: setPoints
-                    # digitized_points_sequence = self.digitizing_feature_tool.pointsZM()
-                    # digitized_points_sequence[points_count - 1] = QgsPoint(QgsPointXY(ret[2][0], ret[2][1]))
-                    # self.digitizing_feature_tool.setPoints(digitized_points_sequence)
-
+                    self.digitizing_feature_tool.digitized_points_z[points_count - 1] = ret[2][2]
                     self.digitizing_feature_tool.setPoints(digitized_points)
+                    # Deprecated: setPoints
+
+                    # Valido dedes QGIS 3.12:
+                    # ***********************
+                    # digitized_points_sequence = self.digitizing_feature_tool.pointsZM()
+                    # digitized_points_sequence[points_count - 1] = QgsPoint(ret[2][0], ret[2][1], ret[2][2])
+                    # self.digitizing_feature_tool.setPoints(digitized_points_sequence)
+                    # ***********************
+
+
 
                 ## Eliminar los canvas de las imágenes que ya no intervienen y añadir los nuevos
                 for image_key in self.list_qgsmapcavansses_dic.keys():

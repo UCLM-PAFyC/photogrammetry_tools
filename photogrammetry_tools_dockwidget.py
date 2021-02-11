@@ -23,7 +23,7 @@
 """
 
 import os
-import sys,os
+import sys, os
 import logging
 from osgeo import osr
 from decimal import Decimal
@@ -42,7 +42,7 @@ from qgis.core import QgsApplication, QgsDataSourceUri, QgsProject
 # # from processListEditionDialog.process_list_edition_dialog import *
 # import PTDefinitions
 
-from .multipleFileSelectorDialog.multiple_file_selector_dialog import * #panel nueva camara
+from .multipleFileSelectorDialog.multiple_file_selector_dialog import *  # panel nueva camara
 # import MMTDefinitions
 from . import PTDefinitions
 #  dhl
@@ -53,8 +53,8 @@ from math import floor
 import re
 
 from PyQt5 import QtGui, QtWidgets, uic
-from PyQt5.QtCore import pyqtSignal,QSettings
-from PyQt5.QtWidgets import QTextEdit,QPushButton,QVBoxLayout
+from PyQt5.QtCore import pyqtSignal, QSettings
+from PyQt5.QtWidgets import QTextEdit, QPushButton, QVBoxLayout
 
 from .ui.ui_phtools_images_widget import PhToolsQImagesWidget
 from PyQt5 import QtGui, QtWidgets, uic
@@ -68,9 +68,34 @@ FORM_CLASS, _ = uic.loadUiType(os.path.join(
 
 
 class QgsPhToolEditVertex(QgsMapToolEmitPoint):
+    deleteKeyPressSignal = pyqtSignal()
     def __init__(self, canvas):
         self.canvas = canvas
         super(QgsMapToolEmitPoint, self).__init__(self.canvas)
+
+    # def activate(self):
+    #     self.canvas.keyReleased.connect(self.keyReleaseEvent)
+    #     self.canvas.keyPressed.connect(self.keyReleaseEvent)
+
+    # def activate(self):
+    #     self.canvas.keyPressed.connect(self.keyPressEvent)
+    #     self.canvas.keyReleased.connect(self.keyPressEvent)
+    #     super(QgsMapToolEmitPoint, self).activate()
+    #
+    def keyPressEvent(self, e):
+        if e.key() == Qt.Key_Delete:
+            e.accept()
+        else:
+            e.ignore()
+
+    def keyReleaseEvent(self, e):
+        if e.key() == Qt.Key_Delete:
+            e.accept()
+            self.deleteKeyPressSignal.emit()
+        else:
+            e.ignore()
+
+
 
 
 
@@ -81,6 +106,8 @@ class QgsPhToolDigitizeFeature(QgsMapToolDigitizeFeature):
         self.canvas = canvas
         self.cdw = cdw
         super(QgsPhToolDigitizeFeature, self).__init__(self.canvas, self.cdw)
+        self.setAutoSnapEnabled(True)
+        self.digitized_points_z = []
         # self.canvasPressSignal.connect(self.onCanvasPressSignal)
 
     # def canvasPressEvent(self, e: QgsMapMouseEvent):
@@ -105,7 +132,12 @@ class QgsPhToolDigitizeFeature(QgsMapToolDigitizeFeature):
         #     feature_count = layer.featureCount()
         #     features = layer.getFeatures()
         #     pass
+        if e.button() == Qt.LeftButton and not self.mode() == 1:
+            if self.size() == 1:
+                self.digitized_points_z = []
+            self.digitized_points_z.append(0.0)
         self.canvasPressSignal.emit(e)
+
 
 class QgsPhToolPan(QgsMapToolPan):
     canvasPressSignal = pyqtSignal(QgsPointXY)
@@ -114,8 +146,8 @@ class QgsPhToolPan(QgsMapToolPan):
         self.canvas = canvas
         super(QgsMapToolPan, self).__init__(self.canvas)
 
-class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
 
+class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
     closingPlugin = pyqtSignal()
 
     def __init__(self,
@@ -178,7 +210,7 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
             msgBox = QMessageBox(self)
             msgBox.setIcon(QMessageBox.Information)
             msgBox.setWindowTitle(self.windowTitle)
-            msgBox.setText("Error:\n"+ret[1])
+            msgBox.setText("Error:\n" + ret[1])
             msgBox.exec_()
         else:
             msgBox = QMessageBox(self)
@@ -191,7 +223,7 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
             msgBox = QMessageBox(self)
             msgBox.setIcon(QMessageBox.Information)
             msgBox.setWindowTitle(self.windowTitle)
-            msgBox.setText("Error:\n"+ret[1])
+            msgBox.setText("Error:\n" + ret[1])
             msgBox.exec_()
             self.projectsComboBox.setCurrentIndex(0)
             return
@@ -271,7 +303,7 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
             msgBox = QMessageBox(self)
             msgBox.setIcon(QMessageBox.Information)
             msgBox.setWindowTitle(self.windowTitle)
-            msgBox.setText("Error:\n"+ret[1])
+            msgBox.setText("Error:\n" + ret[1])
             msgBox.exec_()
         else:
             msgBox = QMessageBox(self)
@@ -284,7 +316,7 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
             msgBox = QMessageBox(self)
             msgBox.setIcon(QMessageBox.Information)
             msgBox.setWindowTitle(self.windowTitle)
-            msgBox.setText("Error:\n"+ret[1])
+            msgBox.setText("Error:\n" + ret[1])
             msgBox.exec_()
             self.projectsComboBox.setCurrentIndex(0)
             return
@@ -325,7 +357,7 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
             msgBox = QMessageBox(self)
             msgBox.setIcon(QMessageBox.Information)
             msgBox.setWindowTitle(self.windowTitle)
-            msgBox.setText("Error:\n"+ret[1])
+            msgBox.setText("Error:\n" + ret[1])
             msgBox.exec_()
         else:
             msgBox = QMessageBox(self)
@@ -346,7 +378,7 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         self.closeProjectPushButton.setEnabled(False)
         # delete project in ram??
         root = QgsProject.instance().layerTreeRoot()
-        self.removeGroup(root,self.layerTreeProjectName)
+        self.removeGroup(root, self.layerTreeProjectName)
         self.dbFileName = None
         self.layerTreeProjectName = None
         self.layerTreeProject = None
@@ -386,7 +418,7 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
             msgBox.setText("Selected CRS is not EPSG")
             msgBox.exec_()
             return
-        crsEpsgCode = int(crsAuthId.replace('EPSG:',''))
+        crsEpsgCode = int(crsAuthId.replace('EPSG:', ''))
         crsOsr = osr.SpatialReference()  # define test1
         if crsOsr.ImportFromEPSG(crsEpsgCode) != 0:
             msgBox = QMessageBox(self)
@@ -422,7 +454,7 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
             cont = cont + 1
         ret = self.iPyProject.ptCreateProject(dbFileName,
                                               projectType,
-                                              strGridSize,  #gridSize,
+                                              strGridSize,  # gridSize,
                                               crsEpsgCode,
                                               altitudeIsMsl,
                                               strRoisShapefiles)
@@ -430,7 +462,7 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
             msgBox = QMessageBox(self)
             msgBox.setIcon(QMessageBox.Information)
             msgBox.setWindowTitle(self.windowTitle)
-            msgBox.setText("Error:\n"+ret[1])
+            msgBox.setText("Error:\n" + ret[1])
             msgBox.exec_()
             return
         connectionName = QFileInfo(dbFileName).fileName()
@@ -473,7 +505,7 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         list_str_keys = settings.allKeys()
         paths = []
         for key in list_str_keys:
-            if key!= 'selected':
+            if key != 'selected':
                 paths.append(settings.value(key))
         ret = self.iPyProject.getPhotogrammetrySpatialiteDbs(paths)
         if ret[0] == "False":
@@ -529,7 +561,7 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         self.path = self.settings.value("last_path")
         if not self.path:
             self.path = QDir.currentPath()
-            self.settings.setValue("last_path",self.path)
+            self.settings.setValue("last_path", self.path)
             self.settings.sync()
 
         self.projectManagerTemporalPath = self.settings.value("project_management_temporal_path")
@@ -568,7 +600,7 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         self.imageFilesFileTypes.append(PTDefinitions.CONST_DOCUMENTS_TYPE_TIFF)
         # self.pointCloudFilesFileTypes.append(PCTDefinitions.CONST_DOCUMENTS_TYPE_LAZFILE)
         self.imageFilesActiveFileExtensions = self.imageFilesFileTypes
-        self.numberOfImagesInProject=0
+        self.numberOfImagesInProject = 0
 
         spatialiteConnections = qs.value("SpatiaLite/connections")
         # self.iPyProject=IPyPCTProject()
@@ -578,7 +610,7 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
             msgBox = QMessageBox(self)
             msgBox.setIcon(QMessageBox.Information)
             msgBox.setWindowTitle(self.windowTitle)
-            msgBox.setText("Error:\n"+ret[1])
+            msgBox.setText("Error:\n" + ret[1])
             msgBox.exec_()
             return
         ret = self.iPyProject.ptSetProjectManagerTemporalPath(self.projectManagerTemporalPath)
@@ -614,7 +646,6 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         # self.photogrammetryToolBox.currentChanged.connect(self.onModelManagementToolBoxChanged)
         self.processingToolsPage.setEnabled(False)
 
-
         ###################################################
         # Project Management Page
         ###################################################
@@ -649,9 +680,9 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         # DbFile
         self.databasePushButton.clicked.connect(self.selectNewDatabase)
 
-        self.projectManagementTabWidget.setTabEnabled(0,True)
-        self.projectManagementTabWidget.setTabEnabled(1,False)
-        self.projectManagementTabWidget.setTabEnabled(2,False)
+        self.projectManagementTabWidget.setTabEnabled(0, True)
+        self.projectManagementTabWidget.setTabEnabled(1, False)
+        self.projectManagementTabWidget.setTabEnabled(2, False)
         self.projectManagementTabWidget.setCurrentIndex(0)
         self.openProjectPushButton.setEnabled(False)
         self.closeProjectPushButton.setEnabled(False)
@@ -760,7 +791,7 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         # Photogrammetric vertex edition tool
         ###################################################
         self.action_edit_vertex = QAction(QIcon(":/plugins/photogrammetry_tools/icons/mActionToggleEditing.svg"),
-                                               "Edit")
+                                          "Edit")
         self.action_edit_vertex.setCheckable(True)
         self.action_edit_vertex.triggered.connect(self.edit_vertex)
         self.digitizing_toolbar.addAction(self.action_edit_vertex)
@@ -768,6 +799,7 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         self.tool_edit_vertex.setAction(self.action_edit_vertex)
         self.tool_edit_vertex.canvasClicked.connect(self.onEditVertexClicked)
         self.tool_edit_vertex.deactivated.connect(self.onEditVertexToolDeactivate)
+        self.tool_edit_vertex.deleteKeyPressSignal.connect(self.onDeleteKeyPressed)
         ######################################################################
 
     def __setlayerproperties(self):
@@ -820,7 +852,7 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
             if vlayer.isValid():
                 # if vlayer.featureCount() == 0:
                 #     return
-                QgsProject.instance().addMapLayer(vlayer,False)
+                QgsProject.instance().addMapLayer(vlayer, False)
                 self.layerTreeProject.insertChildNode(1, QgsLayerTreeLayer(vlayer))
                 vlayer.loadNamedStyle(self.qmlImagesPcFileName)
                 vlayer.triggerRepaint()
@@ -831,7 +863,7 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
                 msgBox.setIcon(QMessageBox.Information)
                 msgBox.setWindowTitle(self.windowTitle)
                 msgBox.setText("Impossible to Load table: " + imagesPcTableName
-                                   +" into QGIS")
+                               + " into QGIS")
                 msgBox.exec_()
 
     def loadROIsLayer(self):
@@ -849,7 +881,7 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
             if vlayer.isValid():
                 # if vlayer.featureCount() == 0:
                 #     return
-                QgsProject.instance().addMapLayer(vlayer,False)
+                QgsProject.instance().addMapLayer(vlayer, False)
                 self.layerTreeProject.insertChildNode(1, QgsLayerTreeLayer(vlayer))
                 vlayer.loadNamedStyle(self.qmlRoisFileName)
                 vlayer.triggerRepaint()
@@ -860,7 +892,7 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
                 msgBox.setIcon(QMessageBox.Information)
                 msgBox.setWindowTitle(self.windowTitle)
                 msgBox.setText("Impossible to Load table: " + roisTableName
-                                   +" into QGIS")
+                               + " into QGIS")
                 msgBox.exec_()
 
     def onChangeToolBox(self):
@@ -882,7 +914,7 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
             msgBox = QMessageBox(self)
             msgBox.setIcon(QMessageBox.Information)
             msgBox.setWindowTitle(self.windowTitle)
-            msgBox.setText("Error:\n"+ret[1])
+            msgBox.setText("Error:\n" + ret[1])
             msgBox.exec_()
             self.projectsComboBox.setCurrentIndex(0)
             return
@@ -918,7 +950,7 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
             msgBox = QMessageBox(self)
             msgBox.setIcon(QMessageBox.Information)
             msgBox.setWindowTitle(self.windowTitle)
-            msgBox.setText("Error:\n"+ret[1])
+            msgBox.setText("Error:\n" + ret[1])
             msgBox.exec_()
             self.projectsComboBox.setCurrentIndex(0)
             return
@@ -932,7 +964,7 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
             msgBox = QMessageBox(self)
             msgBox.setIcon(QMessageBox.Information)
             msgBox.setWindowTitle(self.windowTitle)
-            msgBox.setText("Error:\n"+ret[1])
+            msgBox.setText("Error:\n" + ret[1])
             msgBox.exec_()
             self.projectsComboBox.setCurrentIndex(0)
             return
@@ -968,7 +1000,7 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
                 msgBox = QMessageBox(self)
                 msgBox.setIcon(QMessageBox.Information)
                 msgBox.setWindowTitle(self.windowTitle)
-                msgBox.setText("Error:\n"+ret[1])
+                msgBox.setText("Error:\n" + ret[1])
                 msgBox.exec_()
                 self.projectsComboBox.setCurrentIndex(0)
                 return
@@ -989,7 +1021,7 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
                 msgBox = QMessageBox(self)
                 msgBox.setIcon(QMessageBox.Information)
                 msgBox.setWindowTitle(self.windowTitle)
-                msgBox.setText("Error:\n"+ret[1])
+                msgBox.setText("Error:\n" + ret[1])
                 msgBox.exec_()
                 self.projectsComboBox.setCurrentIndex(0)
                 return
@@ -1002,7 +1034,7 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
                 msgBox = QMessageBox(self)
                 msgBox.setIcon(QMessageBox.Information)
                 msgBox.setWindowTitle(self.windowTitle)
-                msgBox.setText("Error:\n"+ret[1])
+                msgBox.setText("Error:\n" + ret[1])
                 msgBox.exec_()
                 self.projectsComboBox.setCurrentIndex(0)
                 return
@@ -1044,7 +1076,7 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
             msgBox = QMessageBox(self)
             msgBox.setIcon(QMessageBox.Information)
             msgBox.setWindowTitle(self.windowTitle)
-            msgBox.setText("Error:\n"+ret[1])
+            msgBox.setText("Error:\n" + ret[1])
             msgBox.exec_()
             return
         return
@@ -1086,7 +1118,7 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
             msgBox.setText("Selected CRS is not EPSG")
             msgBox.exec_()
             return
-        crsEpsgCode = int(crsAuthId.replace('EPSG:',''))
+        crsEpsgCode = int(crsAuthId.replace('EPSG:', ''))
         # crsOsr = osr.SpatialReference()  # define test1
         # if crsOsr.ImportFromEPSG(crsEpsgCode) != 0:
         #     msgBox = QMessageBox(self)
@@ -1112,7 +1144,7 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
             msgBox = QMessageBox(self)
             msgBox.setIcon(QMessageBox.Information)
             msgBox.setWindowTitle(self.windowTitle)
-            msgBox.setText("Error:\n"+ret[1])
+            msgBox.setText("Error:\n" + ret[1])
             msgBox.exec_()
             return
         projectedImages = ret[1]
@@ -1130,12 +1162,12 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         msgBox = QMessageBox(self)
         msgBox.setIcon(QMessageBox.Information)
         msgBox.setWindowTitle(self.windowTitle)
-        msgBox.setText("Projected images from object Point:\n"+text)
+        msgBox.setText("Projected images from object Point:\n" + text)
         msgBox.exec_()
 
         # Ejemplo de llamada a partir de la medicion en una imagen
         measurements = {}
-        measurements["DSC05749.JPG"] = [2892.0,1951.0]
+        measurements["DSC05749.JPG"] = [2892.0, 1951.0]
         ret = self.iPyProject.ptGetObjectPointProjectedImagesFromMeasuredImages(connectionPath,
                                                                                 chunk,
                                                                                 useDsm,
@@ -1144,7 +1176,7 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
             msgBox = QMessageBox(self)
             msgBox.setIcon(QMessageBox.Information)
             msgBox.setWindowTitle(self.windowTitle)
-            msgBox.setText("Error:\n"+ret[1])
+            msgBox.setText("Error:\n" + ret[1])
             msgBox.exec_()
             return
         objectPoint = ret[1]
@@ -1163,7 +1195,7 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         msgBox = QMessageBox(self)
         msgBox.setIcon(QMessageBox.Information)
         msgBox.setWindowTitle(self.windowTitle)
-        msgBox.setText("Object Point from measured images:\n"+text)
+        msgBox.setText("Object Point from measured images:\n" + text)
         msgBox.exec_()
 
         return
@@ -1196,9 +1228,9 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
             oldFileName = self.metashapeFileLineEdit.text()
             self.metashapeChunkComboBox.clear()
             self.metashapeChunkComboBox.setEnabled(False)
-        title="Select Metashape Markers XML file (.xml)"
-        filters="XML files (*.xml)"
-        fileName, _ = QFileDialog.getOpenFileName(self,title,self.path,filters)
+        title = "Select Metashape Markers XML file (.xml)"
+        filters = "XML files (*.xml)"
+        fileName, _ = QFileDialog.getOpenFileName(self, title, self.path, filters)
         if fileName:
             fileInfo = QFileInfo(fileName)
             self.path = fileInfo.absolutePath()
@@ -1230,10 +1262,10 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         return
 
     def selectNewDatabase(self):
-        oldFileName=self.databaseLineEdit.text()
-        title="Select New Project File (.sqlite)"
-        filters="Project Files (*.sqlite)"
-        fileName, _ = QFileDialog.getSaveFileName(self,title,self.path,filters)
+        oldFileName = self.databaseLineEdit.text()
+        title = "Select New Project File (.sqlite)"
+        filters = "Project Files (*.sqlite)"
+        fileName, _ = QFileDialog.getSaveFileName(self, title, self.path, filters)
         if fileName:
             fileInfo = QFileInfo(fileName)
             self.path = fileInfo.absolutePath()
@@ -1242,7 +1274,7 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
             self.settings.sync()
         return
 
-    def removeGroup(self,root,name):
+    def removeGroup(self, root, name):
         # root = QgsProject.instance().layerTreeRoot()
         group = root.findGroup(name)
         if not group is None:
@@ -1253,18 +1285,18 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
             root.removeChildNode(group)
 
     def selectImages(self):
-        previousFiles = self.imageFiles[:] # copia desligada
+        previousFiles = self.imageFiles[:]  # copia desligada
         dlg = MultipleFileSelectorDialog(self.iface,
                                          self.path,
                                          PTDefinitions.CONST_SELECT_IMAGES_FILES_DIALOG_TITLE,
                                          self.imageFilesFileTypes,
                                          self.imageFiles,
                                          self.imageFilesActiveFileExtensions)
-        dlg.show() # show the dialog
-        result = dlg.exec_() # Run the dialog
+        dlg.show()  # show the dialog
+        result = dlg.exec_()  # Run the dialog
         self.path = dlg.getPath()
-        self.settings.setValue("last_path",self.path)
-        files = dlg.getFiles() # los hay repetidos
+        self.settings.setValue("last_path", self.path)
+        files = dlg.getFiles()  # los hay repetidos
         self.imageFiles = []
         if self.projectType == PTDefinitions.CONST_PROJECT_TYPE_METASHAPE:
             self.numberOfImagesMpLineEdit.setText("0")
@@ -1307,7 +1339,7 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
             msgBox = QMessageBox(self)
             msgBox.setIcon(QMessageBox.Information)
             msgBox.setWindowTitle(self.windowTitle)
-            msgBox.setText("Error:\n"+ret[1])
+            msgBox.setText("Error:\n" + ret[1])
             msgBox.exec_()
             return
         return
@@ -1340,12 +1372,12 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         # pointCloudSpatialiteDbFileName = self.pointCloudConnectionsInProject[selectedPointCloudConnectionInProject]
         # ret = self.iPyProject.mmtProcessPointCloudCommand(dbFileName,command,pointCloudSpatialiteDbFileName)
         initialDateTime = QDateTime.currentDateTime()
-        ret = self.iPyProject.ptProcessProcessingToolsCommand(dbFileName,command)
+        ret = self.iPyProject.ptProcessProcessingToolsCommand(dbFileName, command)
         if ret[0] == "False":
             msgBox = QMessageBox(self)
             msgBox.setIcon(QMessageBox.Information)
             msgBox.setWindowTitle(self.windowTitle)
-            msgBox.setText("Error:\n"+ret[1])
+            msgBox.setText("Error:\n" + ret[1])
             msgBox.exec_()
             return
         else:
@@ -1355,7 +1387,8 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
             totalDurationSeconds = finalSeconds - initialSeconds
             durationDays = floor(totalDurationSeconds / 60.0 / 60.0 / 24.0)
             durationHours = floor((totalDurationSeconds - durationDays * 60.0 * 60.0 * 24.0) / 60.0 / 60.0)
-            durationMinutes = floor((totalDurationSeconds - durationDays * 60.0 * 60.0 * 24.0 - durationHours * 60.0 * 60.0) / 60.0)
+            durationMinutes = floor(
+                (totalDurationSeconds - durationDays * 60.0 * 60.0 * 24.0 - durationHours * 60.0 * 60.0) / 60.0)
             durationSeconds = totalDurationSeconds - durationDays * 60.0 * 60.0 * 24.0 - durationHours * 60.0 * 60.0 - durationMinutes * 60.0
             msgTtime = "- Process time:\n"
             msgTtime += "  - Start time of the process ......................: "
@@ -1365,19 +1398,19 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
             msgTtime += finalDateTime.toString("yyyy/MM/dd - hh/mm/ss.zzz")
             msgTtime += "\n"
             msgTtime += "  - Number of total seconds ........................: "
-            msgTtime += f"{totalDurationSeconds:.3f}" # QString.number(totalDurationSeconds, 'f', 3)
+            msgTtime += f"{totalDurationSeconds:.3f}"  # QString.number(totalDurationSeconds, 'f', 3)
             msgTtime += "\n"
             msgTtime += "    - Number of days ...............................: "
-            msgTtime += str(durationDays) # QString.number(durationDays)
+            msgTtime += str(durationDays)  # QString.number(durationDays)
             msgTtime += "\n"
             msgTtime += "    - Number of hours ..............................: "
-            msgTtime += str(durationHours) # QString.number(durationHours)
+            msgTtime += str(durationHours)  # QString.number(durationHours)
             msgTtime += "\n"
             msgTtime += "    - Number of minutes ............................: "
-            msgTtime += str(durationMinutes) # QString.number(durationMinutes)
+            msgTtime += str(durationMinutes)  # QString.number(durationMinutes)
             msgTtime += "\n"
             msgTtime += "    - Number of seconds ............................: "
-            msgTtime += f"{durationSeconds:.3f}" # QString.number(durationSeconds, 'f', 3)
+            msgTtime += f"{durationSeconds:.3f}"  # QString.number(durationSeconds, 'f', 3)
             msgTtime += "\n"
             msg = "Process completed successfully"
             msg += "\n"
@@ -1432,7 +1465,7 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         return
 
     def selectProjectManagerTemporalPath(self):
-        strDir = QFileDialog.getExistingDirectory(self,"Select directory", self.projectManagerTemporalPath,
+        strDir = QFileDialog.getExistingDirectory(self, "Select directory", self.projectManagerTemporalPath,
                                                   QFileDialog.ShowDirsOnly | QFileDialog.DontResolveSymlinks)
         if strDir:
             ret = self.iPyProject.ptSetProjectManagerTemporalPath(self.projectManagerTemporalPath)
@@ -1465,7 +1498,7 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
             msgBox = QMessageBox(self)
             msgBox.setIcon(QMessageBox.Information)
             msgBox.setWindowTitle(self.windowTitle)
-            msgBox.setText("Error:\n"+ret[1])
+            msgBox.setText("Error:\n" + ret[1])
             msgBox.exec_()
         return
 
@@ -1479,18 +1512,18 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         return
 
     def selectRois(self):
-        previousFiles = self.roisShapefiles[:] # copia desligada
+        previousFiles = self.roisShapefiles[:]  # copia desligada
         dlg = MultipleFileSelectorDialog(self.iface,
                                          self.path,
                                          PTDefinitions.CONST_SELECT_ROIS_SHAPEFILES_DIALOG_TITLE,
                                          self.roisFileTypes,
                                          self.roisShapefiles,
                                          self.roisFilesActiveFileExtensions)
-        dlg.show() # show the dialog
-        result = dlg.exec_() # Run the dialog
+        dlg.show()  # show the dialog
+        result = dlg.exec_()  # Run the dialog
         self.path = dlg.getPath()
-        self.settings.setValue("last_path",self.path)
-        files = dlg.getFiles() # los hay repetidos
+        self.settings.setValue("last_path", self.path)
+        files = dlg.getFiles()  # los hay repetidos
         self.roisShapefiles = []
         self.numberOfRoisLineEdit.setText("0")
         for file in files:
@@ -1507,18 +1540,18 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         return
 
     def selectUndistortedImages(self):
-        previousFiles = self.undistortedImageFiles[:] # copia desligada
+        previousFiles = self.undistortedImageFiles[:]  # copia desligada
         dlg = MultipleFileSelectorDialog(self.iface,
                                          self.path,
                                          PTDefinitions.CONST_SELECT_IMAGES_FILES_DIALOG_TITLE,
                                          self.imageFilesFileTypes,
                                          self.undistortedImageFiles,
                                          self.imageFilesActiveFileExtensions)
-        dlg.show() # show the dialog
-        result = dlg.exec_() # Run the dialog
+        dlg.show()  # show the dialog
+        result = dlg.exec_()  # Run the dialog
         self.path = dlg.getPath()
-        self.settings.setValue("last_path",self.path)
-        files = dlg.getFiles() # los hay repetidos
+        self.settings.setValue("last_path", self.path)
+        files = dlg.getFiles()  # los hay repetidos
         self.undistortedImageFiles = []
         if self.projectType == PTDefinitions.CONST_PROJECT_TYPE_METASHAPE:
             self.numberOfUndistortedImagesMpLineEdit.setText("0")
@@ -1662,10 +1695,29 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
 
     def ondigitizingCompleted(self, feature):
         layer = self.iface.activeLayer()
-        layer.addFeature(feature)
-        if self.tool_digitize_feature.mode() == 1:  # CapturePoint
+
+        if not self.tool_digitize_feature.mode() == 1:  # Not CapturePoint
+            import pydevd_pycharm
+            pydevd_pycharm.settrace('localhost', port=54100, stdoutToServer=True, stderrToServer=True)
+            digitized_points_z = self.tool_digitize_feature.digitized_points_z
+            index = 0
+            geometry = feature.geometry()
+            geometry3d = geometry.coerceToType(QgsWkbTypes.PolygonZ)
+            for z in digitized_points_z:
+                vertex_point = geometry.vertexAt(index)
+                point3d = QgsPoint(vertex_point.x(), vertex_point.y(), z)
+                geometry.moveVertex(point3d, index)
+                index = index + 1
+            if len(digitized_points_z):
+                feature.setGeometry(geometry)
+            layer.addFeature(feature)
+            geometry = feature.geometry()
+            pass
+
+        else:
+            layer.addFeature(feature)
             # if self.selectedFeature:
-                # layer.deselect(self.selectedFeature.id())
+            # layer.deselect(self.selectedFeature.id())
             self.selectedFeature = feature
             # layer.select(feature.id())
 
@@ -1677,13 +1729,15 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
                 self.highLighter.createHighlight(coords, 0, self.featureCrsId)
                 self.highLighter.changeCurrentVertex(0)
 
+
     def onNewVertexCoordinates(self, point):
         # import pydevd_pycharm
         # pydevd_pycharm.settrace('localhost', port=54100, stdoutToServer=True, stderrToServer=True)
-        #TODO: Not only points....
+        # TODO: Not only points....
         if self.selectedFeature:
             if self.tool_digitize_feature.mode() == 1:  # CapturePoint
-                self.selectedFeature.setGeometry(QgsPoint(point))
+                # self.selectedFeature.setGeometry(QgsPoint(point))
+                self.selectedFeature.setGeometry(point)
                 self.iface.activeLayer().updateFeature(self.selectedFeature)
                 self.canvas.refresh()
 
@@ -1696,10 +1750,11 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
                     self.highLighter.createHighlight(coords, 0, self.featureCrsId)
                     self.highLighter.changeCurrentVertex(0)
             else:
-                # import pydevd_pycharm
-                # pydevd_pycharm.settrace('localhost', port=54100, stdoutToServer=True, stderrToServer=True)
+                import pydevd_pycharm
+                pydevd_pycharm.settrace('localhost', port=54100, stdoutToServer=True, stderrToServer=True)
                 geometry = self.selectedFeature.geometry()
-                geometry.moveVertex(point.x(), point.y(), self.selected_vertex)
+                # geometry.moveVertex(point.x(), point.y(), self.selected_vertex)
+                geometry.moveVertex(point, self.selected_vertex)
                 self.selectedFeature.setGeometry(geometry)
                 layer = self.iface.activeLayer()
                 layer.beginEditCommand("Feature updated")
@@ -1718,17 +1773,34 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
                     self.highLighter.createHighlight(coords, 0, self.featureCrsId)
                     self.highLighter.changeCurrentVertex(self.selected_vertex)
 
+    def onDeleteKeyPressed(self):
+        if self.highLighter and self.selectedFeature and self.selected_vertex >= 0:
+            geometry = self.selectedFeature.geometry()
+            geometry.deleteVertex(self.selected_vertex)
+            self.selectedFeature.setGeometry(geometry)
+            layer = self.iface.activeLayer()
+            layer.beginEditCommand("Feature updated")
+            layer.updateFeature(self.selectedFeature)
+            layer.endEditCommand()
+            self.canvas.refresh()
+            self.highLighter.removeHighlight()
+
 
     def onDigitizeToolDeactivate(self):
         if self.highLighter:
             self.highLighter.removeHighlight()
+            self.selectedFeature = None
             # self.highLighter.changeCurrentVertex(-1)
 
     def onEditVertexToolDeactivate(self):
         if self.highLighter:
             self.highLighter.removeHighlight()
+            self.selectedFeature = None
+
 
     def onCanvasPressSignal(self, mouse_event):
+        # import pydevd_pycharm
+        # pydevd_pycharm.settrace('localhost', port=54100, stdoutToServer=True, stderrToServer=True)
         if mouse_event.button() == Qt.RightButton:
             pass
             # ret = self.iPyProject.ptGetProjectedImagesFromObjectPoint(connectionPath,
@@ -1744,7 +1816,6 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
             self.loadPhMeasureCanvas(mouse_event.mapPoint())
 
         mouse_event.accept()
-
 
     def loadPhMeasureCanvas(self, point):
         crs = QgsProject.instance().crs()
@@ -1785,14 +1856,13 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
 
             self.openDigitizngUI(point_id, projected_images)
 
-
     def onEditVertexClicked(self, point):
         # import pydevd_pycharm
         # pydevd_pycharm.settrace('localhost', port=54100, stdoutToServer=True, stderrToServer=True)
-        current_layer = self.canvas.currentLayer()  
+        current_layer = self.canvas.currentLayer()
         if current_layer.isEditable():
-            #TODO: Snap de selección es fijo, buscar mejor estrategia (0.5m)
-            request_rect = QgsRectangle(point.x()-0.5, point.y()-0.5, point.x()+0.5, point.y()+0.5)
+            # TODO: Snap de selección es fijo, buscar mejor estrategia (0.5m)
+            request_rect = QgsRectangle(point.x() - 0.1, point.y() - 0.1, point.x() + 0.1, point.y() + 0.1)
             request = QgsFeatureRequest()
             request.setFilterRect(request_rect)
             request.setFlags(QgsFeatureRequest.ExactIntersect)
@@ -1809,7 +1879,7 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
                     self.selected_vertex = 0
                     current_vertex = 0
                     distance = point.distance(coords[0][1][0][0], coords[0][1][0][1])
-#
+                    #
                     self.selectedFeature = feature_list[0]
 
                     for partNum in range(len(coords)):
@@ -1825,6 +1895,8 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
             else:
                 if self.highLighter:
                     self.highLighter.removeHighlight()
+                    self.selectedFeature = None
+
 
     def onDebugTextGenerated(self, debug_str):
         self.debugTextEdit.append(debug_str)
