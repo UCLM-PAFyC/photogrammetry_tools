@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 """
 /***************************************************************************
  PhotogrammetyToolsDockWidget
@@ -124,8 +125,6 @@ class QgsPhToolDigitizeFeature(QgsMapToolDigitizeFeature):
 
     def canvasReleaseEvent(self, e: QgsMapMouseEvent):
         super().cadCanvasReleaseEvent(e)
-        # import pydevd_pycharm
-        # pydevd_pycharm.settrace('localhost', port=54100, stdoutToServer=True, stderrToServer=True)
         # if self.mode() == 1:  # CapturePoint
         #     points = self.points()
         #     layer = self.currentVectorLayer()
@@ -136,6 +135,7 @@ class QgsPhToolDigitizeFeature(QgsMapToolDigitizeFeature):
             if self.size() == 1:
                 self.digitized_points_z = []
             self.digitized_points_z.append(0.0)
+
         self.canvasPressSignal.emit(e)
 
 
@@ -1697,22 +1697,26 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         layer = self.iface.activeLayer()
 
         if not self.tool_digitize_feature.mode() == 1:  # Not CapturePoint
-            import pydevd_pycharm
-            pydevd_pycharm.settrace('localhost', port=54100, stdoutToServer=True, stderrToServer=True)
             digitized_points_z = self.tool_digitize_feature.digitized_points_z
-            index = 0
-            geometry = feature.geometry()
-            geometry3d = geometry.coerceToType(QgsWkbTypes.PolygonZ)
-            for z in digitized_points_z:
-                vertex_point = geometry.vertexAt(index)
-                point3d = QgsPoint(vertex_point.x(), vertex_point.y(), z)
-                geometry.moveVertex(point3d, index)
-                index = index + 1
             if len(digitized_points_z):
-                feature.setGeometry(geometry)
+                index = 0
+                geometry = feature.geometry()
+                if self.tool_digitize_feature.mode() == 2:
+                    geometry3d = geometry.coerceToType(QgsWkbTypes.LineStringZ)[0]
+                elif self.tool_digitize_feature.mode() == 3:
+                    geometry3d = geometry.coerceToType(QgsWkbTypes.PolygonZ)[0]
+                else:
+                    exit()
+
+                for z in digitized_points_z:
+                    vertex_point = geometry3d.vertexAt(index)
+                    point3d = QgsPoint(vertex_point.x(), vertex_point.y(), z)
+                    geometry3d.moveVertex(point3d, index)
+                    index = index + 1
+
+                    feature.setGeometry(geometry3d)
+
             layer.addFeature(feature)
-            geometry = feature.geometry()
-            pass
 
         else:
             layer.addFeature(feature)
@@ -1750,8 +1754,6 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
                     self.highLighter.createHighlight(coords, 0, self.featureCrsId)
                     self.highLighter.changeCurrentVertex(0)
             else:
-                import pydevd_pycharm
-                pydevd_pycharm.settrace('localhost', port=54100, stdoutToServer=True, stderrToServer=True)
                 geometry = self.selectedFeature.geometry()
                 # geometry.moveVertex(point.x(), point.y(), self.selected_vertex)
                 geometry.moveVertex(point, self.selected_vertex)
