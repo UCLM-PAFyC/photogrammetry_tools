@@ -368,10 +368,11 @@ class PhToolsQImagesWidget(QFrame,
                     self.newVertexCoords.emit(QgsPoint(ret[2][0], ret[2][1], ret[2][2]))
                 else:
                     points_count = self.digitizing_feature_tool.size()
-                    digitized_points = self.digitizing_feature_tool.points()
-                    digitized_points[points_count - 1] = QgsPointXY(ret[2][0], ret[2][1])
                     self.digitizing_feature_tool.digitized_points_z[points_count - 1] = ret[2][2]
-                    self.digitizing_feature_tool.setPoints(digitized_points)
+                    self.digitizing_feature_tool.undo()
+                    self.digitizing_feature_tool.addVertex(QgsPointXY(ret[2][0], ret[2][1]))
+
+
                     # Deprecated: setPoints
 
                     # Valido dedes QGIS 3.12:
@@ -380,8 +381,6 @@ class PhToolsQImagesWidget(QFrame,
                     # digitized_points_sequence[points_count - 1] = QgsPoint(ret[2][0], ret[2][1], ret[2][2])
                     # self.digitizing_feature_tool.setPoints(digitized_points_sequence)
                     # ***********************
-
-
 
                 ## Eliminar los canvas de las imágenes que ya no intervienen y añadir los nuevos
                 for image_key in self.list_qgsmapcavansses_dic.keys():

@@ -1702,58 +1702,61 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
 
     def ondigitizingCompleted(self, feature):
         layer = self.iface.activeLayer()
+        # import pydevd_pycharm
+        # pydevd_pycharm.settrace('localhost', port=54100, stdoutToServer=True, stderrToServer=True)
 
         if not self.tool_digitize_feature.mode() == 1:  # Not CapturePoint
             digitized_points_z = self.tool_digitize_feature.digitized_points_z
             if len(digitized_points_z):
                 index = 0
                 geometry = feature.geometry()
-                if self.tool_digitize_feature.mode() == 2:
-                    geometry3d = geometry.coerceToType(QgsWkbTypes.LineStringZ)[0]
-                elif self.tool_digitize_feature.mode() == 3:
-                    geometry3d = geometry.coerceToType(QgsWkbTypes.PolygonZ)[0]
+                # if self.tool_digitize_feature.mode() == 2:
+                #     geometry3d = geometry.coerceToType(QgsWkbTypes.LineStringZ)[0]
+                # elif self.tool_digitize_feature.mode() == 3:
+                #     geometry3d = geometry.coerceToType(QgsWkbTypes.PolygonZ)[0]
 
                 for z in digitized_points_z:
-                    vertex_point = geometry3d.vertexAt(index)
+                    vertex_point = geometry.vertexAt(index)
                     point3d = QgsPoint(vertex_point.x(), vertex_point.y(), z)
-                    geometry3d.moveVertex(point3d, index)
+                    geometry.moveVertex(point3d, index)
                     index = index + 1
 
-                    feature.setGeometry(geometry3d)
+                    feature.setGeometry(geometry)
         else:
             geometry = feature.geometry()
-            crs = QgsProject.instance().crs()
-            isValidCrs = crs.isValid()
-            crsAuthId = crs.authid()
-            if not "EPSG:" in crsAuthId:
-                msgBox = QMessageBox()
-                msgBox.setIcon(QMessageBox.Information)
-                msgBox.setWindowTitle("---")
-                msgBox.setText("Selected CRS is not EPSG")
-                msgBox.exec_()
-                return
-            crsEpsgCode = int(crsAuthId.replace('EPSG:', ''))
+            if 1000 <= geometry.wkbType() < 2000 or 3000 <= geometry.wkbType() < 4000: # 3D types
+                crs = QgsProject.instance().crs()
+                isValidCrs = crs.isValid()
+                crsAuthId = crs.authid()
+                if not "EPSG:" in crsAuthId:
+                    msgBox = QMessageBox()
+                    msgBox.setIcon(QMessageBox.Information)
+                    msgBox.setWindowTitle("---")
+                    msgBox.setText("Selected CRS is not EPSG")
+                    msgBox.exec_()
+                    return
+                crsEpsgCode = int(crsAuthId.replace('EPSG:', ''))
 
-            connectionFileName = self.projectsComboBox.currentText()
-            connectionPath = self.connections[connectionFileName]
+                connectionFileName = self.projectsComboBox.currentText()
+                connectionPath = self.connections[connectionFileName]
 
-            point_coordinates = []
-            point_coordinates.append(geometry.vertexAt(0).x())
-            point_coordinates.append(geometry.vertexAt(0).y())
-            point_list = [point_coordinates]
+                point_coordinates = []
+                point_coordinates.append(geometry.vertexAt(0).x())
+                point_coordinates.append(geometry.vertexAt(0).y())
+                point_list = [point_coordinates]
 
-            logging.warning('#')
-            logging.warning('i_py_project.ptGetPointsAltitudeDsm({},{},{},{})'.format(
-                connectionPath, 'chunk 1',
-                crsEpsgCode, point_list))
-            ret = self.iPyProject.ptGetPointsAltitudeDsm(connectionPath, 'chunk 1', crsEpsgCode, point_list)
-            logging.warning(str(ret))
-            if not (ret[0] == 'False'):
-                z = ret[1][0][2]
-                point3d = QgsPoint(geometry.vertexAt(0).x(), geometry.vertexAt(0).y(), z)
-                geometry3d = geometry.coerceToType(QgsWkbTypes.PointZ)[0]
-                geometry3d.moveVertex(point3d, 0)
-                feature.setGeometry(geometry3d)
+                logging.warning('#')
+                logging.warning('i_py_project.ptGetPointsAltitudeDsm({},{},{},{})'.format(
+                    connectionPath, 'chunk 1',
+                    crsEpsgCode, point_list))
+                ret = self.iPyProject.ptGetPointsAltitudeDsm(connectionPath, 'chunk 1', crsEpsgCode, point_list)
+                logging.warning(str(ret))
+                if not (ret[0] == 'False'):
+                    z = ret[1][0][2]
+                    point3d = QgsPoint(geometry.vertexAt(0).x(), geometry.vertexAt(0).y(), z)
+                    # geometry3d = geometry.coerceToType(QgsWkbTypes.PointZ)[0]
+                    geometry.moveVertex(point3d, 0)
+                    feature.setGeometry(geometry)
 
         layer.addFeature(feature)
 
@@ -1761,7 +1764,7 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
             # layer.addFeature(feature)
             # # if self.selectedFeature:
             # # layer.deselect(self.selectedFeature.id())
-            # self.selectedFeature = feature
+            self.selectedFeature = feature
             # # layer.select(feature.id())
 
             if self.highLighter:
@@ -1776,11 +1779,15 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
     def onNewVertexCoordinates(self, point):
         # import pydevd_pycharm
         # pydevd_pycharm.settrace('localhost', port=54100, stdoutToServer=True, stderrToServer=True)
-        # TODO: Not only points....
         if self.selectedFeature:
             if self.tool_digitize_feature.mode() == 1:  # CapturePoint
-                # self.selectedFeature.setGeometry(QgsPoint(point))
-                self.selectedFeature.setGeometry(point)
+                geometry = self.selectedFeature.geometry()
+                if 1000 <= geometry.wkbType() < 2000 or 3000 <= geometry.wkbType() < 4000:  # 3D types
+                    geometry_point = point
+                else:
+                    geometry_point = QgsPoint(QgsPointXY(point.x(), point.y()))
+
+                self.selectedFeature.setGeometry(geometry_point)
                 self.iface.activeLayer().updateFeature(self.selectedFeature)
                 self.canvas.refresh()
 
