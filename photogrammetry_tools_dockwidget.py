@@ -112,16 +112,21 @@ class QgsPhToolDigitizeFeature(QgsMapToolDigitizeFeature):
         # self.canvasPressSignal.connect(self.onCanvasPressSignal)
 
     # def canvasPressEvent(self, e: QgsMapMouseEvent):
-    #     # e.ignore()
-    #     # self.canvasPressSignal.emit(e)
-    #     # self.canvasPressSignal.emit(e.mapPoint())
-    #     if self.mode() == 1:  # CapturePoint
-    #         import pydevd_pycharm
-    #         pydevd_pycharm.settrace('localhost', port=54100, stdoutToServer=True, stderrToServer=True)
-    #         points = self.points()
-    #         layer = self.currentVectorLayer()
-    #         pass
-    #     pass
+    #     # super().cadCanvasReleaseEvent(e)
+    #     # if self.mode() == 1:  # CapturePoint
+    #     #     points = self.points()
+    #     #     layer = self.currentVectorLayer()
+    #     #     feature_count = layer.featureCount()
+    #     #     features = layer.getFeatures()
+    #     #     pass
+    #     # if e.button() == Qt.LeftButton and not self.mode() == 1:
+    #     if e.button() == Qt.LeftButton:
+    #         if self.size() <= 1:
+    #             self.digitized_points_z = []
+    #         # self.digitized_points_z.append(0.0)
+    #
+    #     self.canvasPressSignal.emit(e)
+
 
     def canvasReleaseEvent(self, e: QgsMapMouseEvent):
         super().cadCanvasReleaseEvent(e)
@@ -131,10 +136,11 @@ class QgsPhToolDigitizeFeature(QgsMapToolDigitizeFeature):
         #     feature_count = layer.featureCount()
         #     features = layer.getFeatures()
         #     pass
-        if e.button() == Qt.LeftButton and not self.mode() == 1:
-            if self.size() == 1:
+        # if e.button() == Qt.LeftButton and not self.mode() == 1:
+        if e.button() == Qt.LeftButton:
+            if self.size() <= 1:
                 self.digitized_points_z = []
-            self.digitized_points_z.append(0.0)
+            # self.digitized_points_z.append(0.0)
 
         self.canvasPressSignal.emit(e)
 
@@ -1596,6 +1602,7 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
 
     def digitize_feature(self):
         self.iface.mapCanvas().setMapTool(self.tool_digitize_feature)
+        self.toggle()
 
     def edit_vertex(self):
         self.iface.mapCanvas().setMapTool(self.tool_edit_vertex)
@@ -1705,8 +1712,6 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
                     geometry3d = geometry.coerceToType(QgsWkbTypes.LineStringZ)[0]
                 elif self.tool_digitize_feature.mode() == 3:
                     geometry3d = geometry.coerceToType(QgsWkbTypes.PolygonZ)[0]
-                else:
-                    exit()
 
                 for z in digitized_points_z:
                     vertex_point = geometry3d.vertexAt(index)
@@ -1715,15 +1720,49 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
                     index = index + 1
 
                     feature.setGeometry(geometry3d)
-
-            layer.addFeature(feature)
-
         else:
-            layer.addFeature(feature)
-            # if self.selectedFeature:
-            # layer.deselect(self.selectedFeature.id())
-            self.selectedFeature = feature
-            # layer.select(feature.id())
+            geometry = feature.geometry()
+            crs = QgsProject.instance().crs()
+            isValidCrs = crs.isValid()
+            crsAuthId = crs.authid()
+            if not "EPSG:" in crsAuthId:
+                msgBox = QMessageBox()
+                msgBox.setIcon(QMessageBox.Information)
+                msgBox.setWindowTitle("---")
+                msgBox.setText("Selected CRS is not EPSG")
+                msgBox.exec_()
+                return
+            crsEpsgCode = int(crsAuthId.replace('EPSG:', ''))
+
+            connectionFileName = self.projectsComboBox.currentText()
+            connectionPath = self.connections[connectionFileName]
+
+            point_coordinates = []
+            point_coordinates.append(geometry.vertexAt(0).x())
+            point_coordinates.append(geometry.vertexAt(0).y())
+            point_list = [point_coordinates]
+
+            logging.warning('#')
+            logging.warning('i_py_project.ptGetPointsAltitudeDsm({},{},{},{})'.format(
+                connectionPath, 'chunk 1',
+                crsEpsgCode, point_list))
+            ret = self.iPyProject.ptGetPointsAltitudeDsm(connectionPath, 'chunk 1', crsEpsgCode, point_list)
+            logging.warning(str(ret))
+            if not (ret[0] == 'False'):
+                z = ret[1][0][2]
+                point3d = QgsPoint(geometry.vertexAt(0).x(), geometry.vertexAt(0).y(), z)
+                geometry3d = geometry.coerceToType(QgsWkbTypes.PointZ)[0]
+                geometry3d.moveVertex(point3d, 0)
+                feature.setGeometry(geometry3d)
+
+        layer.addFeature(feature)
+
+        if self.tool_digitize_feature.mode() == 1:  # CapturePoint
+            # layer.addFeature(feature)
+            # # if self.selectedFeature:
+            # # layer.deselect(self.selectedFeature.id())
+            # self.selectedFeature = feature
+            # # layer.select(feature.id())
 
             if self.highLighter:
                 self.highLighter.removeHighlight()
@@ -1815,7 +1854,37 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
             #     self.openDigitizngUI(projected_images)
 
         elif mouse_event.button() == Qt.LeftButton:
-            self.loadPhMeasureCanvas(mouse_event.mapPoint())
+            layer = self.iface.activeLayer()
+            if self.tool_digitize_feature.mode() is not 1:
+                crs = QgsProject.instance().crs()
+                isValidCrs = crs.isValid()
+                crsAuthId = crs.authid()
+                if not "EPSG:" in crsAuthId:
+                    msgBox = QMessageBox()
+                    msgBox.setIcon(QMessageBox.Information)
+                    msgBox.setWindowTitle("---")
+                    msgBox.setText("Selected CRS is not EPSG")
+                    msgBox.exec_()
+                    return
+                crsEpsgCode = int(crsAuthId.replace('EPSG:', ''))
+
+                connectionFileName = self.projectsComboBox.currentText()
+                connectionPath = self.connections[connectionFileName]
+
+                point_coordinates = []
+                point_coordinates.append(mouse_event.mapPoint().x())
+                point_coordinates.append(mouse_event.mapPoint().y())
+                point_list = [point_coordinates]
+
+                logging.warning('#')
+                logging.warning('i_py_project.ptGetPointsAltitudeDsm({},{},{},{})'.format(
+                    connectionPath, 'chunk 1',
+                    crsEpsgCode, point_list))
+                ret = self.iPyProject.ptGetPointsAltitudeDsm(connectionPath, 'chunk 1', crsEpsgCode, point_list)
+                logging.warning(str(ret))
+                if not (ret[0] == 'False'):
+                    self.tool_digitize_feature.digitized_points_z.append(ret[1][0][2])
+                self.loadPhMeasureCanvas(mouse_event.mapPoint())
 
         mouse_event.accept()
 
