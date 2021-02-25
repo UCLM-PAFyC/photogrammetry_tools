@@ -807,6 +807,9 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         self.tool_edit_vertex.deactivated.connect(self.onEditVertexToolDeactivate)
         self.tool_edit_vertex.deleteKeyPressSignal.connect(self.onDeleteKeyPressed)
         ######################################################################
+        self.accuracyTextEdit.append('<!DOCTYPE html> <html> <head> <!-- head definitions go here --> </head> <body>'
+                                     ' <h1 style="background-color:DodgerBlue;">Hello World</h1> '
+                                     '<p style="background-color:Tomato;">Lorem ipsum...</p> </body> </html>')
 
     def __setlayerproperties(self):
         self.__layergeometryType = self.__layer.geometryType()
@@ -1614,6 +1617,7 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         :return: none
         """
         geom = feature.geometry()
+        geom_structure = None
         if self.__layergeometryType == QgsWkbTypes.PointGeometry:
             coords.append(['1', list()])
             if self.__isMultiType:
@@ -1658,12 +1662,16 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
                     coords[0][1].append(row)
 
         elif self.__layergeometryType == QgsWkbTypes.PolygonGeometry:
+            geom_structure = dict()
             # if self.__isMultiType:
             part_num = 0
             ring_num = 0
+            geom_structure_part_num = 0
             for part in geom.constParts():
+                geom_structure_ring_num = 0
                 ring = part.exteriorRing()
                 coords.append([str(part_num + 1), list()])
+                geom_structure[str(part_num + 1)] = [geom_structure_part_num, 0]
                 for vertex in ring.vertices():
                     row = list([vertex.x(), vertex.y()])
                     if self.__hasZ:
@@ -1682,8 +1690,10 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
 
                 intrings = part.numInteriorRings()
                 for i in range(intrings):
+                    geom_structure_ring_num = geom_structure_ring_num + 1
                     ring = part.interiorRing(i)
                     coords.append([str(-(ring_num + 1)), list()])
+                    geom_structure[str(-(ring_num + 1))] = [geom_structure_part_num, geom_structure_ring_num]
                     for vertex in ring.vertices():
                         row = list([vertex.x(), vertex.y()])
                         if self.__hasZ:
@@ -1699,6 +1709,8 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
                         del part_list[-1]
 
                     ring_num = ring_num + 1
+                geom_structure_part_num = geom_structure_part_num + 1
+        return geom_structure
 
     def ondigitizingCompleted(self, feature):
         layer = self.iface.activeLayer()
@@ -1777,8 +1789,6 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
 
 
     def onNewVertexCoordinates(self, point):
-        # import pydevd_pycharm
-        # pydevd_pycharm.settrace('localhost', port=54100, stdoutToServer=True, stderrToServer=True)
         if self.selectedFeature:
             if self.tool_digitize_feature.mode() == 1:  # CapturePoint
                 geometry = self.selectedFeature.geometry()
@@ -1802,7 +1812,12 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
             else:
                 geometry = self.selectedFeature.geometry()
                 # geometry.moveVertex(point.x(), point.y(), self.selected_vertex)
-                geometry.moveVertex(point, self.selected_vertex)
+                part_index = 0
+                for part in geometry.parts():
+                    if part_index == self.selected_part:
+                        part.moveVertex(QgsVertexId(part_index, self.selected_ring, self.selected_vertex), point)
+                    part_index = part_index + 1
+                # geometry.moveVertex(point, self.selected_vertex)
                 self.selectedFeature.setGeometry(geometry)
                 layer = self.iface.activeLayer()
                 layer.beginEditCommand("Feature updated")
@@ -1818,7 +1833,7 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
                     coords = list()
                     self.createCoords(coords, self.selectedFeature)
                     self.featureCrsId = layer.crs().srsid()
-                    self.highLighter.createHighlight(coords, 0, self.featureCrsId)
+                    self.highLighter.createHighlight(coords, self.highlight_selected_part, self.featureCrsId)
                     self.highLighter.changeCurrentVertex(self.selected_vertex)
 
     def onDeleteKeyPressed(self):
@@ -1948,26 +1963,33 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
             feature_list = list(current_layer.getFeatures(request))
             if len(feature_list):
                 coords = list()
-                self.createCoords(coords, feature_list[0])
+                geom_structure = self.createCoords(coords, feature_list[0])
                 if len(coords):
                     self.featureCrsId = current_layer.crs().srsid()
-                    if self.highLighter:
-                        self.highLighter.removeHighlight()
-                    self.highLighter.createHighlight(coords, 0, self.featureCrsId)
                     self.selected_vertex = 0
-                    current_vertex = 0
+                    self.selected_part = 0
+                    self.selected_ring = 0
                     distance = point.distance(coords[0][1][0][0], coords[0][1][0][1])
                     #
                     self.selectedFeature = feature_list[0]
 
+                    self.selected_part = 0
+                    self.highlight_selected_part = 0
                     for partNum in range(len(coords)):
                         partcoords = coords[partNum][1]
+                        current_vertex = 0
                         for coord in partcoords:
                             current_distance = point.distance(coord[0], coord[1])
                             if current_distance < distance:
                                 distance = current_distance
                                 self.selected_vertex = current_vertex
+                                self.highlight_selected_part = partNum
+                                self.selected_part = geom_structure[coords[partNum][0]][0]
+                                self.selected_ring = geom_structure[coords[partNum][0]][1]
                             current_vertex = current_vertex + 1
+                    if self.highLighter:
+                        self.highLighter.removeHighlight()
+                    self.highLighter.createHighlight(coords, self.highlight_selected_part, self.featureCrsId)
                     self.highLighter.changeCurrentVertex(self.selected_vertex)
                     self.loadPhMeasureCanvas(point)
             else:
