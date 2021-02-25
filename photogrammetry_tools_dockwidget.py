@@ -1970,6 +1970,7 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
                     self.selected_part = 0
                     self.selected_ring = 0
                     distance = point.distance(coords[0][1][0][0], coords[0][1][0][1])
+                    selected_point = QgsPointXY(coords[0][1][0][0], coords[0][1][0][1])
                     #
                     self.selectedFeature = feature_list[0]
 
@@ -1983,15 +1984,18 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
                             if current_distance < distance:
                                 distance = current_distance
                                 self.selected_vertex = current_vertex
-                                self.highlight_selected_part = partNum
-                                self.selected_part = geom_structure[coords[partNum][0]][0]
-                                self.selected_ring = geom_structure[coords[partNum][0]][1]
+                                if geom_structure:
+                                    self.highlight_selected_part = partNum
+                                    self.selected_part = geom_structure[coords[partNum][0]][0]
+                                    self.selected_ring = geom_structure[coords[partNum][0]][1]
+                                    selected_point = QgsPointXY(coord[0], coord[1])
                             current_vertex = current_vertex + 1
                     if self.highLighter:
                         self.highLighter.removeHighlight()
                     self.highLighter.createHighlight(coords, self.highlight_selected_part, self.featureCrsId)
                     self.highLighter.changeCurrentVertex(self.selected_vertex)
-                    self.loadPhMeasureCanvas(point)
+                    # self.loadPhMeasureCanvas(point)
+                    self.loadPhMeasureCanvas(selected_point)
             else:
                 if self.highLighter:
                     self.highLighter.removeHighlight()
