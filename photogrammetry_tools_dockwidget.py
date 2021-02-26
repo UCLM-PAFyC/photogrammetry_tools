@@ -83,6 +83,11 @@ class QgsPhToolEditVertex(QgsMapToolEmitPoint):
     #     self.canvas.keyReleased.connect(self.keyPressEvent)
     #     super(QgsMapToolEmitPoint, self).activate()
     #
+
+
+    def flags(self):
+        return self.EditTool
+
     def keyPressEvent(self, e):
         if e.key() == Qt.Key_Delete:
             e.accept()
@@ -394,6 +399,10 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         self.projectsComboBox.setCurrentIndex(0)
         self.iface.mapCanvas().refresh()
         # self.manualEditingProcessesPage.setEnabled(False)
+
+        self.action_digitize_feature.setEnabled(False)
+        self.action_edit_vertex.setEnabled(False)
+
         return
 
     def createProject(self):
@@ -811,6 +820,9 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
                                      ' <h1 style="background-color:DodgerBlue;">Hello World</h1> '
                                      '<p style="background-color:Tomato;">Lorem ipsum...</p> </body> </html>')
 
+        self.action_digitize_feature.setEnabled(False)
+        self.action_edit_vertex.setEnabled(False)
+
     def __setlayerproperties(self):
         self.__layergeometryType = self.__layer.geometryType()
         self.__layerwkbType = self.__layer.wkbType()
@@ -841,6 +853,10 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
                         self.__layer.editingStopped.disconnect(self.toggle)
                     except Exception:
                         pass
+
+            self.action_digitize_feature.setEnabled(self.__layer.isEditable() and self.closeProjectPushButton.isEnabled())
+            self.action_edit_vertex.setEnabled(self.__layer.isEditable() and self.closeProjectPushButton.isEnabled())
+
 
     def loadImagesPcLayer(self):
         imagesPcTableName = None
@@ -1051,6 +1067,13 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
             if self.existsOrientations:
                 self.processingToolsPage.setEnabled(True)
             return
+
+        if self.iface.activeLayer():
+            self.action_digitize_feature.setEnabled(self.iface.activeLayer().isEditable())
+            self.action_edit_vertex.setEnabled(self.iface.activeLayer().isEditable())
+        else:
+            self.action_digitize_feature.setEnabled(False)
+            self.action_edit_vertex.setEnabled(False)
 
         tilesTableName = PTDefinitions.CONST_SPATIALITE_LAYERS_TILES_TABLE_NAME
         # layerList = QgsProject.instance().mapLayersByName(tilesTableName)
