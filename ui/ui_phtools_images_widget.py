@@ -363,14 +363,21 @@ class PhToolsQImagesWidget(QFrame,
                                                                        self.digitizing_point_id, crs_epsg_code, True,
                                                                        True, False, measured_images, [])
             logging.warning(str(ret))
+            # import pydevd_pycharm
+            # pydevd_pycharm.settrace('localhost', port=54100, stdoutToServer=True, stderrToServer=True)
             if ret[0] == 'True':
                 if not self.digitizing_feature_tool.isActive() or self.digitizing_feature_tool.mode() == 1:  # CapturePoint
                     self.newVertexCoords.emit(QgsPoint(ret[2][0], ret[2][1], ret[2][2]))
                 else:
                     points_count = self.digitizing_feature_tool.size()
                     self.digitizing_feature_tool.digitized_points_z[points_count - 1] = ret[2][2]
-                    self.digitizing_feature_tool.undo()
+                    if points_count == 1:
+                        self.digitizing_feature_tool.stopCapturing()
+                        self.digitizing_feature_tool.startCapturing()
+                    else:
+                        self.digitizing_feature_tool.undo()
                     self.digitizing_feature_tool.addVertex(QgsPointXY(ret[2][0], ret[2][1]))
+
 
 
                     # Deprecated: setPoints
