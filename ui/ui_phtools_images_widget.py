@@ -18,7 +18,7 @@ from PyQt5.QtGui import QIcon, QFont, QPalette, QColor, QWheelEvent, QPixmap
 
 # Import QGIS classes
 from qgis.gui import QgsMapCanvas, QgsMapToolZoom, QgsMapToolPan, QgsMapLayerComboBox, QgsMapMouseEvent
-from qgis.core import QgsProject, QgsRasterLayer, QgsPointXY, QgsPoint
+from qgis.core import QgsProject, QgsRasterLayer, QgsPointXY, QgsPoint, QgsCoordinateReferenceSystem
 
 # Import Python classes
 import os, sys, math
@@ -32,9 +32,7 @@ FORM_CLASS, _ = uic.loadUiType(os.path.join(os.path.dirname(__file__),
 class PhToolsQImagesWidget(QFrame,
                          FORM_CLASS):
     debugTextGenerated = pyqtSignal(str)
-
     newVertexCoords = pyqtSignal(QgsPoint)
-    # newVertexCoords = pyqtSignal(QgsPointXY)
 
     def __init__(self,
                  iface,
@@ -100,8 +98,6 @@ class PhToolsQImagesWidget(QFrame,
 
         # initialize counters
         img_count = 0
-        # import pydevd_pycharm
-        # pydevd_pycharm.settrace('localhost', port=54100, stdoutToServer=True, stderrToServer=True)
 
         ## Ordenar imágenes según lo centrado que está su punto proyectado
         offsets = {}
@@ -132,6 +128,7 @@ class PhToolsQImagesWidget(QFrame,
                                                              sorted_offsets[image_key][0])
 
             self.list_qgsmapcavansses_dic[image_key].pointMeasured.connect(self.on_image_point_measured)
+            self.list_qgsmapcavansses_dic[image_key].userZoomSignal.connect(self.on_user_zoom)
             # self.list_qgsmapcavansses_dic[image_key].canvas.setWheelFactor(1.0)
         # if img_count:
         #     self.list_qgsmapcavansses[0].extentsChanged.connect(self.on_extent_changed)
@@ -147,7 +144,10 @@ class PhToolsQImagesWidget(QFrame,
                                    is_main_image=False):
         #TODOC:
         qgsmapcanvas = QgsMapCanvas()
+        # qgsmapcanvas.setDestinationCrs(QgsCoordinateReferenceSystem())
+        # rlayer.setCrs(QgsCoordinateReferenceSystem())
         prj = QgsProject()
+        # prj.setCrs(QgsCoordinateReferenceSystem())
         prj.addMapLayer(rlayer)
         qgsmapcanvas.setLayers([rlayer])
         qgsmapcanvas.zoomToFullExtent()
@@ -276,43 +276,10 @@ class PhToolsQImagesWidget(QFrame,
         path = file_info.filePath()
         base_name = file_info.baseName()
 
-        #TODO: que no pregunte por el CRS
+        layer_options = QgsRasterLayer.LayerOptions()
+        layer_options.skipCrsValidation = True
+        rlayer = QgsRasterLayer(path, base_name, "gdal", layer_options)
 
-        # https://gis.stackexchange.com/questions/27745/how-can-i-specify-the-crs-of-a-raster-layer-in-pyqgis/27765
-        """
-        dataset = gdal.Open(path_rlayer, GA_Update)
-        print(path_rlayer)
-        print(dataset)
-        srs = osr.SpatialReference()
-        srs.ImportFromEPSG(25830)
-        dataset.SetProjection(srs.ExportToWkt())
-        dataset = None
-        """
-
-        """
-        qgs_coordinate_crs_project = QgsCoordinateReferenceSystem(25830,
-                                                                  QgsCoordinateReferenceSystem.InternalCrsId)
-
-        gdalDataSet = gdal.Open(path_rlayer, GA_Update)
-        original_ogr_dtm_crs_wkt = gdalDataSet.GetProjection()
-        original_qgs_coordinate_crs_project = QgsCoordinateReferenceSystem()
-        find_crs = False
-        if original_qgs_coordinate_crs_project.createFromString(original_ogr_dtm_crs_wkt):
-            if qgs_coordinate_crs_project.InternalCrsId == original_qgs_coordinate_crs_project.InternalCrsId:
-                find_crs = True
-        if not find_crs:
-            gdalDataSet.SetProjection(qgs_coordinate_crs_project.toWkt().encode('utf-8'))
-        gdalDataSet = None
-        """
-        rlayer = QgsRasterLayer(path, base_name)
-
-        """
-        QgsProject.instance().addMapLayer(rlayer)
-        if rlayer.isValid() is True:
-            print("Layer was loaded successfully!")
-        else:
-            print("Unable to read basename and file path - Your string is probably invalid")
-        """
         return rlayer
 
     def format_qfont(self,
@@ -327,6 +294,14 @@ class PhToolsQImagesWidget(QFrame,
         if is_italic: qfont.setItalic(True)
         else: qfont.setItalic(False)
         return qfont
+
+    def on_user_zoom(self, image_name, is_in):
+        for image_key in self.list_qgsmapcavansses_dic.keys():
+            if not image_key is image_name:
+                if is_in:
+                    self.list_qgsmapcavansses_dic[image_key].canvas.zoomIn()
+                else:
+                    self.list_qgsmapcavansses_dic[image_key].canvas.zoomOut()
 
 
     def on_image_point_measured(self):
@@ -401,7 +376,8 @@ class PhToolsQImagesWidget(QFrame,
                 ##
 
                 self.debugTextGenerated.emit('Número de Imágenes: {}'.format(self.list_qgsmapcavansses_dic.__len__()))
-
+                self.debugTextGenerated.emit('\n---------------------------')
+                self.debugTextGenerated.emit('\nObject Point: {}, {}, {}'.format(ret[2][0], ret[2][1], ret[2][2]))
                 if len(ret[5]):
                     self.debugTextGenerated.emit('\n---------------------------')
                     self.debugTextGenerated.emit('\n---------------------------')
@@ -427,6 +403,7 @@ class PhToolsQImagesWidget(QFrame,
 
 class QgsPhToolPan(QgsMapToolPan):
     canvasPressSignal = pyqtSignal(QgsPointXY)
+    userZoomSignal = pyqtSignal(bool)
 
     def __init__(self, canvas):
         self.canvas = canvas
@@ -437,25 +414,21 @@ class QgsPhToolPan(QgsMapToolPan):
         # self.canvas.zoomIn()
 
     def wheelEvent(self, e: QWheelEvent):
-        # import pydevd_pycharm
-        # pydevd_pycharm.settrace('localhost', port=54100, stdoutToServer=True, stderrToServer=True)
         if e.angleDelta().y() > 0:
             # self.canvas.setWheelFactor(WHEEL_FACTOR)
             self.canvas.zoomIn()
+            self.userZoomSignal.emit(True)
             # self.canvas.setWheelFactor(1)
         elif e.angleDelta().y() < 0:
             # self.canvas.setWheelFactor(WHEEL_FACTOR)
-            # import pydevd_pycharm
-            # pydevd_pycharm.settrace('localhost', port=54100, stdoutToServer=True, stderrToServer=True)
             scale = self.canvas.scale()
             extent = self.canvas.extent()
 
             if len(self.canvas.layers()) and \
                     extent.height() < self.canvas.layers()[0].extent().height() * CANVAS_RLAYER_EXTENT_FACTOR:
                 self.canvas.zoomOut()
-
+                self.userZoomSignal.emit(False)
             # self.canvas.setWheelFactor(1)
-
         e.accept()
 
 
@@ -464,6 +437,7 @@ class ImageCanvas(QObject):
         Canvas Item and auxiliary data for image canvas list
     """
     pointMeasured = pyqtSignal()
+    userZoomSignal = pyqtSignal(str, bool)
 
     def __init__(self, i_py_project, connection_path, qgis_project, digitizing_point_id, canvas, image_name,
                                                                          digitizing_feature_tool, group_box,
@@ -489,8 +463,12 @@ class ImageCanvas(QObject):
         self.pan_tool = QgsPhToolPan(self.canvas)
         # self.pan_tool.activate()
         self.canvas.setMapTool(self.pan_tool)
+        self.pan_tool.userZoomSignal.connect(self.on_user_zoom)
         self.first_click = True
         self.digitizing_point_id = digitizing_point_id
+
+    def on_user_zoom(self, is_in):
+        self.userZoomSignal.emit(self.image_name, is_in)
 
     def on_extent_changed(self):
         points_count = self.digitizing_feature_tool.size()
