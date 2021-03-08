@@ -121,6 +121,101 @@
         <Value>true</Value>
     </Parameter>
     <Parameter>
+        <Command>Forward projection, from image to object space (DSM)</Command>
+        <Code>FPDSM_DsmRasterFile</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>File</Type>
+        <Description>DSM raster file, same CRS as project and with no data value.</Description>
+        <PrintSize>200</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>C:/uclm/Ejemplo_PozoCanada/VueloPhantom4ProRTK/dsm_25830.tif</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Forward projection, from image to object space (DSM)</Command>
+        <Code>FPDSM_FormatFileFeaturesInImages</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Value list</Type>
+        <Description>Format of files of featues in images</Description>
+        <PrintSize>10</PrintSize>
+        <Unit>adimensional</Unit>
+        <ValueList>1:aux aux ul_col ul_row cols rows;2:aux aux ul_col ul_row lr_col lr_row</ValueList>
+        <Value>1:aux aux ul_col ul_row cols rows</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Forward projection, from image to object space (DSM)</Command>
+        <Code>FPDSM_GetStatisticsInImages</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Value list</Type>
+        <Description>Get statistics in all bands of images</Description>
+        <PrintSize>10</PrintSize>
+        <Unit>adimensional</Unit>
+        <ValueList>true;false</ValueList>
+        <Value>true</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Forward projection, from image to object space (DSM)</Command>
+        <Code>FPDSM_IgnoredSensorPercentage</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Double precision number</Type>
+        <Description>Exterior percentage of sensor format ignored.</Description>
+        <PrintSize>20</PrintSize>
+        <Unit>percentage</Unit>
+        <Value>5.000</Value>
+        <MaximumValue>10.000</MaximumValue>
+        <MinimumValue>0.000</MinimumValue>
+        <PrintPrecision>3</PrintPrecision>
+    </Parameter>
+    <Parameter>
+        <Command>Forward projection, from image to object space (DSM)</Command>
+        <Code>FPDSM_MultiProcess</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Value list</Type>
+        <Description>Use multi process</Description>
+        <PrintSize>10</PrintSize>
+        <Unit>adimensional</Unit>
+        <ValueList>true;false</ValueList>
+        <Value>false</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Forward projection, from image to object space (DSM)</Command>
+        <Code>FPDSM_OutputShapefile</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>SaveFile</Type>
+        <Description>Output shapefile.</Description>
+        <PrintSize>200</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>C:/uclm/Ejemplo_PozoCanada/VueloFlirDuoProR/features/output/projectedDetectedFeatures.shp</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Forward projection, from image to object space (DSM)</Command>
+        <Code>FPDSM_PathFilesFeaturesInImages</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Path</Type>
+        <Description>Path to files of features in images</Description>
+        <PrintSize>200</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>C:/uclm/Ejemplo_PozoCanada/VueloFlirDuoProR/features/DetectedFeatures</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Forward projection, from image to object space (DSM)</Command>
+        <Code>FPDSM_ProcessOnlyEnabledImages</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Value list</Type>
+        <Description>Process only enabled images</Description>
+        <PrintSize>10</PrintSize>
+        <Unit>adimensional</Unit>
+        <ValueList>true;false</ValueList>
+        <Value>true</Value>
+    </Parameter>
+    <Parameter>
         <Command>Get images footprints from DSM</Command>
         <Code>GIFDSM_DsmRasterFile</Code>
         <Enabled>Yes</Enabled>
