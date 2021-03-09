@@ -816,9 +816,11 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         self.tool_edit_vertex.deactivated.connect(self.onEditVertexToolDeactivate)
         self.tool_edit_vertex.deleteKeyPressSignal.connect(self.onDeleteKeyPressed)
         ######################################################################
-        self.accuracyTextEdit.append('<!DOCTYPE html> <html> <head> <!-- head definitions go here --> </head> <body>'
-                                     ' <h1 style="background-color:DodgerBlue;">Hello World</h1> '
-                                     '<p style="background-color:Tomato;">Lorem ipsum...</p> </body> </html>')
+        self.debugTextEdit.readOnly = True
+        self.accuracyTextEdit.readOnly = True
+        # self.accuracyTextEdit.append('<!DOCTYPE html> <html> <head> <!-- head definitions go here --> </head> <body>'
+        #                              ' <h1 style="background-color:DodgerBlue;">Hello World</h1> '
+        #                              '<p style="background-color:Tomato;">Lorem ipsum...</p> </body> </html>')
 
         self.action_digitize_feature.setEnabled(False)
         self.action_edit_vertex.setEnabled(False)
@@ -1620,6 +1622,8 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
                                                       self.image_paths, list_projected_images, self.iPyProject,
                                                       self.pt_qt_project, self.tool_digitize_feature)
         self.pht_images_widget.debugTextGenerated.connect(self.onDebugTextGenerated)
+        self.pht_images_widget.reportGenerated.connect(self.onReportGenerated)
+
         self.pht_images_dock = QDockWidget("Images")
         self.pht_images_dock.setWidget(self.pht_images_widget)
         self.iface.addDockWidget(Qt.RightDockWidgetArea, self.pht_images_dock)
@@ -2024,6 +2028,8 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
                     self.highLighter.removeHighlight()
                     self.selectedFeature = None
 
-
     def onDebugTextGenerated(self, debug_str):
         self.debugTextEdit.append(debug_str)
+
+    def onReportGenerated(self, report_str):
+        self.accuracyTextEdit.setText(report_str)

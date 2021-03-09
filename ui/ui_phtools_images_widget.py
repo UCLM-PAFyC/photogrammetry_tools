@@ -32,6 +32,7 @@ FORM_CLASS, _ = uic.loadUiType(os.path.join(os.path.dirname(__file__),
 class PhToolsQImagesWidget(QFrame,
                          FORM_CLASS):
     debugTextGenerated = pyqtSignal(str)
+    reportGenerated = pyqtSignal(str)
     newVertexCoords = pyqtSignal(QgsPoint)
 
     def __init__(self,
@@ -353,8 +354,6 @@ class PhToolsQImagesWidget(QFrame,
                         self.digitizing_feature_tool.undo()
                     self.digitizing_feature_tool.addVertex(QgsPointXY(ret[2][0], ret[2][1]))
 
-
-
                     # Deprecated: setPoints
 
                     # Valido dedes QGIS 3.12:
@@ -400,6 +399,12 @@ class PhToolsQImagesWidget(QFrame,
                             debug_str += '\nProjected: Point({} {})'.format(ret[5][image_key]['Projected'][0],
                                                                             ret[5][image_key]['Projected'][1])
                         self.debugTextGenerated.emit(debug_str + '\n---------------------------')
+
+                # Report:
+                ret = self.i_py_project.ptGetObjectPointReport(self.connection_path, 'chunk 1',
+                                                                       self.digitizing_point_id, crs_epsg_code)
+                if ret[0]:
+                    self.reportGenerated.emit(ret[1])
 
 class QgsPhToolPan(QgsMapToolPan):
     canvasPressSignal = pyqtSignal(QgsPointXY)
