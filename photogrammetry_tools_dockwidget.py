@@ -1933,6 +1933,8 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
                 logging.warning(str(ret))
                 if not (ret[0] == 'False'):
                     self.tool_digitize_feature.digitized_points_z.append(ret[1][0][2])
+
+                self.accuracyTextEdit.setText("")
                 self.loadPhMeasureCanvas(mouse_event.mapPoint())
 
         mouse_event.accept()
