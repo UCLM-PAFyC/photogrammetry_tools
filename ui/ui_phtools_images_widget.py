@@ -298,7 +298,8 @@ class PhToolsQImagesWidget(QFrame,
 
     def on_user_zoom(self, image_name, is_in):
         for image_key in self.list_qgsmapcavansses_dic.keys():
-            if not image_key is image_name:
+            if image_key != image_name:
+                scale = self.list_qgsmapcavansses_dic[image_key].canvas.scale()
                 if is_in:
                     self.list_qgsmapcavansses_dic[image_key].canvas.zoomIn()
                 else:
@@ -364,9 +365,16 @@ class PhToolsQImagesWidget(QFrame,
                     # ***********************
 
                 ## Eliminar los canvas de las imágenes que ya no intervienen y añadir los nuevos
+                # import pydevd_pycharm
+                # pydevd_pycharm.settrace('localhost', port=54100, stdoutToServer=True, stderrToServer=True)
+                keys_to_delete=[]
                 for image_key in self.list_qgsmapcavansses_dic.keys():
                     if image_key not in ret[5].keys():
                         self.verticalLayout_images.removeWidget(self.list_qgsmapcavansses_dic[image_key].group_box)
+                        keys_to_delete.append(image_key)
+
+                for image_key in keys_to_delete:
+                    del self.list_qgsmapcavansses_dic[image_key]
 
                 for image_key in ret[5].keys():
                     if image_key not in self.list_qgsmapcavansses_dic.keys():
