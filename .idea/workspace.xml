@@ -1,25 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="15eb851b-c3c4-4ce5-a6a4-c78a593877fb" name="Default Changelist" comment="Remove key.txt">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/photogrammetry_tools.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/photogrammetry_tools.iml" afterDir="false" />
+    <list default="true" id="15eb851b-c3c4-4ce5-a6a4-c78a593877fb" name="Default Changelist" comment="point report">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PTDefinitions.py" beforeDir="false" afterPath="$PROJECT_DIR$/PTDefinitions.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PhotogrammetryTools.ini" beforeDir="false" afterPath="$PROJECT_DIR$/PhotogrammetryTools.ini" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/libCpp/TestPyPhotogrammetryTools.exe" beforeDir="false" afterPath="$PROJECT_DIR$/libCpp/TestPyPhotogrammetryTools.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/libCpp/libCRS.dll" beforeDir="false" afterPath="$PROJECT_DIR$/libCpp/libCRS.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/libCpp/libICGAL.dll" beforeDir="false" afterPath="$PROJECT_DIR$/libCpp/libICGAL.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/libCpp/libIExif.dll" beforeDir="false" afterPath="$PROJECT_DIR$/libCpp/libIExif.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/libCpp/libIGDAL.dll" beforeDir="false" afterPath="$PROJECT_DIR$/libCpp/libIGDAL.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/libCpp/libIOpenCv.dll" beforeDir="false" afterPath="$PROJECT_DIR$/libCpp/libIOpenCv.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/libCpp/libLicenseManager.dll" beforeDir="false" afterPath="$PROJECT_DIR$/libCpp/libLicenseManager.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/libCpp/libParameters.dll" beforeDir="false" afterPath="$PROJECT_DIR$/libCpp/libParameters.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/libCpp/libPhotogrammetryManager.dll" beforeDir="false" afterPath="$PROJECT_DIR$/libCpp/libPhotogrammetryManager.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/libCpp/libProcessTools.dll" beforeDir="false" afterPath="$PROJECT_DIR$/libCpp/libProcessTools.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/libCpp/libPyPhotogrammetryTools.pyd" beforeDir="false" afterPath="$PROJECT_DIR$/libCpp/libPyPhotogrammetryTools.pyd" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/libCpp/parameters_pp_processing_tools.xml" beforeDir="false" afterPath="$PROJECT_DIR$/libCpp/parameters_pp_processing_tools.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/libCpp/temp.prj" beforeDir="false" afterPath="$PROJECT_DIR$/libCpp/temp.prj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/images_pc.qml" beforeDir="false" afterPath="$PROJECT_DIR$/templates/images_pc.qml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,6 +23,7 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="-8" />
@@ -71,7 +64,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../model_management_tools" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../point_cloud_3d" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -206,6 +199,29 @@
       <workItem from="1610451022842" duration="1563000" />
       <workItem from="1611140785948" duration="644000" />
       <workItem from="1611292318397" duration="93000" />
+      <workItem from="1612431741141" duration="749000" />
+      <workItem from="1612780948631" duration="1276000" />
+      <workItem from="1613381585853" duration="732000" />
+      <workItem from="1613577815356" duration="1267000" />
+      <workItem from="1613665625289" duration="621000" />
+      <workItem from="1613747538520" duration="1236000" />
+      <workItem from="1614183242617" duration="857000" />
+      <workItem from="1614267344242" duration="786000" />
+      <workItem from="1614333761602" duration="151000" />
+      <workItem from="1614614317575" duration="1766000" />
+      <workItem from="1615190035047" duration="615000" />
+      <workItem from="1615204491440" duration="1023000" />
+      <workItem from="1615223144943" duration="606000" />
+      <workItem from="1615230956292" duration="308000" />
+      <workItem from="1615535792149" duration="72000" />
+      <workItem from="1615802715548" duration="1067000" />
+      <workItem from="1615829882190" duration="627000" />
+      <workItem from="1615893571905" duration="608000" />
+      <workItem from="1615911054294" duration="1816000" />
+      <workItem from="1615978595122" duration="1298000" />
+      <workItem from="1616000773567" duration="603000" />
+      <workItem from="1616044489405" duration="473000" />
+      <workItem from="1616051867057" duration="806000" />
     </task>
     <task id="LOCAL-00001" summary="Remove key.txt">
       <created>1608031983901</created>
@@ -228,7 +244,42 @@
       <option name="project" value="LOCAL" />
       <updated>1610451769869</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="prueba dhl">
+      <created>1612431834482</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1612431834482</updated>
+    </task>
+    <task id="LOCAL-00005" summary="error dgs">
+      <created>1612780973878</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1612780973878</updated>
+    </task>
+    <task id="LOCAL-00006" summary="error dgs">
+      <created>1612781632416</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1612781632416</updated>
+    </task>
+    <task id="LOCAL-00007" summary="getPointsAltitudeDsm">
+      <created>1613381627103</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1613381627103</updated>
+    </task>
+    <task id="LOCAL-00008" summary="point report">
+      <created>1615231045051</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1615231045051</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -266,6 +317,31 @@
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
+        <entry key="1">
+          <value>
+            <State>
+              <option name="SHOW_ONLY_AFFECTED_CHANGES" value="true" />
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="HEAD" />
+                      </list>
+                    </value>
+                  </entry>
+                  <entry key="roots">
+                    <value>
+                      <list>
+                        <option value="$PROJECT_DIR$" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
         <entry key="MAIN">
           <value>
             <State />
@@ -273,11 +349,20 @@
         </entry>
       </map>
     </option>
+    <option name="OPEN_GENERIC_TABS">
+      <map>
+        <entry key="1" value="TOOL_WINDOW" />
+      </map>
+    </option>
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Remove key.txt" />
-    <option name="LAST_COMMIT_MESSAGE" value="Remove key.txt" />
+    <MESSAGE value="prueba dhl" />
+    <MESSAGE value="error dgs" />
+    <MESSAGE value="getPointsAltitudeDsm" />
+    <MESSAGE value="point report" />
+    <option name="LAST_COMMIT_MESSAGE" value="point report" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -289,7 +374,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/photogrammetry_tools_dockwidget.py</url>
-          <line>284</line>
+          <line>334</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>

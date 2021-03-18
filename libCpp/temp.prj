@@ -1,48 +1,14 @@
 Photogrammetry Project
-- Number of processes ......................................# 1
-- Process (CREATE_DB,ADD_POINTCLOUD,ADD_ROI,WRITE_PCFS) ....# ADD_UNDISTORTED_IMAGES
-  - Database file name .....................................# "D:/PhotogrammetryToolsProjects/EjemploCandado/PhTools_Candado.sqlite"
-  - Number of images .......................................# 43
-    - Image ................................................# "D:/PhotogrammetryToolsProjects/EjemploCandado/metashape/undistorted_images_with_ppa/DSC05716.JPG"
-    - Image ................................................# "D:/PhotogrammetryToolsProjects/EjemploCandado/metashape/undistorted_images_with_ppa/DSC05717.JPG"
-    - Image ................................................# "D:/PhotogrammetryToolsProjects/EjemploCandado/metashape/undistorted_images_with_ppa/DSC05718.JPG"
-    - Image ................................................# "D:/PhotogrammetryToolsProjects/EjemploCandado/metashape/undistorted_images_with_ppa/DSC05719.JPG"
-    - Image ................................................# "D:/PhotogrammetryToolsProjects/EjemploCandado/metashape/undistorted_images_with_ppa/DSC05720.JPG"
-    - Image ................................................# "D:/PhotogrammetryToolsProjects/EjemploCandado/metashape/undistorted_images_with_ppa/DSC05721.JPG"
-    - Image ................................................# "D:/PhotogrammetryToolsProjects/EjemploCandado/metashape/undistorted_images_with_ppa/DSC05722.JPG"
-    - Image ................................................# "D:/PhotogrammetryToolsProjects/EjemploCandado/metashape/undistorted_images_with_ppa/DSC05723.JPG"
-    - Image ................................................# "D:/PhotogrammetryToolsProjects/EjemploCandado/metashape/undistorted_images_with_ppa/DSC05724.JPG"
-    - Image ................................................# "D:/PhotogrammetryToolsProjects/EjemploCandado/metashape/undistorted_images_with_ppa/DSC05725.JPG"
-    - Image ................................................# "D:/PhotogrammetryToolsProjects/EjemploCandado/metashape/undistorted_images_with_ppa/DSC05726.JPG"
-    - Image ................................................# "D:/PhotogrammetryToolsProjects/EjemploCandado/metashape/undistorted_images_with_ppa/DSC05727.JPG"
-    - Image ................................................# "D:/PhotogrammetryToolsProjects/EjemploCandado/metashape/undistorted_images_with_ppa/DSC05728.JPG"
-    - Image ................................................# "D:/PhotogrammetryToolsProjects/EjemploCandado/metashape/undistorted_images_with_ppa/DSC05729.JPG"
-    - Image ................................................# "D:/PhotogrammetryToolsProjects/EjemploCandado/metashape/undistorted_images_with_ppa/DSC05730.JPG"
-    - Image ................................................# "D:/PhotogrammetryToolsProjects/EjemploCandado/metashape/undistorted_images_with_ppa/DSC05731.JPG"
-    - Image ................................................# "D:/PhotogrammetryToolsProjects/EjemploCandado/metashape/undistorted_images_with_ppa/DSC05732.JPG"
-    - Image ................................................# "D:/PhotogrammetryToolsProjects/EjemploCandado/metashape/undistorted_images_with_ppa/DSC05733.JPG"
-    - Image ................................................# "D:/PhotogrammetryToolsProjects/EjemploCandado/metashape/undistorted_images_with_ppa/DSC05734.JPG"
-    - Image ................................................# "D:/PhotogrammetryToolsProjects/EjemploCandado/metashape/undistorted_images_with_ppa/DSC05735.JPG"
-    - Image ................................................# "D:/PhotogrammetryToolsProjects/EjemploCandado/metashape/undistorted_images_with_ppa/DSC05736.JPG"
-    - Image ................................................# "D:/PhotogrammetryToolsProjects/EjemploCandado/metashape/undistorted_images_with_ppa/DSC05737.JPG"
-    - Image ................................................# "D:/PhotogrammetryToolsProjects/EjemploCandado/metashape/undistorted_images_with_ppa/DSC05738.JPG"
-    - Image ................................................# "D:/PhotogrammetryToolsProjects/EjemploCandado/metashape/undistorted_images_with_ppa/DSC05739.JPG"
-    - Image ................................................# "D:/PhotogrammetryToolsProjects/EjemploCandado/metashape/undistorted_images_with_ppa/DSC05740.JPG"
-    - Image ................................................# "D:/PhotogrammetryToolsProjects/EjemploCandado/metashape/undistorted_images_with_ppa/DSC05741.JPG"
-    - Image ................................................# "D:/PhotogrammetryToolsProjects/EjemploCandado/metashape/undistorted_images_with_ppa/DSC05742.JPG"
-    - Image ................................................# "D:/PhotogrammetryToolsProjects/EjemploCandado/metashape/undistorted_images_with_ppa/DSC05743.JPG"
-    - Image ................................................# "D:/PhotogrammetryToolsProjects/EjemploCandado/metashape/undistorted_images_with_ppa/DSC05744.JPG"
-    - Image ................................................# "D:/PhotogrammetryToolsProjects/EjemploCandado/metashape/undistorted_images_with_ppa/DSC05745.JPG"
-    - Image ................................................# "D:/PhotogrammetryToolsProjects/EjemploCandado/metashape/undistorted_images_with_ppa/DSC05746.JPG"
-    - Image ................................................# "D:/PhotogrammetryToolsProjects/EjemploCandado/metashape/undistorted_images_with_ppa/DSC05747.JPG"
-    - Image ................................................# "D:/PhotogrammetryToolsProjects/EjemploCandado/metashape/undistorted_images_with_ppa/DSC05748.JPG"
-    - Image ................................................# "D:/PhotogrammetryToolsProjects/EjemploCandado/metashape/undistorted_images_with_ppa/DSC05749.JPG"
-    - Image ................................................# "D:/PhotogrammetryToolsProjects/EjemploCandado/metashape/undistorted_images_with_ppa/DSC05750.JPG"
-    - Image ................................................# "D:/PhotogrammetryToolsProjects/EjemploCandado/metashape/undistorted_images_with_ppa/DSC05751.JPG"
-    - Image ................................................# "D:/PhotogrammetryToolsProjects/EjemploCandado/metashape/undistorted_images_with_ppa/DSC05752.JPG"
-    - Image ................................................# "D:/PhotogrammetryToolsProjects/EjemploCandado/metashape/undistorted_images_with_ppa/DSC05753.JPG"
-    - Image ................................................# "D:/PhotogrammetryToolsProjects/EjemploCandado/metashape/undistorted_images_with_ppa/DSC05754.JPG"
-    - Image ................................................# "D:/PhotogrammetryToolsProjects/EjemploCandado/metashape/undistorted_images_with_ppa/DSC05755.JPG"
-    - Image ................................................# "D:/PhotogrammetryToolsProjects/EjemploCandado/metashape/undistorted_images_with_ppa/DSC05756.JPG"
-    - Image ................................................# "D:/PhotogrammetryToolsProjects/EjemploCandado/metashape/undistorted_images_with_ppa/DSC05757.JPG"
-    - Image ................................................# "D:/PhotogrammetryToolsProjects/EjemploCandado/metashape/undistorted_images_with_ppa/DSC05758.JPG"
+- Number of processes ......................................# 2
+- Process (CREATE_DB,ADD_POINTCLOUD,ADD_ROI,WRITE_PCFS) ....# CREATE_DB
+  - Database file name .....................................# "D:/PhotogrammetryToolsProjects/EjemploCandado/PhTools_PruebaROIs.sqlite"
+  - Database CRS (libCRS/EPSG/proj4/wkt) ...................# 25830
+    Height type (ORTHOMETRIC_HEIGHT,ELLIPSOID_HEIGHT) ......# ORTHOMETRIC_HEIGHT
+  - Grid size ..............................................# 10.000
+  - Project Type (Generic,Metashape) .......................# metashape
+  - Project parameters (par1@v@value1@p@par2@v@value2...) ..# Author@v@David Hernandez@p@Company@v@UCLM
+- Process (CREATE_DB,ADD_POINTCLOUD,ADD_ROI) ...............# ADD_ROI
+  - Database file name .....................................# "D:/PhotogrammetryToolsProjects/EjemploCandado/PhTools_PruebaROIs.sqlite"
+  - ROI File ...............................................# "D:/PhotogrammetryToolsProjects/EjemploCandado/metashape/ROI_25830.shp"
+    Field id (None for all features ) ......................# None
+      Field id values (separed by ; ignored si None) .......# 

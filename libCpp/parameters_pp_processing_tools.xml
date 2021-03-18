@@ -179,7 +179,7 @@
         <PrintSize>10</PrintSize>
         <Unit>adimensional</Unit>
         <ValueList>true;false</ValueList>
-        <Value>false</Value>
+        <Value>true</Value>
     </Parameter>
     <Parameter>
         <Command>Forward projection, from image to object space (DSM)</Command>
