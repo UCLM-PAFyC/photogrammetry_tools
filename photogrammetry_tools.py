@@ -197,7 +197,7 @@ class PhotogrammetyTools:
     def initGui(self):
         """Create the menu entries and toolbar icons inside the QGIS GUI."""
 
-        icon_path = ':/plugins/photogrammetry_tools/icon.png'
+        icon_path = ':/plugins/photogrammetry_tools/icons/icon.png'
         self.add_action(
             icon_path,
             text=self.tr(u'Photogrammetry Tool'),
@@ -265,7 +265,8 @@ class PhotogrammetyTools:
                                                                self.current_plugin_name,
                                                                self.settings,
                                                                self.iPyProject,
-                                                               self.pt_qgis_project)
+                                                               self.pt_qgis_project,
+                                                               self.toolbar)
 
             # connect to provide cleanup on closing of dockwidget
             self.dockwidget.closingPlugin.connect(self.onClosePlugin)

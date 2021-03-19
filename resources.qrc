@@ -1,5 +1,11 @@
 <RCC>
-    <qresource prefix="/plugins/photogrammetry_tools" >
-        <file>icon.png</file>
+    <qresource prefix="/plugins/photogrammetry_tools">
+        <file>icons/ph_line_create.png</file>
+        <file>icons/ph_line_edit.png</file>
+        <file>icons/ph_point_create.png</file>
+        <file>icons/ph_point_edit.png</file>
+        <file>icons/ph_polygon_create.png</file>
+        <file>icons/ph_polygon_edit.png</file>
+        <file>icons/icon.png</file>
     </qresource>
 </RCC>

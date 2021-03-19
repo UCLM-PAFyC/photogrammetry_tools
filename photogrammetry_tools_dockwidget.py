@@ -169,6 +169,7 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
                  settings,
                  iPyProject,
                  pt_qt_project,
+                 ph_toolbar,
                  parent=None):
         """Constructor."""
         super(PhotogrammetyToolsDockWidget, self).__init__(parent)
@@ -184,6 +185,7 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         self.current_plugin_name = currentPluginName
         self.settings = settings
         self.iPyProject = iPyProject
+        self.ph_toolbar = ph_toolbar
         self.pt_qt_project = pt_qt_project
         self.selectedFeature = None
         self.isPTPlugin = False
@@ -787,12 +789,13 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         # Digitizing Tool
         ###################################################
 
-        self.action_digitize_feature = QAction(QIcon(":/plugins/photogrammetry_tools/icons/mActionToggleEditing.svg"),
+        self.action_digitize_feature = QAction(QIcon(":/plugins/photogrammetry_tools/icons/ph_polygon_create.png"),
                                                "Create")
         self.action_digitize_feature.setCheckable(True)
         self.action_digitize_feature.triggered.connect(self.digitize_feature)
-        self.digitizing_toolbar = self.iface.addToolBar("PH digitizing")
-        self.digitizing_toolbar.addAction(self.action_digitize_feature)
+        # self.digitizing_toolbar = self.iface.addToolBar("PH digitizing")
+        # self.digitizing_toolbar.addAction(self.action_digitize_feature)
+        self.ph_toolbar.addAction(self.action_digitize_feature)
         self.addw = QgsAdvancedDigitizingDockWidget(self.iface.mapCanvas())
         self.tool_digitize_feature = QgsPhToolDigitizeFeature(self.iface.mapCanvas(), self.addw)  # false = in
         self.tool_digitize_feature.setAction(self.action_digitize_feature)
@@ -805,11 +808,12 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         ###################################################
         # Photogrammetric vertex edition tool
         ###################################################
-        self.action_edit_vertex = QAction(QIcon(":/plugins/photogrammetry_tools/icons/mActionToggleEditing.svg"),
+        self.action_edit_vertex = QAction(QIcon(":/plugins/photogrammetry_tools/icons/ph_polygon_edit.png"),
                                           "Edit")
         self.action_edit_vertex.setCheckable(True)
         self.action_edit_vertex.triggered.connect(self.edit_vertex)
-        self.digitizing_toolbar.addAction(self.action_edit_vertex)
+        # self.digitizing_toolbar.addAction(self.action_edit_vertex)
+        self.ph_toolbar.addAction(self.action_edit_vertex)
         self.tool_edit_vertex = QgsPhToolEditVertex(self.iface.mapCanvas())
         self.tool_edit_vertex.setAction(self.action_edit_vertex)
         self.tool_edit_vertex.canvasClicked.connect(self.onEditVertexClicked)
@@ -839,6 +843,22 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         if self.__layer is not None:
             if self.__layer.type() == QgsMapLayer.VectorLayer:
                 self.__setlayerproperties()
+
+                if self.__layergeometryType == QgsWkbTypes.PointGeometry:
+                    self.action_digitize_feature.setIcon(
+                        QIcon(":/plugins/photogrammetry_tools/icons/ph_point_create.png"))
+                    self.action_edit_vertex.setIcon(
+                        QIcon(":/plugins/photogrammetry_tools/icons/ph_point_edit.png"))
+                elif self.__layergeometryType == QgsWkbTypes.LineGeometry:
+                    self.action_digitize_feature.setIcon(
+                        QIcon(":/plugins/photogrammetry_tools/icons/ph_line_create.png"))
+                    self.action_edit_vertex.setIcon(
+                        QIcon(":/plugins/photogrammetry_tools/icons/ph_line_edit.png"))
+                elif self.__layergeometryType == QgsWkbTypes.PolygonGeometry:
+                    self.action_digitize_feature.setIcon(
+                        QIcon(":/plugins/photogrammetry_tools/icons/ph_polygon_create.png"))
+                    self.action_edit_vertex.setIcon(
+                        QIcon(":/plugins/photogrammetry_tools/icons/ph_polygon_edit.png"))
 
                 if self.__layer.isEditable() and (
                         self.__layergeometryType == QgsWkbTypes.PointGeometry
