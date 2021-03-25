@@ -1,15 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="15eb851b-c3c4-4ce5-a6a4-c78a593877fb" name="Default Changelist" comment="dlls with roi control">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PTDefinitions.py" beforeDir="false" afterPath="$PROJECT_DIR$/PTDefinitions.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/libCpp/libLicenseManager.dll" beforeDir="false" afterPath="$PROJECT_DIR$/libCpp/libLicenseManager.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/libCpp/libPhotogrammetryManager.dll" beforeDir="false" afterPath="$PROJECT_DIR$/libCpp/libPhotogrammetryManager.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/libCpp/libPyPhotogrammetryTools.pyd" beforeDir="false" afterPath="$PROJECT_DIR$/libCpp/libPyPhotogrammetryTools.pyd" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/metadata.txt" beforeDir="false" afterPath="$PROJECT_DIR$/metadata.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/photogrammetry_tools.py" beforeDir="false" afterPath="$PROJECT_DIR$/photogrammetry_tools.py" afterDir="false" />
-    </list>
+    <list default="true" id="15eb851b-c3c4-4ce5-a6a4-c78a593877fb" name="Default Changelist" comment="update controlrois" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -228,7 +220,7 @@
       <workItem from="1616397098243" duration="610000" />
       <workItem from="1616500810670" duration="603000" />
       <workItem from="1616598521145" duration="1302000" />
-      <workItem from="1616690582688" duration="1008000" />
+      <workItem from="1616690582688" duration="1088000" />
     </task>
     <task id="LOCAL-00001" summary="Remove key.txt">
       <created>1608031983901</created>
@@ -293,7 +285,14 @@
       <option name="project" value="LOCAL" />
       <updated>1616058469738</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="update controlrois">
+      <created>1616693417633</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1616693417633</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -377,7 +376,8 @@
     <MESSAGE value="getPointsAltitudeDsm" />
     <MESSAGE value="point report" />
     <MESSAGE value="dlls with roi control" />
-    <option name="LAST_COMMIT_MESSAGE" value="dlls with roi control" />
+    <MESSAGE value="update controlrois" />
+    <option name="LAST_COMMIT_MESSAGE" value="update controlrois" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
