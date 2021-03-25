@@ -23,7 +23,7 @@
 """
 from PyQt5.QtCore import QSettings, QTranslator, qVersion, QCoreApplication, Qt
 from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QAction
+from PyQt5.QtWidgets import QAction, QFile
 # Initialize Qt resources from file resources.py
 from .resources import *
 
@@ -241,10 +241,31 @@ class PhotogrammetyTools:
         """Run method that loads and starts the plugin"""
 
         if not self.pluginIsActive:
+            egm08UncompressFileName = libCppPath + "/" + PTDefinitions.CONST_EGM08_25_FILE_NAME
+            if not QFile.exists(egm08UncompressFileName):
+                egm08compressFileName = libCppPath + "/" + PTDefinitions.CONST_EGM08_25_COMPRESS_FILE_NAME
+                text = "Before opening the plugin for the first time"
+                text += "\nyou must unzip the file:\n"
+                text += egm08compressFileName
+                text += "\nin the same path using 7-zip, https://www.7-zip.org/"
+                text += "\n\nThe unzipped file could not be uploaded to Github due to account limitations"
+                msgBox = QMessageBox()
+                msgBox.setIcon(QMessageBox.Information)
+                # msgBox.setWindowTitle(self.windowTitle)
+                msgBox.setText(text)
+                msgBox.exec_()
+                return
 
             self.iPyProject = IPyPTProject()
             self.iPyProject.setPythonModulePath(self.path_libCpp)
             ret = self.iPyProject.initialize()
+            if ret[0] == "False":
+                msgBox = QMessageBox()
+                msgBox.setIcon(QMessageBox.Information)
+                # msgBox.setWindowTitle(self.windowTitle)
+                msgBox.setText("\n" + ret[1])
+                msgBox.exec_()
+                return
             path_file_qsettings = self.path_plugin + '/' + PTDefinitions.CONST_SETTINGS_FILE_NAME
             self.settings = QSettings(path_file_qsettings, QSettings.IniFormat)
 

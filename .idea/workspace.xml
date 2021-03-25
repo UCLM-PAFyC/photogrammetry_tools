@@ -1,17 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="15eb851b-c3c4-4ce5-a6a4-c78a593877fb" name="Default Changelist" comment="point report">
+    <list default="true" id="15eb851b-c3c4-4ce5-a6a4-c78a593877fb" name="Default Changelist" comment="dlls with roi control">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PTDefinitions.py" beforeDir="false" afterPath="$PROJECT_DIR$/PTDefinitions.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PhotogrammetryTools.ini" beforeDir="false" afterPath="$PROJECT_DIR$/PhotogrammetryTools.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/libCpp/TestPyPhotogrammetryTools.exe" beforeDir="false" afterPath="$PROJECT_DIR$/libCpp/TestPyPhotogrammetryTools.exe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/libCpp/libLicenseManager.dll" beforeDir="false" afterPath="$PROJECT_DIR$/libCpp/libLicenseManager.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/libCpp/libParameters.dll" beforeDir="false" afterPath="$PROJECT_DIR$/libCpp/libParameters.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/libCpp/libPhotogrammetryManager.dll" beforeDir="false" afterPath="$PROJECT_DIR$/libCpp/libPhotogrammetryManager.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/libCpp/libPyPhotogrammetryTools.pyd" beforeDir="false" afterPath="$PROJECT_DIR$/libCpp/libPyPhotogrammetryTools.pyd" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/libCpp/parameters_pp_processing_tools.xml" beforeDir="false" afterPath="$PROJECT_DIR$/libCpp/parameters_pp_processing_tools.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/libCpp/temp.prj" beforeDir="false" afterPath="$PROJECT_DIR$/libCpp/temp.prj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/metadata.txt" beforeDir="false" afterPath="$PROJECT_DIR$/metadata.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/photogrammetry_tools.py" beforeDir="false" afterPath="$PROJECT_DIR$/photogrammetry_tools.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -221,7 +218,17 @@
       <workItem from="1615978595122" duration="1298000" />
       <workItem from="1616000773567" duration="603000" />
       <workItem from="1616044489405" duration="473000" />
-      <workItem from="1616051867057" duration="806000" />
+      <workItem from="1616051867057" duration="2416000" />
+      <workItem from="1616080827394" duration="1203000" />
+      <workItem from="1616134261932" duration="612000" />
+      <workItem from="1616141807518" duration="651000" />
+      <workItem from="1616151687626" duration="1147000" />
+      <workItem from="1616168312096" duration="52000" />
+      <workItem from="1616168532926" duration="1267000" />
+      <workItem from="1616397098243" duration="610000" />
+      <workItem from="1616500810670" duration="603000" />
+      <workItem from="1616598521145" duration="1302000" />
+      <workItem from="1616690582688" duration="1008000" />
     </task>
     <task id="LOCAL-00001" summary="Remove key.txt">
       <created>1608031983901</created>
@@ -279,7 +286,14 @@
       <option name="project" value="LOCAL" />
       <updated>1615231045051</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="dlls with roi control">
+      <created>1616058469738</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1616058469738</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -362,7 +376,8 @@
     <MESSAGE value="error dgs" />
     <MESSAGE value="getPointsAltitudeDsm" />
     <MESSAGE value="point report" />
-    <option name="LAST_COMMIT_MESSAGE" value="point report" />
+    <MESSAGE value="dlls with roi control" />
+    <option name="LAST_COMMIT_MESSAGE" value="dlls with roi control" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -374,7 +389,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/photogrammetry_tools_dockwidget.py</url>
-          <line>334</line>
+          <line>336</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
