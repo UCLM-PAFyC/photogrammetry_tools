@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="15eb851b-c3c4-4ce5-a6a4-c78a593877fb" name="Default Changelist" comment="error list initialize">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="15eb851b-c3c4-4ce5-a6a4-c78a593877fb" name="Default Changelist" comment="error list initialize" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -55,7 +53,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../point_cloud_3d" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../point_cloud_tools" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -260,7 +258,7 @@
       <workItem from="1640171797443" duration="614000" />
       <workItem from="1640955162417" duration="1235000" />
       <workItem from="1640973708029" duration="2739000" />
-      <workItem from="1641111997481" duration="2366000" />
+      <workItem from="1641111997481" duration="2737000" />
     </task>
     <task id="LOCAL-00001" summary="Remove key.txt">
       <created>1608031983901</created>
@@ -381,7 +379,14 @@
       <option name="project" value="LOCAL" />
       <updated>1641116403865</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="Changes old OSGeo4W">
+      <created>1641116717362</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1641116717362</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
