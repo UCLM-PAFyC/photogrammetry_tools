@@ -1,0 +1,9 @@
+Photogrammetry Project
+- Number of processes ......................................# 1
+- Process (CREATE_DB,ADD_POINTCLOUD,ADD_ROI,WRITE_PCFS) ....# ADD_MPFMF
+  - Database file name .....................................# "X:\MetashapeProjects\20190814_Fuentealamo_Micasense\PhotogrammetryTools\PhTools_FuenteAlamoMicasense.sqlite"
+  - Code ...................................................# Prj_1
+  - Metashape Markers XML File .............................# "X:\MetashapeProjects\20190814_Fuentealamo_Micasense\export\markers.xml"
+  - Chunk to import (All or chunk code) ....................# Chunk 1
+  - Height type (ORTHOMETRIC_HEIGHT,ELLIPSOID_HEIGHT) ......# ORTHOMETRIC_HEIGHT
+  - GCPs analysis output file (empty no or no GCPs ) .......# "X:\MetashapeProjects\20190814_Fuentealamo_Micasense\PhotogrammetryTools\markers_checkAccuracy.txt"

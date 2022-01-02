@@ -1,0 +1,25 @@
+<!DOCTYPE ParametersManager>
+<ParametersManager version="1.1">
+    <Parameter>
+        <Command>ProjectParameters</Command>
+        <Code>Author</Code>
+        <Enabled>Yes</Enabled>
+        <Tag>Author</Tag>
+        <Type>Text</Type>
+        <Description>Author</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>David Hernandez</Value>
+    </Parameter>
+    <Parameter>
+        <Command>ProjectParameters</Command>
+        <Code>Company</Code>
+        <Enabled>Yes</Enabled>
+        <Tag>Company</Tag>
+        <Type>Text</Type>
+        <Description>Company</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>UCLM</Value>
+    </Parameter>
+</ParametersManager>

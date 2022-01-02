@@ -1,0 +1,18 @@
+Photogrammetry Project
+- Number of processes ......................................# 1
+- Process (CREATE_DB,ADD_POINTCLOUD,ADD_ROI,WRITE_PCFS) ....# ADD_IMAGES
+  - Database file name .....................................# "D:/PhotogrammetryToolsProjects/20190814_FuenteAlamo_ParrotSequoia/PhTools_FuenteAlama20190814_PS.sqlite"
+  - Camera code (None for read from exif) ..................# None
+  - Number of images .......................................# 12
+    - Image ................................................# "D:/PhotogrammetryToolsProjects/20190814_FuenteAlamo_ParrotSequoia/images/0002/IMG_190814_110922_0000_GRE.TIF"
+    - Image ................................................# "D:/PhotogrammetryToolsProjects/20190814_FuenteAlamo_ParrotSequoia/images/0002/IMG_190814_110922_0000_NIR.TIF"
+    - Image ................................................# "D:/PhotogrammetryToolsProjects/20190814_FuenteAlamo_ParrotSequoia/images/0002/IMG_190814_110922_0000_RED.TIF"
+    - Image ................................................# "D:/PhotogrammetryToolsProjects/20190814_FuenteAlamo_ParrotSequoia/images/0002/IMG_190814_110922_0000_REG.TIF"
+    - Image ................................................# "D:/PhotogrammetryToolsProjects/20190814_FuenteAlamo_ParrotSequoia/images/0002/IMG_190814_110923_0001_GRE.TIF"
+    - Image ................................................# "D:/PhotogrammetryToolsProjects/20190814_FuenteAlamo_ParrotSequoia/images/0002/IMG_190814_110923_0001_NIR.TIF"
+    - Image ................................................# "D:/PhotogrammetryToolsProjects/20190814_FuenteAlamo_ParrotSequoia/images/0002/IMG_190814_110923_0001_RED.TIF"
+    - Image ................................................# "D:/PhotogrammetryToolsProjects/20190814_FuenteAlamo_ParrotSequoia/images/0002/IMG_190814_110923_0001_REG.TIF"
+    - Image ................................................# "D:/PhotogrammetryToolsProjects/20190814_FuenteAlamo_ParrotSequoia/images/0002/IMG_190814_110924_0002_GRE.TIF"
+    - Image ................................................# "D:/PhotogrammetryToolsProjects/20190814_FuenteAlamo_ParrotSequoia/images/0002/IMG_190814_110924_0002_NIR.TIF"
+    - Image ................................................# "D:/PhotogrammetryToolsProjects/20190814_FuenteAlamo_ParrotSequoia/images/0002/IMG_190814_110924_0002_RED.TIF"
+    - Image ................................................# "D:/PhotogrammetryToolsProjects/20190814_FuenteAlamo_ParrotSequoia/images/0002/IMG_190814_110924_0002_REG.TIF"

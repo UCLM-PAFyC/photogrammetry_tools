@@ -1,0 +1,2234 @@
+<!DOCTYPE ParametersManager>
+<ParametersManager version="1.1">
+    <Parameter>
+        <Command>Computing rectifying homographies</Command>
+        <Code>CRH_ComputingtAlgorithm</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Value list</Type>
+        <Description>Process only enabled images</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <ValueList>Know orientation</ValueList>
+        <Value>Know orientation</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Computing rectifying homographies</Command>
+        <Code>CRH_DsmRasterFile</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>File</Type>
+        <Description>DSM raster file, same CRS as project and with no data value.</Description>
+        <PrintSize>200</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>C:/uclm/EjemploCandado/metashape/dsm5cm.tif</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Computing rectifying homographies</Command>
+        <Code>CRH_IgnoredSensorPercentage</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Double precision number</Type>
+        <Description>Exterior percentage of sensor format ignored.</Description>
+        <PrintSize>20</PrintSize>
+        <Unit>percentage</Unit>
+        <Value>5.000</Value>
+        <MaximumValue>10.000</MaximumValue>
+        <MinimumValue>0.000</MinimumValue>
+        <PrintPrecision>3</PrintPrecision>
+    </Parameter>
+    <Parameter>
+        <Command>Computing rectifying homographies</Command>
+        <Code>CRH_MinimumOverlapPercentage</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Double precision number</Type>
+        <Description>Minimum overlap for ABM.</Description>
+        <PrintSize>20</PrintSize>
+        <Unit>percentage</Unit>
+        <Value>15.000</Value>
+        <MaximumValue>90.000</MaximumValue>
+        <MinimumValue>5.000</MinimumValue>
+        <PrintPrecision>3</PrintPrecision>
+    </Parameter>
+    <Parameter>
+        <Command>Computing rectifying homographies</Command>
+        <Code>CRH_ProcessOnlyEnabledImages</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Value list</Type>
+        <Description>Process only enabled images</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <ValueList>true;false</ValueList>
+        <Value>true</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Computing rectifying homographies</Command>
+        <Code>CRH_RectifyingHomographiesImagesOutputPath</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Path</Type>
+        <Description>Output path for rectifying homographies files, empty for images path.</Description>
+        <PrintSize>200</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>C:/uclm/EjemploCandado/export</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Computing rectifying homographies</Command>
+        <Code>CRH_ReportFilesOutputPath</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Path</Type>
+        <Description>Output path for report files, empty for images path.</Description>
+        <PrintSize>200</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>C:/uclm/EjemploCandado/export</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Computing rectifying homographies</Command>
+        <Code>CRH_SaveRectifyingHomographiesImages</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Value list</Type>
+        <Description>Save image pair of rectifying homographies</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <ValueList>true;false</ValueList>
+        <Value>false</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Export_undistorted_to_colmap</Command>
+        <Code>EUCM_ModelOutputPath</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Path</Type>
+        <Description>Output path for COLMAP project.</Description>
+        <PrintSize>200</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>D:/PhotogrammetryToolsProjects/EjemploEstebanRuiz/export_colmap</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Export_undistorted_to_colmap</Command>
+        <Code>EUCM_ProcessOnlyEnabledImages</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Value list</Type>
+        <Description>Process only enabled images</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <ValueList>true;false</ValueList>
+        <Value>true</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Forward projection, from image to object space (DSM)</Command>
+        <Code>FPDSM_DsmRasterFile</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>File</Type>
+        <Description>DSM raster file, same CRS as project and with no data value.</Description>
+        <PrintSize>200</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>C:/uclm/Ejemplo_PozoCanada/VueloPhantom4ProRTK/dsm_25830.tif</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Forward projection, from image to object space (DSM)</Command>
+        <Code>FPDSM_FormatFileFeaturesInImages</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Value list</Type>
+        <Description>Format of files of featues in images</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <ValueList>1:aux aux ul_col ul_row cols rows;2:aux aux ul_col ul_row lr_col lr_row</ValueList>
+        <Value>1:aux aux ul_col ul_row cols rows</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Forward projection, from image to object space (DSM)</Command>
+        <Code>FPDSM_GetStatisticsInImages</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Value list</Type>
+        <Description>Get statistics in all bands of images</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <ValueList>true;false</ValueList>
+        <Value>true</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Forward projection, from image to object space (DSM)</Command>
+        <Code>FPDSM_IgnoredSensorPercentage</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Double precision number</Type>
+        <Description>Exterior percentage of sensor format ignored.</Description>
+        <PrintSize>20</PrintSize>
+        <Unit>percentage</Unit>
+        <Value>5.000</Value>
+        <MaximumValue>10.000</MaximumValue>
+        <MinimumValue>0.000</MinimumValue>
+        <PrintPrecision>3</PrintPrecision>
+    </Parameter>
+    <Parameter>
+        <Command>Forward projection, from image to object space (DSM)</Command>
+        <Code>FPDSM_MultiProcess</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Value list</Type>
+        <Description>Use multi process</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <ValueList>true;false</ValueList>
+        <Value>true</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Forward projection, from image to object space (DSM)</Command>
+        <Code>FPDSM_OutputShapefile</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>SaveFile</Type>
+        <Description>Output shapefile.</Description>
+        <PrintSize>200</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>C:/uclm/Ejemplo_PozoCanada/VueloFlirDuoProR/features/output/projectedDetectedFeatures.shp</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Forward projection, from image to object space (DSM)</Command>
+        <Code>FPDSM_PathFilesFeaturesInImages</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Path</Type>
+        <Description>Path to files of features in images</Description>
+        <PrintSize>200</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>C:/uclm/Ejemplo_PozoCanada/VueloFlirDuoProR/features/DetectedFeatures</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Forward projection, from image to object space (DSM)</Command>
+        <Code>FPDSM_ProcessOnlyEnabledImages</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Value list</Type>
+        <Description>Process only enabled images</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <ValueList>true;false</ValueList>
+        <Value>true</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Get EXIF information</Command>
+        <Code>GEI_MultiProcess</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Value list</Type>
+        <Description>Use multi process</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <ValueList>true;false</ValueList>
+        <Value>false</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Get EXIF information</Command>
+        <Code>GEI_ProcessOnlyEnabledImages</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Value list</Type>
+        <Description>Process only enabled images</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <ValueList>true;false</ValueList>
+        <Value>true</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Get EXIF information</Command>
+        <Code>GEI_Tool</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Value list</Type>
+        <Description>Tool for read exif</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <ValueList>exiftool;exiv2;freeimage</ValueList>
+        <Value>exiftool</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Get images footprints from DSM</Command>
+        <Code>GIFDSM_DsmRasterFile</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>File</Type>
+        <Description>DSM raster file, same CRS as project and with no data value.</Description>
+        <PrintSize>200</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>D:/PhotogrammetryToolsProjects/EnriqueCaniaMarzo29/export/dsm_5cm_32618.tif</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Get images footprints from DSM</Command>
+        <Code>GIFDSM_MultiProcess</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Value list</Type>
+        <Description>Use multi process</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <ValueList>true;false</ValueList>
+        <Value>false</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Get images footprints from DSM</Command>
+        <Code>GIFDSM_NumberOfPointsBySide</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Integer number</Type>
+        <Description>Number of points to compute in each side of the footprint</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>11</Value>
+        <MaximumValue>999</MaximumValue>
+        <MinimumValue>2</MinimumValue>
+    </Parameter>
+    <Parameter>
+        <Command>Get images footprints from DSM</Command>
+        <Code>GIFDSM_ProcessOnlyEnabledImages</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Value list</Type>
+        <Description>Process only enabled images</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <ValueList>true;false</ValueList>
+        <Value>true</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Markers accuracy analysis</Command>
+        <Code>MAA_OutputFile</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>SaveFile</Type>
+        <Description>Report output file.</Description>
+        <PrintSize>200</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>D:/PhotogrammetryToolsProjects/EjemploCandado/reports/MarkersAccuracyAnalysis.tx</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Multi-View statistics</Command>
+        <Code>MVFS_BuildUsedAreaMaskFiles</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Value list</Type>
+        <Description>Build used area mask files, single and global orthoimages</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <ValueList>true;false</ValueList>
+        <Value>true</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Multi-View statistics</Command>
+        <Code>MVFS_ComputeSingleViewFromOrthoimageMosaicStatistics</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Value list</Type>
+        <Description>Compute single view statistics from an orthoimage mosaic</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <ValueList>true;false</ValueList>
+        <Value>true</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Multi-View statistics</Command>
+        <Code>MVFS_CoveragesMaximumNDVI</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Double precision number</Type>
+        <Description>Coverages minimum NDVI</Description>
+        <PrintSize>20</PrintSize>
+        <Unit>meters</Unit>
+        <Value>1.00</Value>
+        <MaximumValue>1.00</MaximumValue>
+        <MinimumValue>0.10</MinimumValue>
+        <PrintPrecision>2</PrintPrecision>
+    </Parameter>
+    <Parameter>
+        <Command>Multi-View statistics</Command>
+        <Code>MVFS_CoveragesMinimumNDVI</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Double precision number</Type>
+        <Description>Coverages minimum NDVI</Description>
+        <PrintSize>20</PrintSize>
+        <Unit>meters</Unit>
+        <Value>0.51</Value>
+        <MaximumValue>1.00</MaximumValue>
+        <MinimumValue>0.10</MinimumValue>
+        <PrintPrecision>2</PrintPrecision>
+    </Parameter>
+    <Parameter>
+        <Command>Multi-View statistics</Command>
+        <Code>MVFS_CoveragesPointsMinimumHeight</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Double precision number</Type>
+        <Description>Coverages points minimum height.</Description>
+        <PrintSize>20</PrintSize>
+        <Unit>meters</Unit>
+        <Value>-1.00</Value>
+        <MaximumValue>10.00</MaximumValue>
+        <MinimumValue>-10.00</MinimumValue>
+        <PrintPrecision>2</PrintPrecision>
+    </Parameter>
+    <Parameter>
+        <Command>Multi-View statistics</Command>
+        <Code>MVFS_DsmRasterFile</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>File</Type>
+        <Description>DSM raster file, same CRS as project and with no data value.</Description>
+        <PrintSize>200</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>D:/PhotogrammetryToolsProjects/20210729_Tarazona_Cebolla/export/DSM-302-Tarazona_Cebolla_20210729_25830_5cm.tif</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Multi-View statistics</Command>
+        <Code>MVFS_DtmRasterFile</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>File</Type>
+        <Description>DTM raster file, same CRS as project and with no data value.</Description>
+        <PrintSize>200</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>D:/PhotogrammetryToolsProjects/20210729_Tarazona_Cebolla/export/DTM-302-Tarazona_Cebolla_20210729_25830_5cm.tif</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Multi-View statistics</Command>
+        <Code>MVFS_EquationForReadNDVIOrthoimagesIn16bits</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Value list</Type>
+        <Description>Equation for read orthoimages values from 16 bits images to per unit value</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <ValueList>(x-1000.0)/1000.0;(x-100.0)/100.0;(x-10.0)/10.0</ValueList>
+        <Value>(x-1000.0)/1000.0</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Multi-View statistics</Command>
+        <Code>MVFS_EquationForWriteCorrectedOrthoimagesIn16bits</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Value list</Type>
+        <Description>Equation for write corrected orthoimages values to 16 bits images</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <ValueList>1000.0*x;100.0*x;10.0*x</ValueList>
+        <Value>1000.0*x</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Multi-View statistics</Command>
+        <Code>MVFS_FeaturesShapefile</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>File</Type>
+        <Description>Shapefile of features, polygon type, with enabled integer field (0/1) and a field (integer) for group of features</Description>
+        <PrintSize>200</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>D:/PhotogrammetryToolsProjects/20210729_Tarazona_Cebolla/data/malla_5x5_comoEM38_dhl.shp</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Multi-View statistics</Command>
+        <Code>MVFS_FeaturesShapefile_EPSG</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Integer number</Type>
+        <Description>EPSG code of features shapefile's CRS, -1 try to read from shapefile</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>25830</Value>
+        <MaximumValue>1000000</MaximumValue>
+        <MinimumValue>-1</MinimumValue>
+    </Parameter>
+    <Parameter>
+        <Command>Multi-View statistics</Command>
+        <Code>MVFS_FeaturesShapefile_GroupsFieldName</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Text</Type>
+        <Description>Groups field name in features shapefile. Empty for no use groups. Must be an integer</Description>
+        <PrintSize>80</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>Fila</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Multi-View statistics</Command>
+        <Code>MVFS_FeaturesShapefile_IdFieldName</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Text</Type>
+        <Description>Integer id field name in features shapefile, unique. Must be an integer</Description>
+        <PrintSize>80</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>id</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Multi-View statistics</Command>
+        <Code>MVFS_IgnoreHotspotAreasOfImages</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Value list</Type>
+        <Description>Ignore hotspot areas of images </Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <ValueList>true;false</ValueList>
+        <Value>true</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Multi-View statistics</Command>
+        <Code>MVFS_IgnoredSensorPercentage</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Double precision number</Type>
+        <Description>Exterior percentage of sensor format ignored in images.</Description>
+        <PrintSize>20</PrintSize>
+        <Unit>percentage</Unit>
+        <Value>7.500</Value>
+        <MaximumValue>10.000</MaximumValue>
+        <MinimumValue>0.000</MinimumValue>
+        <PrintPrecision>3</PrintPrecision>
+    </Parameter>
+    <Parameter>
+        <Command>Multi-View statistics</Command>
+        <Code>MVFS_InputConversionEquation</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Value list</Type>
+        <Description>Equation for read input reflectances values to per unit value</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <ValueList>x/1000.0;x/100.0;x/10.0</ValueList>
+        <Value>x/1000.0</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Multi-View statistics</Command>
+        <Code>MVFS_InputGroundToSensorAzimuthalAngleImagesSuffix</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Text</Type>
+        <Description>Suffix for image storing the azimuthal angle from ground to sensor (16 bits angle_deg*100)</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>_azang</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Multi-View statistics</Command>
+        <Code>MVFS_InputGroundToSensorDistanceImagesSuffix</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Text</Type>
+        <Description>Suffix for image storing the distance from ground to sensor (16 bits distance_m*100)</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>_dist</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Multi-View statistics</Command>
+        <Code>MVFS_InputGroundToSensorZenithalAngleImagesSuffix</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Text</Type>
+        <Description>Suffix for image storing the zenithal angle from ground to sensor (16 bits angle_deg*1000)</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>_zeang</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Multi-View statistics</Command>
+        <Code>MVFS_InputNDVIImagesSuffix</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Text</Type>
+        <Description>Suffix for NDVI images from master images file names</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>_ndvi</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Multi-View statistics</Command>
+        <Code>MVFS_InputOrthoimagesSuffix</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Text</Type>
+        <Description>Suffix for orthoimages</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>_orth</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Multi-View statistics</Command>
+        <Code>MVFS_LSMaximumNumberOfIterations</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Integer number</Type>
+        <Description>Maximum number of iterations in least squares</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>15</Value>
+        <MaximumValue>100</MaximumValue>
+        <MinimumValue>1</MinimumValue>
+    </Parameter>
+    <Parameter>
+        <Command>Multi-View statistics</Command>
+        <Code>MVFS_ModellingAlgorithm</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Value list</Type>
+        <Description>Modelling algorithm for BRDF stimatation</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <ValueList>Walthall Model (WM);Modified Walthall Model (MWM)</ValueList>
+        <Value>Walthall Model (WM)</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Multi-View statistics</Command>
+        <Code>MVFS_ModellingByFeature</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Value list</Type>
+        <Description>Adjust a different model for each feature in coverage</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <ValueList>true;false</ValueList>
+        <Value>true</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Multi-View statistics</Command>
+        <Code>MVFS_MultiProcess</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Value list</Type>
+        <Description>Use multi process</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <ValueList>true;false</ValueList>
+        <Value>false</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Multi-View statistics</Command>
+        <Code>MVFS_OnlyCamerasLikeSunPerspective</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Value list</Type>
+        <Description>Use only cameras with point of view like Sun</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <ValueList>true;false</ValueList>
+        <Value>true</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Multi-View statistics</Command>
+        <Code>MVFS_OrthoimageMosaic</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>File</Type>
+        <Description>Orthoimage mosaic file for single view statistics to compare results</Description>
+        <PrintSize>200</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>D:/PhotogrammetryToolsProjects/20210729_Tarazona_Cebolla/export/ORT-302-RFL_Tarazona_Cebolla_20210729_25830_5cm.tif</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Multi-View statistics</Command>
+        <Code>MVFS_OrthoimageMosaicEquationConversion</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Value list</Type>
+        <Description>Equation for convert orthoimage mosaic values</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <ValueList>x/1.0;x/10.0;x/100.0;x/1000.0</ValueList>
+        <Value>x/1.0</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Multi-View statistics</Command>
+        <Code>MVFS_OrthoimageMosaicNirBandNumber</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Integer number</Type>
+        <Description>Number of Nir band in orthoimage mosaic, starts 1. Used for NDVI threshold</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>5</Value>
+        <MaximumValue>10</MaximumValue>
+        <MinimumValue>1</MinimumValue>
+    </Parameter>
+    <Parameter>
+        <Command>Multi-View statistics</Command>
+        <Code>MVFS_OrthoimageMosaicRedBandNumber</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Integer number</Type>
+        <Description>Number of Red band in orthoimage mosaic, starts 1. Used for NDVI threshold</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>3</Value>
+        <MaximumValue>10</MaximumValue>
+        <MinimumValue>1</MinimumValue>
+    </Parameter>
+    <Parameter>
+        <Command>Multi-View statistics</Command>
+        <Code>MVFS_OutputCorrectedOrthoimagesSuffix</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Text</Type>
+        <Description>Suffix for output corrected orthoimages</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>_orth_brdf</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Multi-View statistics</Command>
+        <Code>MVFS_OutputUsedAreaMaskFilesOrthoimagesSuffix</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Text</Type>
+        <Description>Suffix for output index orthoimages</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>_mask</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Multi-View statistics</Command>
+        <Code>MVFS_OutputUsedAreaMaskGlobalOthoimageFile</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>SaveFile</Type>
+        <Description>Output Used area mask global orthoimage file</Description>
+        <PrintSize>200</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>D:/PhotogrammetryToolsProjects/20210729_Tarazona_Cebolla/export/ORT-302-RFL_Tarazona_Cebolla_20210729_25830_5cm_mask.tif</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Multi-View statistics</Command>
+        <Code>MVFS_PrefixOrthomosaicReflectancesFieldsNamesInShapefile</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Text</Type>
+        <Description>Prefix of fields names for orhtomosaic reflectances in shapefile (two or three characters)</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>om_</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Multi-View statistics</Command>
+        <Code>MVFS_PrefixOutputReflectancesFieldsNamesInShapefile</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Text</Type>
+        <Description>Prefix of fields names for output reflectances in shapefile (two or three characters)</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>rf_</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Multi-View statistics</Command>
+        <Code>MVFS_ProcessOnlyEnabledImages</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Value list</Type>
+        <Description>Process only enabled images</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <ValueList>true;false</ValueList>
+        <Value>true</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Multi-View statistics</Command>
+        <Code>MVFS_ReflectanceMaximumThreshold</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Double precision number</Type>
+        <Description>Reflectance maximum threshold value</Description>
+        <PrintSize>20</PrintSize>
+        <Unit>meters</Unit>
+        <Value>1.01</Value>
+        <MaximumValue>1.20</MaximumValue>
+        <MinimumValue>0.80</MinimumValue>
+        <PrintPrecision>2</PrintPrecision>
+    </Parameter>
+    <Parameter>
+        <Command>Multi-View statistics</Command>
+        <Code>MVFS_ReflectanceMinimumThreshold</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Double precision number</Type>
+        <Description>Reflectance minimum threshold value</Description>
+        <PrintSize>20</PrintSize>
+        <Unit>meters</Unit>
+        <Value>-0.01</Value>
+        <MaximumValue>0.20</MaximumValue>
+        <MinimumValue>-0.20</MinimumValue>
+        <PrintPrecision>2</PrintPrecision>
+    </Parameter>
+    <Parameter>
+        <Command>Multi-View statistics</Command>
+        <Code>MVFS_ReflectanceResidualsThreshold</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Double precision number</Type>
+        <Description>Reflectance residual threshold for least squares outliers</Description>
+        <PrintSize>20</PrintSize>
+        <Unit>meters</Unit>
+        <Value>0.10</Value>
+        <MaximumValue>0.20</MaximumValue>
+        <MinimumValue>0.10</MinimumValue>
+        <PrintPrecision>2</PrintPrecision>
+    </Parameter>
+    <Parameter>
+        <Command>Multi-View statistics</Command>
+        <Code>MVFS_ReportFile</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>SaveFile</Type>
+        <Description>Output report CSV file.</Description>
+        <PrintSize>200</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>D:/PhotogrammetryToolsProjects/20210729_Tarazona_Cebolla/reports/micasense_rededge/MultiViewStatisticsReport_byFeature.txt</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Multi-View statistics</Command>
+        <Code>MVFS_SelectCoverageByNDVIThreshold</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Value list</Type>
+        <Description>Select coverage by ndvi threshold or not</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <ValueList>true;false</ValueList>
+        <Value>true</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Multi-View statistics</Command>
+        <Code>MVFS_StdGMMThreshold</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Double precision number</Type>
+        <Description>Valid Gauss Markov Model standard deviation threshold</Description>
+        <PrintSize>20</PrintSize>
+        <Unit>meters</Unit>
+        <Value>0.05</Value>
+        <MaximumValue>0.20</MaximumValue>
+        <MinimumValue>0.01</MinimumValue>
+        <PrintPrecision>2</PrintPrecision>
+    </Parameter>
+    <Parameter>
+        <Command>Multi-View statistics</Command>
+        <Code>MVFS_StdReflectancesThreshold</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Double precision number</Type>
+        <Description>Valid reflectances standard deviation threshold</Description>
+        <PrintSize>20</PrintSize>
+        <Unit>meters</Unit>
+        <Value>0.02</Value>
+        <MaximumValue>0.20</MaximumValue>
+        <MinimumValue>0.01</MinimumValue>
+        <PrintPrecision>2</PrintPrecision>
+    </Parameter>
+    <Parameter>
+        <Command>Normalized Difference Orthoimages generation</Command>
+        <Code>NDOG_EquationForWriteOrthoimagesIn16bits</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Value list</Type>
+        <Description>Equation for write orthoimages values to 16 bits images</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <ValueList>1000.0*x+1000.0;100.0*x+100.0;10.0*x+10.0</ValueList>
+        <Value>1000.0*x+1000.0</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Normalized Difference Orthoimages generation</Command>
+        <Code>NDOG_FirstBandName</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Text</Type>
+        <Description>First band name for equation: (first-second)/(first+second)</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>nir</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Normalized Difference Orthoimages generation</Command>
+        <Code>NDOG_InputConversionEquation</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Value list</Type>
+        <Description>Equation for read input values to per unit value</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <ValueList>x/1000.0;x/100.0;x/10.0</ValueList>
+        <Value>x/1000.0</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Normalized Difference Orthoimages generation</Command>
+        <Code>NDOG_InputOrthoimagesSuffix</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Text</Type>
+        <Description>Suffix for input reflectances orthoimages</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>_orth</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Normalized Difference Orthoimages generation</Command>
+        <Code>NDOG_MultiProcess</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Value list</Type>
+        <Description>Use multi process</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <ValueList>true;false</ValueList>
+        <Value>false</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Normalized Difference Orthoimages generation</Command>
+        <Code>NDOG_OutputOrthoimagesSuffix</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Text</Type>
+        <Description>Suffix for output index orthoimages</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>_ndvi</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Normalized Difference Orthoimages generation</Command>
+        <Code>NDOG_ProcessOnlyEnabledImages</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Value list</Type>
+        <Description>Process only enabled images</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <ValueList>true;false</ValueList>
+        <Value>true</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Normalized Difference Orthoimages generation</Command>
+        <Code>NDOG_SecondBandName</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Text</Type>
+        <Description>Second band name for equation: (first-second)/(first+second)</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>red</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Orthoimages generation</Command>
+        <Code>OIG_DsmRasterFile</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>File</Type>
+        <Description>DSM raster file, same CRS as project and with no data value.</Description>
+        <PrintSize>200</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>D:/PhotogrammetryToolsProjects/20190814_Fuentealamo_Micasense/sonya5100/DSM-103_FuenteAlama_25830_20190814_4cm.tif</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Orthoimages generation</Command>
+        <Code>OIG_EquationForWriteOrthoimagesIn16bits</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Value list</Type>
+        <Description>Equation for write orthoimages values to 16 bits images</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <ValueList>1000.0*x;100.0*x;10.0*x</ValueList>
+        <Value>1000.0*x</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Orthoimages generation</Command>
+        <Code>OIG_IgnoredSensorPercentage</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Double precision number</Type>
+        <Description>Exterior percentage of sensor format ignored.</Description>
+        <PrintSize>20</PrintSize>
+        <Unit>percentage</Unit>
+        <Value>5.0</Value>
+        <MaximumValue>10.0</MaximumValue>
+        <MinimumValue>0.0</MinimumValue>
+        <PrintPrecision>1</PrintPrecision>
+    </Parameter>
+    <Parameter>
+        <Command>Orthoimages generation</Command>
+        <Code>OIG_InputConversionEquation</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Value list</Type>
+        <Description>Equation for read input values to per unit value</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <ValueList>x/1000.0;x/100.0;x/10.0</ValueList>
+        <Value>x/1000.0</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Orthoimages generation</Command>
+        <Code>OIG_MultiProcess</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Value list</Type>
+        <Description>Use multi process</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <ValueList>true;false</ValueList>
+        <Value>false</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Orthoimages generation</Command>
+        <Code>OIG_OrthoimagesGSD</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Double precision number</Type>
+        <Description>Orthoimages GSD</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>0.05</Value>
+        <MaximumValue>1.00</MaximumValue>
+        <MinimumValue>0.01</MinimumValue>
+        <PrintPrecision>2</PrintPrecision>
+    </Parameter>
+    <Parameter>
+        <Command>Orthoimages generation</Command>
+        <Code>OIG_OutputGroundToSensorAzimuthalAngleImagesSuffix</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Text</Type>
+        <Description>Suffix for image to store the azimuthal angle from ground to sensor (16 bits angle_deg*100)</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>_azang</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Orthoimages generation</Command>
+        <Code>OIG_OutputGroundToSensorDistanceImagesSuffix</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Text</Type>
+        <Description>Suffix for image to store the distance from ground to sensor (16 bits distance_m*100)</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>_dist</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Orthoimages generation</Command>
+        <Code>OIG_OutputGroundToSensorZenithalAngleImagesSuffix</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Text</Type>
+        <Description>Suffix for image to store the zenithal angle from ground to sensor (16 bits angle_deg*1000)</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>_zeang</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Orthoimages generation</Command>
+        <Code>OIG_OutputOrthoimagesSuffix</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Text</Type>
+        <Description>Suffix for orthoimages</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>_orth</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Orthoimages generation</Command>
+        <Code>OIG_ProcessOnlyEnabledImages</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Value list</Type>
+        <Description>Process only enabled images</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <ValueList>true;false</ValueList>
+        <Value>true</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Orthoimages generation</Command>
+        <Code>OIG_ReportFile</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>SaveFile</Type>
+        <Description>Output report CSV file.</Description>
+        <PrintSize>200</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>D:/PhotogrammetryToolsProjects/20190814_Fuentealamo_Micasense/reports/orthoimages_report.txt</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Orthoimages generation</Command>
+        <Code>OIG_SuffixInputImages</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Text</Type>
+        <Description>Empty for original files, with extension for another format</Description>
+        <PrintSize>20</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>_rf_dlscp.png</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Object point measurement</Command>
+        <Code>OPM_DsmRasterFile</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>File</Type>
+        <Description>DSM raster file, same CRS as project and with no data value.</Description>
+        <PrintSize>200</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>D:/PhotogrammetryToolsProjects/EjemploCandado/metashape/dsm5cm.tif</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Object point measurement</Command>
+        <Code>OPM_HeightSeparationOutsideDsm</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Double precision number</Type>
+        <Description>Maximum height separation of points outside DSM</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>50.00</Value>
+        <MaximumValue>100.00</MaximumValue>
+        <MinimumValue>0.50</MinimumValue>
+        <PrintPrecision>2</PrintPrecision>
+    </Parameter>
+    <Parameter>
+        <Command>Object point measurement</Command>
+        <Code>OPM_HeightSeparationWithinDsm</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Double precision number</Type>
+        <Description>Maximum height separation of points within DSM</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>5.00</Value>
+        <MaximumValue>20.00</MaximumValue>
+        <MinimumValue>0.50</MinimumValue>
+        <PrintPrecision>2</PrintPrecision>
+    </Parameter>
+    <Parameter>
+        <Command>Object point measurement</Command>
+        <Code>OPM_IgnoredSensorPercentage</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Double precision number</Type>
+        <Description>Exterior percentage of sensor format ignored.</Description>
+        <PrintSize>20</PrintSize>
+        <Unit>percentage</Unit>
+        <Value>5.000</Value>
+        <MaximumValue>10.000</MaximumValue>
+        <MinimumValue>0.000</MinimumValue>
+        <PrintPrecision>3</PrintPrecision>
+    </Parameter>
+    <Parameter>
+        <Command>Object point measurement</Command>
+        <Code>OPM_ImagesMatchesAccuracy</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Double precision number</Type>
+        <Description>Images' matches a priori accuracy, in pixels</Description>
+        <PrintSize>20</PrintSize>
+        <Unit>percentage</Unit>
+        <Value>2.0</Value>
+        <MaximumValue>10.0</MaximumValue>
+        <MinimumValue>0.0</MinimumValue>
+        <PrintPrecision>1</PrintPrecision>
+    </Parameter>
+    <Parameter>
+        <Command>Object point measurement</Command>
+        <Code>OPM_ImagesMeasurementsAccuracy</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Double precision number</Type>
+        <Description>Images' measurementes a priori accuracy, in pixels</Description>
+        <PrintSize>20</PrintSize>
+        <Unit>percentage</Unit>
+        <Value>0.5</Value>
+        <MaximumValue>10.0</MaximumValue>
+        <MinimumValue>0.0</MinimumValue>
+        <PrintPrecision>1</PrintPrecision>
+    </Parameter>
+    <Parameter>
+        <Command>Object point measurement</Command>
+        <Code>OPM_MatchMaximumEpipolarRowParallax</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Integer number</Type>
+        <Description>Maximum row parallax in epipolar pair</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>8</Value>
+        <MaximumValue>50</MaximumValue>
+        <MinimumValue>8</MinimumValue>
+    </Parameter>
+    <Parameter>
+        <Command>Object point measurement</Command>
+        <Code>OPM_MatchOpenCvMethod</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Value list</Type>
+        <Description>OpenCv's match method, https://docs.opencv.org/3.4/de/da9/tutorial_template_matching.html</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <ValueList>ALL;TM_SQDIFF_NORMED;TM_CCORR_NORMED;TM_COEFF_NORMED</ValueList>
+        <Value>ALL</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Object point measurement</Command>
+        <Code>OPM_MatchOpenCvQualityThreshold</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Double precision number</Type>
+        <Description>Threshold for valid matching. It depends on used method</Description>
+        <PrintSize>20</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>0.70</Value>
+        <MaximumValue>100.00</MaximumValue>
+        <MinimumValue>-100.00</MinimumValue>
+        <PrintPrecision>2</PrintPrecision>
+    </Parameter>
+    <Parameter>
+        <Command>Object point measurement</Command>
+        <Code>OPM_MinimumOverlapPercentage</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Double precision number</Type>
+        <Description>Minimum overlap for ABM.</Description>
+        <PrintSize>20</PrintSize>
+        <Unit>percentage</Unit>
+        <Value>10.000</Value>
+        <MaximumValue>90.000</MaximumValue>
+        <MinimumValue>5.000</MinimumValue>
+        <PrintPrecision>3</PrintPrecision>
+    </Parameter>
+    <Parameter>
+        <Command>Object point measurement</Command>
+        <Code>OPM_ProcessOnlyEnabledImages</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Value list</Type>
+        <Description>Process only enabled images</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <ValueList>true;false</ValueList>
+        <Value>true</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Object point measurement</Command>
+        <Code>OPM_RamMaximumSize</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Integer number</Type>
+        <Description>RAM maximun size to use, in MBytes</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>1024</Value>
+        <MaximumValue>4096</MaximumValue>
+        <MinimumValue>512</MinimumValue>
+    </Parameter>
+    <Parameter>
+        <Command>Object point measurement</Command>
+        <Code>OPM_RectifyingHomographiesImagesOutputPath</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Path</Type>
+        <Description>Output path for rectifying homographies files</Description>
+        <PrintSize>200</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value></Value>
+    </Parameter>
+    <Parameter>
+        <Command>Object point measurement</Command>
+        <Code>OPM_ReportFilesPath</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Path</Type>
+        <Description>Path for report files, empty for ignore this process.</Description>
+        <PrintSize>200</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>D:/PhotogrammetryToolsProjects/EjemploCandado/reports</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Object point measurement</Command>
+        <Code>OPM_SaveRectifyingHomographiesImages</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Value list</Type>
+        <Description>Save rectified images</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <ValueList>true;false</ValueList>
+        <Value>false</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Radiometric conversion to reflectance - Micasense RedEdge</Command>
+        <Code>RCRFMRE_ComputingtAlgorithm</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Value list</Type>
+        <Description>Computing algorithm</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <ValueList>MicasenseRedEdgeDLS;MicasenseRedEdgeDLSCorrectedWithPanel;MicasenseRedEdgePanelDiscrete;MicasenseRedEdgePanelContinuous</ValueList>
+        <Value>MicasenseRedEdgeDLSCorrectedWithPanel</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Radiometric conversion to reflectance - Micasense RedEdge</Command>
+        <Code>RCRFMRE_DiffuseIrradiancePercentage</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Double precision number</Type>
+        <Description>Diffuse irradiance percentage, under even the sunniest conditions with the summer sun directly overhead is 15.0%</Description>
+        <PrintSize>20</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>16.7</Value>
+        <MaximumValue>100.0</MaximumValue>
+        <MinimumValue>0.0</MinimumValue>
+        <PrintPrecision>1</PrintPrecision>
+    </Parameter>
+    <Parameter>
+        <Command>Radiometric conversion to reflectance - Micasense RedEdge</Command>
+        <Code>RCRFMRE_EquationForWriteRadiancesIn16bits</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Value list</Type>
+        <Description>Equation for write radiances values to 16 bits images</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <ValueList>1000.0*x;4000.0*x;5000.0*x</ValueList>
+        <Value>5000.0*x</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Radiometric conversion to reflectance - Micasense RedEdge</Command>
+        <Code>RCRFMRE_EquationForWriteReflectancessIn16bits</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Value list</Type>
+        <Description>Equation for write reflectances values to 16 bits images</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <ValueList>1000.0*x;100.0*x;10.0*x</ValueList>
+        <Value>1000.0*x</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Radiometric conversion to reflectance - Micasense RedEdge</Command>
+        <Code>RCRFMRE_Exif_BandNameTags</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Text</Type>
+        <Description>Band name tags readed by exiftool, separated by ; character</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>BandName;Band Name</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Radiometric conversion to reflectance - Micasense RedEdge</Command>
+        <Code>RCRFMRE_Exif_BlackLevelValuesTags</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Text</Type>
+        <Description>Black level values tags readed by exiftool, values like 4800 4800 4800 4800, separated by ; character</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>BlackLevel;Black Level</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Radiometric conversion to reflectance - Micasense RedEdge</Command>
+        <Code>RCRFMRE_Exif_CameraMakeTags</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Text</Type>
+        <Description>Camera make EXIF tags readed by exiftool, separated by ; character</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>Make;CameraMake</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Radiometric conversion to reflectance - Micasense RedEdge</Command>
+        <Code>RCRFMRE_Exif_CameraModelTags</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Text</Type>
+        <Description>Camera model EXIF tags readed by exiftool, separated by ; character</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>Model;RigName;CameraModel;Camera Model Name</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Radiometric conversion to reflectance - Micasense RedEdge</Command>
+        <Code>RCRFMRE_Exif_DarkPixelsValuesTags</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Text</Type>
+        <Description>Dark pixels values tags readed by exiftool, values like [5012,5029,4982,4971], separated by ; character</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>DarkRowValue;Dark Row Value </Value>
+    </Parameter>
+    <Parameter>
+        <Command>Radiometric conversion to reflectance - Micasense RedEdge</Command>
+        <Code>RCRFMRE_Exif_DateTimeFormats</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Text</Type>
+        <Description>Date time format readed by exiftool, separated by ; character</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>yyyy:MM:dd hh:mm:ss</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Radiometric conversion to reflectance - Micasense RedEdge</Command>
+        <Code>RCRFMRE_Exif_DateTimeTags</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Text</Type>
+        <Description>Date time tag readed by exiftool, separated by ; character</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>DateTimeOriginal;Date/Time Original;Create Date</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Radiometric conversion to reflectance - Micasense RedEdge</Command>
+        <Code>RCRFMRE_Exif_DirectIrradianceTags</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Text</Type>
+        <Description>Direct irradiance tag readed by exiftool, separated by ; character</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>Direct Irradiance;DirectIrradiance</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Radiometric conversion to reflectance - Micasense RedEdge</Command>
+        <Code>RCRFMRE_Exif_DlsIrradianceTags</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Text</Type>
+        <Description>DLS irradiance tag readed by exiftool, separated by ; character</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>Irradiance;SpectralIrradiance</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Radiometric conversion to reflectance - Micasense RedEdge</Command>
+        <Code>RCRFMRE_Exif_DlsPosePitchTags</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Text</Type>
+        <Description>DLS pose pitch angle (rad) tag readed by exiftool, separated by ; character</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>Irradiance Pitch;IrradiancePitch</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Radiometric conversion to reflectance - Micasense RedEdge</Command>
+        <Code>RCRFMRE_Exif_DlsPoseRollTags</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Text</Type>
+        <Description>DLS pose roll angle (rad) tag readed by exiftool, separated by ; character</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>Irradiance Roll;IrradianceRoll</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Radiometric conversion to reflectance - Micasense RedEdge</Command>
+        <Code>RCRFMRE_Exif_DlsPoseYawTags</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Text</Type>
+        <Description>DLS pose yaw angle (rad) tag readed by exiftool, separated by ; character</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>Irradiance Yaw;IrradianceYaw</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Radiometric conversion to reflectance - Micasense RedEdge</Command>
+        <Code>RCRFMRE_Exif_DnMaxValueTags</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Text</Type>
+        <Description>Dn maximum values tags readed by exiftool, values like 12 or 16, separated by ; character</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>BitsPerSample;Bits Per Sample</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Radiometric conversion to reflectance - Micasense RedEdge</Command>
+        <Code>RCRFMRE_Exif_EstimatedDirectLightVectorTags</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Text</Type>
+        <Description>Estimated Direct Light Vector tag readed by exiftool, separated by ; character</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>Estimated Direct Light Vector;EstimatedDirectLightVector</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Radiometric conversion to reflectance - Micasense RedEdge</Command>
+        <Code>RCRFMRE_Exif_ExposureTimeTags</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Text</Type>
+        <Description>Exposure time tags readed by exiftool, values like 1/100, separated by ; character</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>ExposureTime;Exposure Time</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Radiometric conversion to reflectance - Micasense RedEdge</Command>
+        <Code>RCRFMRE_Exif_GainTags</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Text</Type>
+        <Description>Gain tags readed by exiftool, values like 100, separated by ; character</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>ISOSpeed;ISO Speed</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Radiometric conversion to reflectance - Micasense RedEdge</Command>
+        <Code>RCRFMRE_Exif_GpsAltitudeRefTags</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Text</Type>
+        <Description>GPS altitude ref values tags readed by exiftool separated by ; character</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>GPSAltitudeRef;GPS Altitude Ref</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Radiometric conversion to reflectance - Micasense RedEdge</Command>
+        <Code>RCRFMRE_Exif_GpsAltitudeTags</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Text</Type>
+        <Description>GPS altitude values tags readed by exiftool separated by ; character</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>GPSAltitude;GPS Altitude</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Radiometric conversion to reflectance - Micasense RedEdge</Command>
+        <Code>RCRFMRE_Exif_GpsLatitudeRefTags</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Text</Type>
+        <Description>GPS latitude ref values tags readed by exiftool separated by ; character</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>GPSLatitudeRef;GPS Latitude Ref</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Radiometric conversion to reflectance - Micasense RedEdge</Command>
+        <Code>RCRFMRE_Exif_GpsLatitudeTags</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Text</Type>
+        <Description>GPS latitude values tags readed by exiftool separated by ; character</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>GPSLatitude;GPS Latitude</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Radiometric conversion to reflectance - Micasense RedEdge</Command>
+        <Code>RCRFMRE_Exif_GpsLongitudeRefTags</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Text</Type>
+        <Description>GPS longitude ref values tags readed by exiftool separated by ; character</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>GPSLongitudeRef;GPS Longitude Ref</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Radiometric conversion to reflectance - Micasense RedEdge</Command>
+        <Code>RCRFMRE_Exif_GpsLongitudeTags</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Text</Type>
+        <Description>GPS longitude values tags readed by exiftool separated by ; character</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>GPSLongitude;GPS Longitude</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Radiometric conversion to reflectance - Micasense RedEdge</Command>
+        <Code>RCRFMRE_Exif_HorizontalIrradianceTags</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Text</Type>
+        <Description>Horizontal irradiance tag readed by exiftool, separated by ; character</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>Horizontal Irradiance;HorizontalIrradiance</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Radiometric conversion to reflectance - Micasense RedEdge</Command>
+        <Code>RCRFMRE_Exif_RowGradientCorrectionTags</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Text</Type>
+        <Description>Row gradient correction parameters values tags readed by exiftool, values like [0.00014371797533960985,1.1819742655180652e-07,-1.5973995104095687e-05], separated by ; character</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>RadiometricCalibration;Radiometric Calibration </Value>
+    </Parameter>
+    <Parameter>
+        <Command>Radiometric conversion to reflectance - Micasense RedEdge</Command>
+        <Code>RCRFMRE_Exif_ScatteredIrradianceTags</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Text</Type>
+        <Description>Scattered irradiance tag readed by exiftool, separated by ; character</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>Scattered Irradiance;ScatteredIrradiance</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Radiometric conversion to reflectance - Micasense RedEdge</Command>
+        <Code>RCRFMRE_Exif_SolarAzimuthTags</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Text</Type>
+        <Description>Solar azimuth tag readed by exiftool, separated by ; character</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>Solar Azimuth;SolarAzimuth</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Radiometric conversion to reflectance - Micasense RedEdge</Command>
+        <Code>RCRFMRE_Exif_SolarElevationTags</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Text</Type>
+        <Description>Solar elevation tag readed by exiftool, separated by ; character</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>Solar Elevation;SolarElevation</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Radiometric conversion to reflectance - Micasense RedEdge</Command>
+        <Code>RCRFMRE_Exif_VignettingCenterTags</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Text</Type>
+        <Description>Vignetting center parameters values tags readed by exiftool, values like [688.55381277010929,474.53550083355566], separated by ; character</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>VignettingCenter;Vignetting Center</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Radiometric conversion to reflectance - Micasense RedEdge</Command>
+        <Code>RCRFMRE_Exif_VignettingPolynomialTags</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Text</Type>
+        <Description>Vignetting polynomial parameters values tags readed by exiftool, values like [-6.2090609607359069e-05,1.3301634523981165e-06,-1.0537709909711349e-08,3.0597178518585423e-11,-3.9685437682892267e-14,1.8615129691745782e-17], separated by ; character</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>VignettingPolynomial;Vignetting Polynomial</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Radiometric conversion to reflectance - Micasense RedEdge</Command>
+        <Code>RCRFMRE_MultiProcess</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Value list</Type>
+        <Description>Use multi process</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <ValueList>true;false</ValueList>
+        <Value>true</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Radiometric conversion to reflectance - Micasense RedEdge</Command>
+        <Code>RCRFMRE_OffsetToUTC</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Text</Type>
+        <Description>Offset to UTC from time in file, example: -02:00:00 (hh:mm:ss)</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>-00:00:00.001</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Radiometric conversion to reflectance - Micasense RedEdge</Command>
+        <Code>RCRFMRE_PanelCalibrations</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Text</Type>
+        <Description>Panel calibrated reflectance for all bands, band:reflectance(percentage), separated by ; character</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>blue:51.4;Green:51.4;Red:51.3;RedEdge:51.2;Nir:51.0</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Radiometric conversion to reflectance - Micasense RedEdge</Command>
+        <Code>RCRFMRE_Panels_Geometries_File</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>File</Type>
+        <Description>File name of panels geometries. By row: image full path, space, wktpolygon (rows positives)</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>D:/PhotogrammetryToolsProjects/EnriqueCaniaMarzo29/PanelsGeometries.txt</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Radiometric conversion to reflectance - Micasense RedEdge</Command>
+        <Code>RCRFMRE_ProcessOnlyEnabledImages</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Value list</Type>
+        <Description>Process only enabled images</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <ValueList>true;false</ValueList>
+        <Value>true</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Radiometric conversion to reflectance - Micasense RedEdge</Command>
+        <Code>RCRFMRE_ReportFilesOutputPath</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Path</Type>
+        <Description>Output path for report files, empty for images path.</Description>
+        <PrintSize>200</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>D:/PhotogrammetryToolsProjects/20190814_Fuentealamo_Micasense/reports</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Radiometric conversion to reflectance - Micasense RedEdge</Command>
+        <Code>RCRFMRE_SaveConvertedToRadianceImages</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Value list</Type>
+        <Description>Save converted to radiance images, same folder of original images with selected suffix</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <ValueList>true;false</ValueList>
+        <Value>true</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Radiometric conversion to reflectance - Micasense RedEdge</Command>
+        <Code>RCRFMRE_SaveConvertedToReflectanceImages</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Value list</Type>
+        <Description>Save converted to radiance images, same folder of original images with selected suffix</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <ValueList>true;false</ValueList>
+        <Value>true</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Radiometric conversion to reflectance - Micasense RedEdge</Command>
+        <Code>RCRFMRE_SuffixForSaveConvertedToRadianceImages</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Text</Type>
+        <Description>Suffix for save converted to radiance images</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>_rd</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Radiometric conversion to reflectance - Micasense RedEdge</Command>
+        <Code>RCRFMRE_SuffixForSaveConvertedToReflectanceImages</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Text</Type>
+        <Description>Suffix for save converted to reflectance images</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>_rf_dlscp</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Radiometric conversion to reflectance - Parrot Sequoia</Command>
+        <Code>RCRFPS_ComputingAlgorithm</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Value list</Type>
+        <Description>Computing algorithm</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <ValueList>ParrotSequoiaDLSCorrectedWithPanel</ValueList>
+        <Value>ParrotSequoiaDLSCorrectedWithPanel</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Radiometric conversion to reflectance - Parrot Sequoia</Command>
+        <Code>RCRFPS_EquationForWriteReflectancessIn16bits</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Value list</Type>
+        <Description>Equation for write reflectances values to 16 bits images</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <ValueList>1000.0*x;100.0*x;10.0*x</ValueList>
+        <Value>1000.0*x</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Radiometric conversion to reflectance - Parrot Sequoia</Command>
+        <Code>RCRFPS_Exif_BandNameTags</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Text</Type>
+        <Description>Band name tags readed by exiftool, separated by ; character</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>BandName;Band Name</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Radiometric conversion to reflectance - Parrot Sequoia</Command>
+        <Code>RCRFPS_Exif_CalibrationCoefficientesTags</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Text</Type>
+        <Description>Calibration coefficientes tags readed by exiftool, values separated by , character</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>SensorModel;Sensor Model</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Radiometric conversion to reflectance - Parrot Sequoia</Command>
+        <Code>RCRFPS_Exif_CameraMakeTags</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Text</Type>
+        <Description>Camera make EXIF tags readed by exiftool, separated by ; character</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>Make;CameraMake</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Radiometric conversion to reflectance - Parrot Sequoia</Command>
+        <Code>RCRFPS_Exif_CameraModelTags</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Text</Type>
+        <Description>Camera model EXIF tags readed by exiftool, separated by ; character</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>CameraModel;Camera Model Name</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Radiometric conversion to reflectance - Parrot Sequoia</Command>
+        <Code>RCRFPS_Exif_DateTimeFormats</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Text</Type>
+        <Description>Date time format readed by exiftool, separated by ; character</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>yyyy:MM:dd hh:mm:ss.zzz;yyyy:MM:dd hh:mm:ss.zzzzzz;yyyy:MM:dd hh:mm:ss;yyyy:MM:dd hh:mm:ss.z</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Radiometric conversion to reflectance - Parrot Sequoia</Command>
+        <Code>RCRFPS_Exif_DateTimeFromStartTags</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Text</Type>
+        <Description>Date time from start tag readed by exiftool, separated by ; character</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>CreateDate;Create Date</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Radiometric conversion to reflectance - Parrot Sequoia</Command>
+        <Code>RCRFPS_Exif_DateTimeTags</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Text</Type>
+        <Description>Date time tag readed by exiftool, separated by ; character</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>DateTimeOriginal;Date/Time Original;Modify Date</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Radiometric conversion to reflectance - Parrot Sequoia</Command>
+        <Code>RCRFPS_Exif_DlsIrradianceListTags</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Text</Type>
+        <Description>Irradiance List tags readed by exiftool, separated by ; character</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>IrradianceList;Irradiance List</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Radiometric conversion to reflectance - Parrot Sequoia</Command>
+        <Code>RCRFPS_Exif_ExposureTimeTags</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Text</Type>
+        <Description>Exposure time tags readed by exiftool, values like 1/100, separated by ; character</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>ExposureTime;Exposure Time</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Radiometric conversion to reflectance - Parrot Sequoia</Command>
+        <Code>RCRFPS_Exif_FNumberTags</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Text</Type>
+        <Description>FNumer tags readed by exiftool, values like 2.2, separated by ; character</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>F Number;FNumber</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Radiometric conversion to reflectance - Parrot Sequoia</Command>
+        <Code>RCRFPS_Exif_GainTags</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Text</Type>
+        <Description>Gain tags readed by exiftool, values like 100, separated by ; character</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>ISOSpeed;ISO Speed;ISO</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Radiometric conversion to reflectance - Parrot Sequoia</Command>
+        <Code>RCRFPS_Exif_IrradianceCalibrationMeasurementTags</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Text</Type>
+        <Description>Irradiance calibration measurement tags readed by exiftool, values separated by , character</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>IrradianceCalibrationMeasurement;Irradiance Calibration Measurement</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Radiometric conversion to reflectance - Parrot Sequoia</Command>
+        <Code>RCRFPS_Exif_VignettingPolynomialNameTags</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Text</Type>
+        <Description>Vignetting polynomial powers values tags readed by exiftool, values separated by , character</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>Vignetting Polynomial 2D Name;VignettingPolynomial2DName</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Radiometric conversion to reflectance - Parrot Sequoia</Command>
+        <Code>RCRFPS_Exif_VignettingPolynomialTags</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Text</Type>
+        <Description>Vignetting polynomial parameters values tags readed by exiftool, values separated by , character</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>Vignetting Polynomial 2D;VignettingPolynomial2D</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Radiometric conversion to reflectance - Parrot Sequoia</Command>
+        <Code>RCRFPS_MultiProcess</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Value list</Type>
+        <Description>Use multi process</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <ValueList>true;false</ValueList>
+        <Value>true</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Radiometric conversion to reflectance - Parrot Sequoia</Command>
+        <Code>RCRFPS_OffsetToUTC</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Text</Type>
+        <Description>Offset to UTC from time in file, example: -02:00:00 (hh:mm:ss)</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>-00:00:00.001</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Radiometric conversion to reflectance - Parrot Sequoia</Command>
+        <Code>RCRFPS_PanelCalibrations</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Text</Type>
+        <Description>Panel calibrated reflectance for all bands, band:reflectance(percentage), separated by ; character</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>Green:17.0;Red:21.3;RedEdge:26.3;Nir:36.8</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Radiometric conversion to reflectance - Parrot Sequoia</Command>
+        <Code>RCRFPS_Panels_Geometries_File</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>File</Type>
+        <Description>File name of panels geometries. By row: image full path, space, wktpolygon (rows positives)</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>D:/PhotogrammetryToolsProjects/20190814_FuenteAlamo_ParrotSequoia/PanelsGeometries.txt</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Radiometric conversion to reflectance - Parrot Sequoia</Command>
+        <Code>RCRFPS_ProcessOnlyEnabledImages</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Value list</Type>
+        <Description>Process only enabled images</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <ValueList>true;false</ValueList>
+        <Value>true</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Radiometric conversion to reflectance - Parrot Sequoia</Command>
+        <Code>RCRFPS_ReportFilesOutputPath</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Path</Type>
+        <Description>Output path for report files, empty for images path.</Description>
+        <PrintSize>200</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>D:/PhotogrammetryToolsProjects/20190814_FuenteAlamo_ParrotSequoia/reports</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Radiometric conversion to reflectance - Parrot Sequoia</Command>
+        <Code>RCRFPS_SaveConvertedToReflectanceImages</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Value list</Type>
+        <Description>Save converted to radiance images, same folder of original images with selected suffix</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <ValueList>true;false</ValueList>
+        <Value>true</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Radiometric conversion to reflectance - Parrot Sequoia</Command>
+        <Code>RCRFPS_SuffixForSaveConvertedToReflectanceImages</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Text</Type>
+        <Description>Suffix for save converted to reflectance images</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>_rf_dlscp</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Compute Sun artifacts in images: sun glint and hotspot</Command>
+        <Code>SAISGHS_AlgorithmImagesAdquisitiontTimeEstimation</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Value list</Type>
+        <Description>Algorithm to image adquisition time estimation, date and UTC.</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <ValueList>Same time for all images;From exif date and gps time;From exif date and time;From ASCII file</ValueList>
+        <Value>From exif date and time</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Compute Sun artifacts in images: sun glint and hotspot</Command>
+        <Code>SAISGHS_CameraTimeOffsetToUtc</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Text</Type>
+        <Description>Time offset for compute UTC from camera or file time. Format: hh:mm:ss.zzz. Begin - for negative value</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>-00:00:00.001</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Compute Sun artifacts in images: sun glint and hotspot</Command>
+        <Code>SAISGHS_DateTimeForAllImages</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Text</Type>
+        <Description>Date and time shared for all images, for no data in exif or complementary file. Format: yy:MM:dd hh:mm:ss.zzz</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>2019:05:15 11:40:45.000</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Compute Sun artifacts in images: sun glint and hotspot</Command>
+        <Code>SAISGHS_GdalDateAndGpsTimeTag</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Text</Type>
+        <Description>Domain and key for metadata Date and GpsTime for GDAL library. In osgeo console: "gdalinfo image_file -mdd all"</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>EXIF:EXIF_DateTimeOriginal</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Compute Sun artifacts in images: sun glint and hotspot</Command>
+        <Code>SAISGHS_GdalDateAndTimeTag</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Text</Type>
+        <Description>Domain and key for metadata Date and Time for GDAL library. In osgeo console: "gdalinfo image_file -mdd all"</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>EXIF:EXIF_DateTimeOriginal</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Compute Sun artifacts in images: sun glint and hotspot</Command>
+        <Code>SAISGHS_ImagesAdqusitionTimeFile</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>File</Type>
+        <Description>Ascii file with adquisition time for images, one per row. Format: file paht yy:MM:dd hh:mm:ss.zzz</Description>
+        <PrintSize>200</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value></Value>
+    </Parameter>
+    <Parameter>
+        <Command>Compute Sun artifacts in images: sun glint and hotspot</Command>
+        <Code>SAISGHS_LeapSecondsFromUtcToGps</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Integer number</Type>
+        <Description>Number of seconds for compute GpsTime from UTC</Description>
+        <PrintSize>20</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>18</Value>
+        <MaximumValue>100</MaximumValue>
+        <MinimumValue>15</MinimumValue>
+    </Parameter>
+    <Parameter>
+        <Command>Compute Sun artifacts in images: sun glint and hotspot</Command>
+        <Code>SAISGHS_MultiProcess</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Value list</Type>
+        <Description>Use multi process</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <ValueList>true;false</ValueList>
+        <Value>true</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Compute Sun artifacts in images: sun glint and hotspot</Command>
+        <Code>SAISGHS_OutputFile</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>SaveFile</Type>
+        <Description>Report output file.</Description>
+        <PrintSize>200</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>C:/uclm/Ejemplo_PozoCanada/VueloFlirDuoProR/reports/SunArtifacts.txt</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Compute Sun artifacts in images: sun glint and hotspot</Command>
+        <Code>SAISGHS_ProcessOnlyEnabledImages</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Value list</Type>
+        <Description>Process only enabled images</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <ValueList>true;false</ValueList>
+        <Value>true</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Single-View statistics</Command>
+        <Code>SFI_DsmRasterFile</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>File</Type>
+        <Description>DSM raster file for interpolate in features without altitudes, same CRS as project.</Description>
+        <PrintSize>200</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>C:/uclm/Ejemplo_PozoCanada/VueloPhantom4ProRTK/dsm_25830.tif</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Single-View statistics</Command>
+        <Code>SFI_ImagesFootprintBufferDistance</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Double precision number</Type>
+        <Description>Images footprint buffer distance to check points within images</Description>
+        <PrintSize>20</PrintSize>
+        <Unit>meters</Unit>
+        <Value>10.000</Value>
+        <MaximumValue>200.000</MaximumValue>
+        <MinimumValue>0.010</MinimumValue>
+        <PrintPrecision>3</PrintPrecision>
+    </Parameter>
+    <Parameter>
+        <Command>Single-View statistics</Command>
+        <Code>SFI_MultiProcess</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Value list</Type>
+        <Description>Use multi process</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <ValueList>true;false</ValueList>
+        <Value>true</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Single-View statistics</Command>
+        <Code>SFI_OutputPath</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Path</Type>
+        <Description>Output path.</Description>
+        <PrintSize>200</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>C:/uclm/Ejemplo_PozoCanada/VueloFlirDuoProR/features/output</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Single-View statistics</Command>
+        <Code>SFI_ProcessOnlyEnabledImages</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Value list</Type>
+        <Description>Process only enabled images</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <ValueList>true;false</ValueList>
+        <Value>true</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Single-View statistics</Command>
+        <Code>SFI_Shapefile</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>File</Type>
+        <Description>Features shapefile, same CRS as project.</Description>
+        <PrintSize>200</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>C:/uclm/Ejemplo_PozoCanada/VueloFlirDuoProR/features/EjemploHotSpotsPanels_buffer_10cm.shp</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Single-View statistics</Command>
+        <Code>SFI_WeightInverseGSD</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Value list</Type>
+        <Description>Weight with the inverse of the pixel's GSD</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <ValueList>true;false</ValueList>
+        <Value>true</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Single-View statistics</Command>
+        <Code>SFI_WriteImages</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Value list</Type>
+        <Description>Write features in images</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <ValueList>true;false</ValueList>
+        <Value>false</Value>
+    </Parameter>
+</ParametersManager>

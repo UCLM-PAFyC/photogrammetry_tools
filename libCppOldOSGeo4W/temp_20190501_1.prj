@@ -1,0 +1,73 @@
+Photogrammetry Project
+- Number of processes ......................................# 4
+- Process (CREATE_DB,ADD_POINTCLOUD,ADD_ROI) ...............# CREATE_DB
+  - Database file name .....................................# "C:\MetashapeProjects\Candado\PhotogrammetryTools\dhl_20190509.sqlite"
+  - Database CRS (libCRS/EPSG/proj4/wkt) ...................# 25830
+    Height type (ORTHOMETRIC_HEIGHT,ELLIPSOID_HEIGHT) ......# ORTHOMETRIC_HEIGHT
+  - Grid size ..............................................# 100.0
+  - Project Type (Generic,PowerLine,SolarPark) .............# Generic
+  - Project parameters (par1@v@value1@p@par2@v@value2...) ..# Company@v@UCLM@p@Author@v@David Hernandez Lopez
+- Process (CREATE_DB,ADD_POINTCLOUD,ADD_ROI) ...............# ADD_ROI
+  - Database file name .....................................# "C:\MetashapeProjects\Candado\PhotogrammetryTools\dhl_20190509.sqlite"
+  - ROI File ...............................................# "C:\MetashapeProjects\Candado\PhotogrammetryTools\roi_25830.shp"
+    Field id (None for all features ) ......................# None
+      Field id values (separed by ; ignored si None) .......# 
+- Process (CREATE_DB,ADD_POINTCLOUD,ADD_ROI) ...............# ADD_CAMERA
+  - Database file name .....................................# "C:\MetashapeProjects\Candado\PhotogrammetryTools\dhl_20190509.sqlite"
+  - From exif image file ...................................# "C:\MetashapeProjects\Candado\images\DSC05716.JPG"
+  - Make ...................................................# None
+  - Model ..................................................# None
+  - Type (RGB,Thermal,Multispectral,Hyperspectral) .........# None
+  - Parameters .............................................# None
+  - Focal (mm) .............................................# None
+  - Focal 35 mm (mm) .......................................# None
+  - Columns ................................................# None
+  - Rows ...................................................# None
+  - Pixel size (micrometers) ...............................# None
+- Process (CREATE_DB,ADD_POINTCLOUD,ADD_ROI) ...............# ADD_IMAGES
+  - Database file name .....................................# "C:\MetashapeProjects\Candado\PhotogrammetryTools\dhl_20190509.sqlite"
+  - Camera code (None for read from exif) ..................# None
+  - Number of images .......................................# 43
+    - Image ................................................# "C:\MetashapeProjects\Candado\images\DSC05716.JPG"
+    - Image ................................................# "C:\MetashapeProjects\Candado\images\DSC05717.JPG"
+    - Image ................................................# "C:\MetashapeProjects\Candado\images\DSC05718.JPG"
+    - Image ................................................# "C:\MetashapeProjects\Candado\images\DSC05719.JPG"
+    - Image ................................................# "C:\MetashapeProjects\Candado\images\DSC05720.JPG"
+    - Image ................................................# "C:\MetashapeProjects\Candado\images\DSC05721.JPG"
+    - Image ................................................# "C:\MetashapeProjects\Candado\images\DSC05722.JPG"
+    - Image ................................................# "C:\MetashapeProjects\Candado\images\DSC05723.JPG"
+    - Image ................................................# "C:\MetashapeProjects\Candado\images\DSC05724.JPG"
+    - Image ................................................# "C:\MetashapeProjects\Candado\images\DSC05725.JPG"
+    - Image ................................................# "C:\MetashapeProjects\Candado\images\DSC05726.JPG"
+    - Image ................................................# "C:\MetashapeProjects\Candado\images\DSC05727.JPG"
+    - Image ................................................# "C:\MetashapeProjects\Candado\images\DSC05728.JPG"
+    - Image ................................................# "C:\MetashapeProjects\Candado\images\DSC05729.JPG"
+    - Image ................................................# "C:\MetashapeProjects\Candado\images\DSC05730.JPG"
+    - Image ................................................# "C:\MetashapeProjects\Candado\images\DSC05731.JPG"
+    - Image ................................................# "C:\MetashapeProjects\Candado\images\DSC05732.JPG"
+    - Image ................................................# "C:\MetashapeProjects\Candado\images\DSC05733.JPG"
+    - Image ................................................# "C:\MetashapeProjects\Candado\images\DSC05734.JPG"
+    - Image ................................................# "C:\MetashapeProjects\Candado\images\DSC05735.JPG"
+    - Image ................................................# "C:\MetashapeProjects\Candado\images\DSC05736.JPG"
+    - Image ................................................# "C:\MetashapeProjects\Candado\images\DSC05737.JPG"
+    - Image ................................................# "C:\MetashapeProjects\Candado\images\DSC05738.JPG"
+    - Image ................................................# "C:\MetashapeProjects\Candado\images\DSC05739.JPG"
+    - Image ................................................# "C:\MetashapeProjects\Candado\images\DSC05740.JPG"
+    - Image ................................................# "C:\MetashapeProjects\Candado\images\DSC05741.JPG"
+    - Image ................................................# "C:\MetashapeProjects\Candado\images\DSC05742.JPG"
+    - Image ................................................# "C:\MetashapeProjects\Candado\images\DSC05743.JPG"
+    - Image ................................................# "C:\MetashapeProjects\Candado\images\DSC05744.JPG"
+    - Image ................................................# "C:\MetashapeProjects\Candado\images\DSC05745.JPG"
+    - Image ................................................# "C:\MetashapeProjects\Candado\images\DSC05746.JPG"
+    - Image ................................................# "C:\MetashapeProjects\Candado\images\DSC05747.JPG"
+    - Image ................................................# "C:\MetashapeProjects\Candado\images\DSC05748.JPG"
+    - Image ................................................# "C:\MetashapeProjects\Candado\images\DSC05749.JPG"
+    - Image ................................................# "C:\MetashapeProjects\Candado\images\DSC05750.JPG"
+    - Image ................................................# "C:\MetashapeProjects\Candado\images\DSC05751.JPG"
+    - Image ................................................# "C:\MetashapeProjects\Candado\images\DSC05752.JPG"
+    - Image ................................................# "C:\MetashapeProjects\Candado\images\DSC05753.JPG"
+    - Image ................................................# "C:\MetashapeProjects\Candado\images\DSC05754.JPG"
+    - Image ................................................# "C:\MetashapeProjects\Candado\images\DSC05755.JPG"
+    - Image ................................................# "C:\MetashapeProjects\Candado\images\DSC05756.JPG"
+    - Image ................................................# "C:\MetashapeProjects\Candado\images\DSC05757.JPG"
+    - Image ................................................# "C:\MetashapeProjects\Candado\images\DSC05758.JPG"

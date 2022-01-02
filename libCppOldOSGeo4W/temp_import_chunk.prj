@@ -1,0 +1,9 @@
+Photogrammetry Project
+- Number of processes ......................................# 1
+- Process (CREATE_DB,ADD_POINTCLOUD,ADD_ROI,WRITE_PCFS) ....# ADD_MPFMF
+  - Database file name .....................................# "C:/uclm/ejemplo_coreses_REDEN/VueloFlirDuoProR/PhTools_FlirCoreses.sqlite"
+  - Code ...................................................# Prj_1
+  - Metashape Markers XML File .............................# "C:/uclm/ejemplo_coreses_REDEN/VueloFlirDuoProR/markers_thermal.xml"
+  - Chunk to import (All or chunk code) ....................# chunk 2
+  - Height type (ORTHOMETRIC_HEIGHT,ELLIPSOID_HEIGHT) ......# ORTHOMETRIC_HEIGHT
+  - GCPs analysis output file (empty no or no GCPs ) .......# "C:/uclm/ejemplo_coreses_REDEN/VueloFlirDuoProR/markers_thermal_checkAccuracy.txt"

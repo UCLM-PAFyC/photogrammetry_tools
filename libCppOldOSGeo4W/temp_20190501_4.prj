@@ -1,0 +1,9 @@
+Photogrammetry Project
+- Number of processes ......................................# 1
+- Process (CREATE_DB,ADD_POINTCLOUD,ADD_ROI) ...............# ADD_GCPS
+  - Database file name .....................................# "C:\MetashapeProjects\Candado\PhotogrammetryTools\dhl_20190501.sqlite"
+  - Input File format (OmegaPhiKappaTxt,) ..................# MetashapeXML
+  - File ...................................................# "C:\MetashapeProjects\Candado\markers.xml"
+  - CRS (libCRS/EPSG/proj4/wkt) ............................# 25830
+    Height type (ORTHOMETRIC_HEIGHT,ELLIPSOID_HEIGHT) ......# ORTHOMETRIC_HEIGHT
+  - Analysis output file ...................................# "C:\MetashapeProjects\Candado\PhotogrammetryTools\markers_output.txt"
