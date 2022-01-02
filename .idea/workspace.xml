@@ -4,10 +4,92 @@
     <list default="true" id="15eb851b-c3c4-4ce5-a6a4-c78a593877fb" name="Default Changelist" comment="error list initialize">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PhotogrammetryTools.ini" beforeDir="false" afterPath="$PROJECT_DIR$/PhotogrammetryTools.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/libCpp/libIExif.dll" beforeDir="false" afterPath="$PROJECT_DIR$/libCpp/libIExif.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/libCpp/libPhotogrammetryManager.dll" beforeDir="false" afterPath="$PROJECT_DIR$/libCpp/libPhotogrammetryManager.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/libCpp/parameters_pp_processing_tools.xml" beforeDir="false" afterPath="$PROJECT_DIR$/libCpp/parameters_pp_processing_tools.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/libCpp/temp.prj" beforeDir="false" afterPath="$PROJECT_DIR$/libCpp/temp.prj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/FreeImage.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/PhotogrammetryProjectDb_template.sqlite" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/TRSs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/TestPyPhotogrammetryTools.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/TestPyPhotogrammetryTools.exe" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/_key.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/baleares.gsb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/boost_python37-vc140-mt-x64-1_68.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/boost_serialization-vc140-mt-x64-1_68.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/exiftool_12_22.exe" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/exiv2.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/exiv2.exe" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/expat.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/gdal203.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/geoids_lastools/CrearGeoidesLastools.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/geoids_lastools/EGM08_REDNAP.asc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/geoids_lastools/EGM08_REDNAP.bil" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/geoids_lastools/EGM08_REDNAP.hdr" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/geoids_lastools/EGM08_REDNAP_25829.laz" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/geoids_lastools/EGM08_REDNAP_25830.laz" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/geoids_lastools/EGM08_REDNAP_25831.laz" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/geoids_lastools/EGM08_REDNAP_Canarias.asc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/geoids_lastools/EGM08_REDNAP_Canarias.bil" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/geoids_lastools/EGM08_REDNAP_Canarias.hdr" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/geoids_lastools/EGM08_REDNAP_Canarias_4083.laz" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/leeme.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/libCRS.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/libICGAL.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/libIExif.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/libIGDAL.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/libIOpenCv.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/libLicenseManager.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/libParameters.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/libPhotogrammetryManager.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/libProcessTools.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/libPyPhotogrammetryTools.pyd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/libSystemInfo.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/libgmp-10.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/libmpfr-4.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/null" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/opencv_videoio_ffmpeg412_64.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/opencv_world412.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/parameters_pc_lastools_commands.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/parameters_pc_pt_generic.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/parameters_pc_pt_powerline.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/parameters_pc_pt_solarpark.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/parameters_pp.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/parameters_pp_processing_tools.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/parameters_pp_pt_generic.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/parameters_pp_pt_solarpark.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/peninsula.gsb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/tbb.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/temp.prj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/temp_0.prj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/temp_0_candado.prj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/temp_0_micasense.prj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/temp_0_pozocanada.prj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/temp_0_pozocanada_thermal.prj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/temp_1.prj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/temp_1_candado.prj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/temp_1_micasense.prj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/temp_20190417.prj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/temp_20190417_2.prj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/temp_20190419_1.prj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/temp_20190419_2.prj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/temp_20190419_3.prj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/temp_20190419_addOri.prj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/temp_20190501_1.prj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/temp_20190501_2.prj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/temp_20190501_3.prj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/temp_20190501_4.prj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/temp_20190509_1.prj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/temp_20190509_2.prj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/temp_20190509_3.prj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/temp_20190510_1.prj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/temp_20190510_2.prj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/temp_20191116_1.prj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/temp_2_pozocanada.prj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/temp_addCamera.prj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/temp_addImages.prj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/temp_add_images_pozocanda.prj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/temp_metashape_pozocanda.prj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/zlib.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/metadata.txt" beforeDir="false" afterPath="$PROJECT_DIR$/metadata.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/photogrammetry_tools.py" beforeDir="false" afterPath="$PROJECT_DIR$/photogrammetry_tools.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/photogrammetry_tools_dockwidget.py" beforeDir="false" afterPath="$PROJECT_DIR$/photogrammetry_tools_dockwidget.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,7 +142,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../pflip_uav_pafyc" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../point_cloud_3d" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -233,7 +315,39 @@
       <workItem from="1616777217384" duration="674000" />
       <workItem from="1616926590195" duration="656000" />
       <workItem from="1617095252108" duration="613000" />
-      <workItem from="1617204755444" duration="615000" />
+      <workItem from="1617204755444" duration="1306000" />
+      <workItem from="1618823848651" duration="1346000" />
+      <workItem from="1618845859876" duration="755000" />
+      <workItem from="1619014140791" duration="125000" />
+      <workItem from="1619020466589" duration="601000" />
+      <workItem from="1619261935038" duration="631000" />
+      <workItem from="1619538045971" duration="1371000" />
+      <workItem from="1619795710956" duration="128000" />
+      <workItem from="1619798791289" duration="603000" />
+      <workItem from="1619855333973" duration="607000" />
+      <workItem from="1620020556377" duration="2122000" />
+      <workItem from="1620109323898" duration="429000" />
+      <workItem from="1620147504184" duration="1407000" />
+      <workItem from="1620312921930" duration="5252000" />
+      <workItem from="1622721225406" duration="1357000" />
+      <workItem from="1622729014380" duration="1934000" />
+      <workItem from="1622737882071" duration="608000" />
+      <workItem from="1622786960063" duration="610000" />
+      <workItem from="1625826549419" duration="608000" />
+      <workItem from="1634379391410" duration="1203000" />
+      <workItem from="1634460525852" duration="603000" />
+      <workItem from="1634890560727" duration="655000" />
+      <workItem from="1634925739005" duration="54000" />
+      <workItem from="1634971720821" duration="603000" />
+      <workItem from="1635056951460" duration="639000" />
+      <workItem from="1635267178625" duration="91000" />
+      <workItem from="1635493895627" duration="1205000" />
+      <workItem from="1635589737167" duration="617000" />
+      <workItem from="1636485366803" duration="609000" />
+      <workItem from="1640171797443" duration="614000" />
+      <workItem from="1640955162417" duration="1235000" />
+      <workItem from="1640973708029" duration="2739000" />
+      <workItem from="1641111997481" duration="1974000" />
     </task>
     <task id="LOCAL-00001" summary="Remove key.txt">
       <created>1608031983901</created>
@@ -326,7 +440,21 @@
       <option name="project" value="LOCAL" />
       <updated>1616777254426</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="updated exiftool process">
+      <created>1617207171557</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1617207171557</updated>
+    </task>
+    <task id="LOCAL-00015" summary="updated exiftool tool">
+      <created>1617207238886</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1617207238886</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -414,19 +542,16 @@
     <MESSAGE value="qfile" />
     <MESSAGE value="error list initialize" />
     <MESSAGE value="changed license day" />
-    <option name="LAST_COMMIT_MESSAGE" value="changed license day" />
+    <MESSAGE value="updated exiftool process" />
+    <MESSAGE value="updated exiftool tool" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated exiftool tool" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/photogrammetry_tools.py</url>
-          <line>23</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/photogrammetry_tools_dockwidget.py</url>
-          <line>336</line>
+          <line>338</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>

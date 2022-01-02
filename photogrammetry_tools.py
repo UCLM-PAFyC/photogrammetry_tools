@@ -28,7 +28,6 @@ from PyQt5.QtWidgets import QAction
 from .resources import *
 
 # Import the code for the DockWidget
-from .photogrammetry_tools_dockwidget import PhotogrammetyToolsDockWidget
 import os.path
 
 import sys
@@ -39,15 +38,42 @@ import sys
 from PyQt5.QtWidgets import QMessageBox,QFileDialog,QTabWidget,QInputDialog,QLineEdit
 from PyQt5.QtCore import QSettings, QTranslator, qVersion, QCoreApplication, QFileInfo, QDir, QObject, QFile
 from qgis.core import QgsApplication, QgsDataSourceUri
+
+from osgeo import osr
+projVersionMajor = osr.GetPROJVersionMajor()
+# projVersionMinor = osr.GetPROJVersionMinor()
 pluginsPath = QFileInfo(QgsApplication.qgisUserDatabaseFilePath()).path()
 pluginPath = os.path.dirname(os.path.realpath(__file__))
 pluginPath = os.path.join(pluginsPath, pluginPath)
-libCppPath = os.path.join(pluginPath, 'libCpp')
+libCppPath = None
+if projVersionMajor < 8:
+    libCppPath = os.path.join(pluginPath, 'libCppOldOSGeo4W')
+else:
+    libCppPath = os.path.join(pluginPath, 'libCpp')
+# libCppPath = os.path.join(pluginPath, 'libCpp')
 existsPluginPath = QDir(libCppPath).exists()
 sys.path.append(pluginPath)
 sys.path.append(libCppPath)
 os.environ["PATH"] += os.pathsep + libCppPath
-from libCpp.libPyPhotogrammetryTools import IPyPTProject
+
+PhotogrammetyToolsDockWidget = None
+IPyPTProject = None
+if projVersionMajor < 8:
+    from .photogrammetry_tools_dockwidget import PhotogrammetyToolsDockWidget
+    from libCppOldOSGeo4W.libPyPhotogrammetryTools import IPyPTProject
+else:
+    from .photogrammetry_tools_dockwidget import PhotogrammetyToolsDockWidget
+    #     from libCpp.libPyPointCloud3D import IPyPTProject
+
+# pluginsPath = QFileInfo(QgsApplication.qgisUserDatabaseFilePath()).path()
+# pluginPath = os.path.dirname(os.path.realpath(__file__))
+# pluginPath = os.path.join(pluginsPath, pluginPath)
+# libCppPath = os.path.join(pluginPath, 'libCpp')
+# existsPluginPath = QDir(libCppPath).exists()
+# sys.path.append(pluginPath)
+# sys.path.append(libCppPath)
+# os.environ["PATH"] += os.pathsep + libCppPath
+# from libCpp.libPyPhotogrammetryTools import IPyPTProject
 from . import PTDefinitions
 import logging
 
@@ -64,6 +90,7 @@ class PhotogrammetyTools:
         """
         # pydevd.settrace('localhost',port=54100,stdoutToServer=True,stderrToServer=True)
 
+        self.projVersionMajor = projVersionMajor
         self.path_plugin = pluginPath
         logging.basicConfig(filename=os.path.join(pluginPath, 'ph_tools.log'), filemode='w',
                             format='%(asctime)s %(message)s')
@@ -240,62 +267,75 @@ class PhotogrammetyTools:
     def run(self):
         """Run method that loads and starts the plugin"""
 
-        if not self.pluginIsActive:
+        if self.projVersionMajor < 8:
             egm08UncompressFileName = libCppPath + "/" + PTDefinitions.CONST_EGM08_25_FILE_NAME
             if not QFile.exists(egm08UncompressFileName):
                 egm08compressFileName = libCppPath + "/" + PTDefinitions.CONST_EGM08_25_COMPRESS_FILE_NAME
-                text = "Before opening the plugin for the first time"
-                text += "\nyou must unzip the file:\n"
-                text += egm08compressFileName
-                text += "\nin the same path using 7-zip, https://www.7-zip.org/"
-                text += "\n\nThe unzipped file could not be uploaded to Github due to account limitations"
+                text = "<p>Before opening the plugin for the first time<\p>"
+                text += "<p>you must download the file:</p>"
+                text += "<p><a href='https://github.com/UCLM-PAFyC/qLidar/tree/master/libCpp/egm08_25.7z'>egm08_25.7z</a></p>"
+                text += "<p>and unzip the file using: <a href='https://www.7-zip.org/'>7 zip</a></p>"
+                text += "<p>in the same path of the plugin, getting:</p>"
+                text += egm08UncompressFileName
+                text += "<p>The unzipped file could not be uploaded to Github due to account limitations</p>"
                 msgBox = QMessageBox()
                 msgBox.setIcon(QMessageBox.Information)
                 # msgBox.setWindowTitle(self.windowTitle)
+                msgBox.setTextFormat(Qt.RichText)
                 msgBox.setText(text)
                 msgBox.exec_()
                 return
+        if self.projVersionMajor >= 8:
+            text = "<p>Invalid plugin for this QGIS version</p>"
+            msgBox = QMessageBox()
+            msgBox.setIcon(QMessageBox.Information)
+            # msgBox.setWindowTitle(self.windowTitle)
+            msgBox.setTextFormat(Qt.RichText)
+            msgBox.setText(text)
+            msgBox.exec_()
+            return
 
-            self.iPyProject = IPyPTProject()
-            self.iPyProject.setPythonModulePath(self.path_libCpp)
-            ret = self.iPyProject.initialize()
-            if ret[0] == "False":
-                msgBox = QMessageBox()
-                msgBox.setIcon(QMessageBox.Information)
-                # msgBox.setWindowTitle(self.windowTitle)
-                msgBox.setText("\n" + ret[1])
-                msgBox.exec_()
-                return
-            path_file_qsettings = self.path_plugin + '/' + PTDefinitions.CONST_SETTINGS_FILE_NAME
-            self.settings = QSettings(path_file_qsettings, QSettings.IniFormat)
+        self.iPyProject = IPyPTProject()
+        self.iPyProject.setPythonModulePath(self.path_libCpp)
+        ret = self.iPyProject.initialize()
+        if ret[0] == "False":
+            msgBox = QMessageBox()
+            msgBox.setIcon(QMessageBox.Information)
+            # msgBox.setWindowTitle(self.windowTitle)
+            msgBox.setText("\n" + ret[1])
+            msgBox.exec_()
+            return
+        path_file_qsettings = self.path_plugin + '/' + PTDefinitions.CONST_SETTINGS_FILE_NAME
+        self.settings = QSettings(path_file_qsettings, QSettings.IniFormat)
 
-            self.pluginIsActive = True
+        self.pluginIsActive = True
 
-            self.pt_qgis_project = PhToolsProject()
+        self.pt_qgis_project = PhToolsProject()
 
-            #print "** STARTING PhotogrammetyTools"
+        #print "** STARTING PhotogrammetyTools"
 
-            # dockwidget may not exist if:
-            #    first run of plugin
-            #    removed on close (see self.onClosePlugin method)
-            if self.dockwidget == None:
-                # Create the dockwidget (after translation) and keep reference
-                self.dockwidget = PhotogrammetyToolsDockWidget(self.iface,
-                                                               self.path_plugin,
-                                                               self.path_libCpp,
-                                                               self.current_plugin_name,
-                                                               self.settings,
-                                                               self.iPyProject,
-                                                               self.pt_qgis_project,
-                                                               self.toolbar)
+        # dockwidget may not exist if:
+        #    first run of plugin
+        #    removed on close (see self.onClosePlugin method)
+        if self.dockwidget == None:
+            # Create the dockwidget (after translation) and keep reference
+            self.dockwidget = PhotogrammetyToolsDockWidget(self.iface,
+                                                           self.projVersionMajor,
+                                                           self.path_plugin,
+                                                           self.path_libCpp,
+                                                           self.current_plugin_name,
+                                                           self.settings,
+                                                           self.iPyProject,
+                                                           self.pt_qgis_project,
+                                                           self.toolbar)
 
-            # connect to provide cleanup on closing of dockwidget
-            self.dockwidget.closingPlugin.connect(self.onClosePlugin)
+        # connect to provide cleanup on closing of dockwidget
+        self.dockwidget.closingPlugin.connect(self.onClosePlugin)
 
-            # show the dockwidget
-            # TODO: fix to allow choice of dock location
-            self.iface.addDockWidget(Qt.LeftDockWidgetArea, self.dockwidget)
-            self.dockwidget.show()
+        # show the dockwidget
+        # TODO: fix to allow choice of dock location
+        self.iface.addDockWidget(Qt.LeftDockWidgetArea, self.dockwidget)
+        self.dockwidget.show()
 
     def edit(self):
         # TODOC:

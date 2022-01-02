@@ -1,9 +1,0 @@
-Photogrammetry Project
-- Number of processes ......................................# 1
-- Process (CREATE_DB,ADD_POINTCLOUD,ADD_ROI,WRITE_PCFS) ....# ADD_MPFMF
-  - Database file name .....................................# "H:/Eiffage/vueloPhantom4ProRTK/phTools/phTools_pozocanada.sqlite"
-  - Code ...................................................# Prj_1
-  - Metashape Markers XML File .............................# "H:/Eiffage/vueloPhantom4ProRTK/metashape/markers.xml"
-  - Chunk to import (All or chunk code) ....................# Copy of Chunk 1
-  - Height type (ORTHOMETRIC_HEIGHT,ELLIPSOID_HEIGHT) ......# ORTHOMETRIC_HEIGHT
-  - GCPs analysis output file (empty no or no GCPs ) .......# "H:/Eiffage/vueloPhantom4ProRTK/metashape//markers_checkAccuracy.txt"

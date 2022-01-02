@@ -163,6 +163,7 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
 
     def __init__(self,
                  iface,
+                 projVersionMajor,
                  pluginPath,
                  libCppPath,
                  currentPluginName,
@@ -180,6 +181,7 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         # #widgets-and-dialogs-with-auto-connect
         self.setWindowTitle(PTDefinitions.CONST_PROGRAM_NAME)
         self.iface = iface
+        self.projVersionMajor = projVersionMajor
         self.path_plugin = pluginPath
         self.path_libCpp = libCppPath
         self.current_plugin_name = currentPluginName

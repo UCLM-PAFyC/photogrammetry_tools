@@ -1,8 +1,0 @@
-Para detectar problemas con librerías se puede proceder:
-1. Abrir consola de osgeo de la versión de QGis 3.4
-   C:\Program Files\QGIS 3.4\OSGeo4W.bat
-2. Ir a la ruta libCpp del plugin, que dependerá de cada instalación
-   cd C:\Users\David.Hernandez\AppData\Roaming\QGIS\QGIS3\profiles\default\python\plugins\photogrammetry_tools\libCpp
-3. Ejecutar el programa
-   TestPyPhotogrammetryTools.bat
-   notificar los errores que indique
