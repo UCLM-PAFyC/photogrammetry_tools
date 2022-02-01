@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="15eb851b-c3c4-4ce5-a6a4-c78a593877fb" name="Default Changelist" comment="error list initialize" />
+    <list default="true" id="15eb851b-c3c4-4ce5-a6a4-c78a593877fb" name="Default Changelist" comment="error list initialize">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCppOldOSGeo4W/libCRS.dll" beforeDir="false" afterPath="$PROJECT_DIR$/libCppOldOSGeo4W/libCRS.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCppOldOSGeo4W/libICGAL.dll" beforeDir="false" afterPath="$PROJECT_DIR$/libCppOldOSGeo4W/libICGAL.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCppOldOSGeo4W/libLicenseManager.dll" beforeDir="false" afterPath="$PROJECT_DIR$/libCppOldOSGeo4W/libLicenseManager.dll" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -53,7 +58,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../point_cloud_tools" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../pflip_uav_pafyc" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -258,7 +263,22 @@
       <workItem from="1640171797443" duration="614000" />
       <workItem from="1640955162417" duration="1235000" />
       <workItem from="1640973708029" duration="2739000" />
-      <workItem from="1641111997481" duration="2737000" />
+      <workItem from="1641111997481" duration="3070000" />
+      <workItem from="1641227788610" duration="1467000" />
+      <workItem from="1641397416877" duration="604000" />
+      <workItem from="1641489810440" duration="1241000" />
+      <workItem from="1641578915749" duration="658000" />
+      <workItem from="1641639832837" duration="612000" />
+      <workItem from="1642004846652" duration="1194000" />
+      <workItem from="1642249856628" duration="604000" />
+      <workItem from="1642338429989" duration="608000" />
+      <workItem from="1642443806666" duration="601000" />
+      <workItem from="1642487318943" duration="1205000" />
+      <workItem from="1642521780856" duration="623000" />
+      <workItem from="1642691989237" duration="621000" />
+      <workItem from="1642693144775" duration="2212000" />
+      <workItem from="1643610513952" duration="613000" />
+      <workItem from="1643730770483" duration="1244000" />
     </task>
     <task id="LOCAL-00001" summary="Remove key.txt">
       <created>1608031983901</created>
@@ -386,7 +406,14 @@
       <option name="project" value="LOCAL" />
       <updated>1641116717362</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="Changes old OSGeo4W">
+      <created>1641117160228</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1641117160228</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
