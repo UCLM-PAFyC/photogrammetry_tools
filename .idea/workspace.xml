@@ -3,9 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="15eb851b-c3c4-4ce5-a6a4-c78a593877fb" name="Default Changelist" comment="error list initialize">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/libCppOldOSGeo4W/libCRS.dll" beforeDir="false" afterPath="$PROJECT_DIR$/libCppOldOSGeo4W/libCRS.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/libCppOldOSGeo4W/libICGAL.dll" beforeDir="false" afterPath="$PROJECT_DIR$/libCppOldOSGeo4W/libICGAL.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/libCppOldOSGeo4W/libLicenseManager.dll" beforeDir="false" afterPath="$PROJECT_DIR$/libCppOldOSGeo4W/libLicenseManager.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCppOldOSGeo4W/libIGDAL.dll" beforeDir="false" afterPath="$PROJECT_DIR$/libCppOldOSGeo4W/libIGDAL.dll" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -278,7 +276,14 @@
       <workItem from="1642691989237" duration="621000" />
       <workItem from="1642693144775" duration="2212000" />
       <workItem from="1643610513952" duration="613000" />
-      <workItem from="1643730770483" duration="1244000" />
+      <workItem from="1643730770483" duration="1471000" />
+      <workItem from="1643815656145" duration="1883000" />
+      <workItem from="1643901275328" duration="1635000" />
+      <workItem from="1643992378195" duration="610000" />
+      <workItem from="1644059536888" duration="607000" />
+      <workItem from="1644940815468" duration="613000" />
+      <workItem from="1644980613905" duration="1234000" />
+      <workItem from="1645032528648" duration="450000" />
     </task>
     <task id="LOCAL-00001" summary="Remove key.txt">
       <created>1608031983901</created>
@@ -413,7 +418,14 @@
       <option name="project" value="LOCAL" />
       <updated>1641117160228</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="dhl">
+      <created>1643741423811</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1643741423811</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -504,7 +516,8 @@
     <MESSAGE value="updated exiftool process" />
     <MESSAGE value="updated exiftool tool" />
     <MESSAGE value="Changes old OSGeo4W" />
-    <option name="LAST_COMMIT_MESSAGE" value="Changes old OSGeo4W" />
+    <MESSAGE value="dhl" />
+    <option name="LAST_COMMIT_MESSAGE" value="dhl" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
