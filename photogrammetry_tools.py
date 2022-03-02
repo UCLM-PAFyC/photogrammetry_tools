@@ -63,7 +63,7 @@ if projVersionMajor < 8:
     from libCppOldOSGeo4W.libPyPhotogrammetryTools import IPyPTProject
 else:
     from .photogrammetry_tools_dockwidget import PhotogrammetyToolsDockWidget
-    #     from libCpp.libPyPointCloud3D import IPyPTProject
+    from libCpp.libPyPhotogrammetryTools import IPyPTProject
 
 # pluginsPath = QFileInfo(QgsApplication.qgisUserDatabaseFilePath()).path()
 # pluginPath = os.path.dirname(os.path.realpath(__file__))
@@ -285,15 +285,15 @@ class PhotogrammetyTools:
                 msgBox.setText(text)
                 msgBox.exec_()
                 return
-        if self.projVersionMajor >= 8:
-            text = "<p>Invalid plugin for this QGIS version</p>"
-            msgBox = QMessageBox()
-            msgBox.setIcon(QMessageBox.Information)
-            # msgBox.setWindowTitle(self.windowTitle)
-            msgBox.setTextFormat(Qt.RichText)
-            msgBox.setText(text)
-            msgBox.exec_()
-            return
+        # if self.projVersionMajor >= 8:
+        #     text = "<p>Invalid plugin for this QGIS version</p>"
+        #     msgBox = QMessageBox()
+        #     msgBox.setIcon(QMessageBox.Information)
+        #     # msgBox.setWindowTitle(self.windowTitle)
+        #     msgBox.setTextFormat(Qt.RichText)
+        #     msgBox.setText(text)
+        #     msgBox.exec_()
+        #     return
 
         self.iPyProject = IPyPTProject()
         self.iPyProject.setPythonModulePath(self.path_libCpp)

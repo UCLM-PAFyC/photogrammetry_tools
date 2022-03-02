@@ -30,7 +30,7 @@ from osgeo import osr
 from decimal import Decimal
 from PyQt5.QtCore import QSettings, QTranslator, qVersion, QCoreApplication, QFileInfo, QDir, QObject
 from PyQt5.QtWidgets import QMessageBox, QFileDialog, QTabWidget, QInputDialog, QLineEdit, QAction, QDockWidget
-from qgis.core import QgsApplication, QgsDataSourceUri, QgsProject
+from qgis.core import QgsApplication, QgsDataSourceUri, QgsProject, QgsCoordinateReferenceSystem
 # pluginPath = 'python/plugins/photogrammetry_tools'
 # pluginPath = os.path.join(QFileInfo(QgsApplication.qgisUserDatabaseFilePath()).path(), pluginPath)
 # libCppPath = os.path.join(pluginPath, 'libCpp')
@@ -64,8 +64,24 @@ from qgis.gui import QgsMapToolDigitizeFeature, QgsMapMouseEvent, QgsAdvancedDig
     QgsMapToolEmitPoint
 from .highlightFeature import HighlightFeature
 
-FORM_CLASS, _ = uic.loadUiType(os.path.join(
-    os.path.dirname(__file__), 'photogrammetry_tools_dockwidget_base.ui'))
+from qgis.core import Qgis
+qgis_version_number_str = Qgis.QGIS_VERSION.split('-')[0]
+qgis_version_first_number = int(qgis_version_number_str.split('.')[0])
+qgis_version_second_number = int(qgis_version_number_str.split('.')[1])
+qgis_version_third_number = int(qgis_version_number_str.split('.')[2])
+qgis_version_second_number_change_buffer_parameters = 20
+
+from osgeo import osr
+projVersionMajor = osr.GetPROJVersionMajor()
+
+FORM_CLASS = None
+
+if projVersionMajor < 8:
+    FORM_CLASS, _ = uic.loadUiType(os.path.join(
+        os.path.dirname(__file__), 'photogrammetry_tools_dockwidget_base_old_osgeo.ui'))
+else:
+    FORM_CLASS, _ = uic.loadUiType(os.path.join(
+        os.path.dirname(__file__), 'photogrammetry_tools_dockwidget_base.ui'))
 
 
 class QgsPhToolEditVertex(QgsMapToolEmitPoint):
@@ -100,9 +116,6 @@ class QgsPhToolEditVertex(QgsMapToolEmitPoint):
             self.deleteKeyPressSignal.emit()
         else:
             e.ignore()
-
-
-
 
 
 class QgsPhToolDigitizeFeature(QgsMapToolDigitizeFeature):
@@ -695,6 +708,14 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
 
         # Parameters
         self.projectParametersPushButton.clicked.connect(self.selectProjectParameters)
+
+        self.crsEpsgCode = -1
+        self.verticalCrsEpsgCode = -1
+        if self.projVersionMajor >=8:
+            self.projectQgsProjectionSelectionWidget.crsChanged.connect(self.setCrs)
+            self.projectQgsProjectionSelectionWidget.cleared.connect(self.setCrs)
+            self.verticalCRSsComboBox.addItem(PTDefinitions.CONST_ELLIPSOID_HEIGHT)
+        self.projectQgsProjectionSelectionWidget.setCrs(QgsCoordinateReferenceSystem(PTDefinitions.CONST_DEFAULT_CRS))
 
         # DbFile
         self.databasePushButton.clicked.connect(self.selectNewDatabase)
@@ -1627,6 +1648,76 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
             self.numberOfUndistortedImagesMpLineEdit.setText(str(len(self.undistortedImageFiles)))
         elif self.projectType == PTDefinitions.CONST_PROJECT_TYPE_GENERIC:
             self.numberOfUndistortedImagesLineEdit.setText(str(len(self.undistortedImageFiles)))
+        return
+
+    def setCrs(self):
+        crs = self.projectQgsProjectionSelectionWidget.crs()
+        isValidCrs = crs.isValid()
+        crsAuthId = crs.authid()
+        if not "EPSG:" in crsAuthId:
+            msgBox = QMessageBox(self)
+            msgBox.setIcon(QMessageBox.Information)
+            msgBox.setWindowTitle(self.windowTitle)
+            msgBox.setText("Selected CRS is not EPSG")
+            msgBox.exec_()
+            self.projectQgsProjectionSelectionWidget.setCrs(
+                QgsCoordinateReferenceSystem(PTDefinitions.CONST_DEFAULT_CRS))
+            return
+        crsEpsgCode = int(crsAuthId.replace('EPSG:',''))
+        crsOsr = osr.SpatialReference()  # define test1
+        if crsOsr.ImportFromEPSG(crsEpsgCode) != 0:
+            msgBox = QMessageBox(self)
+            msgBox.setIcon(QMessageBox.Information)
+            msgBox.setWindowTitle(self.windowTitle)
+            msgBox.setText("Error importing OSR CRS from EPSG code" + str(crsEpsgCode))
+            msgBox.exec_()
+            self.projectQgsProjectionSelectionWidget.setCrs(
+                QgsCoordinateReferenceSystem(PTDefinitions.CONST_DEFAULT_CRS))
+            return
+        if not crsOsr.IsProjected():
+            msgBox = QMessageBox(self)
+            msgBox.setIcon(QMessageBox.Information)
+            msgBox.setWindowTitle(self.windowTitle)
+            msgBox.setText("Selected CRS is not a projected CRS")
+            msgBox.exec_()
+            self.projectQgsProjectionSelectionWidget.setCrs(
+                QgsCoordinateReferenceSystem(PTDefinitions.CONST_DEFAULT_CRS))
+            return
+        self.setVerticalCRSs(crsEpsgCode)
+        crsEpsgCodeString = 'EPSG:'+str(crsEpsgCode)
+        # self.addPCFsQgsProjectionSelectionWidget.setCrs(
+        #     QgsCoordinateReferenceSystem(crsEpsgCodeString))
+        self.crsEpsgCode = crsEpsgCode
+
+    def setVerticalCRSs(self,crsEpsgCode):
+        self.verticalCRSsComboBox.clear()
+        self.verticalCRSsComboBox.addItem(PTDefinitions.CONST_ELLIPSOID_HEIGHT)
+        ret = self.iPyProject.ptGetVerticalCRSs(crsEpsgCode)
+        if ret[0] == "False":
+            msgBox = QMessageBox(self)
+            msgBox.setIcon(QMessageBox.Information)
+            msgBox.setWindowTitle(self.windowTitle)
+            msgBox.setText("Error:\n"+ret[1])
+            msgBox.exec_()
+            # self.projectsComboBox.setCurrentIndex(0)
+            return
+        else:
+            cont = 0
+            for value in ret:
+                if cont > 0:
+                    # strCrs = qLidarDefinitions.CONST_EPSG_PREFIX + str(value)
+                    self.verticalCRSsComboBox.addItem(value)
+                cont = cont + 1
+            # msgBox = QMessageBox(self)
+            # msgBox.setIcon(QMessageBox.Information)
+            # msgBox.setWindowTitle(self.windowTitle)
+            # msgBox.setText("Process completed successfully")
+            # msgBox.exec_()
+        strCrs = PTDefinitions.CONST_EPSG_PREFIX + str(crsEpsgCode)
+        if strCrs == PTDefinitions.CONST_DEFAULT_CRS:
+            index = self.verticalCRSsComboBox.findText(PTDefinitions.CONST_DEFAULT_VERTICAL_CRS)#, QtCore.Qt.MatchFixedString)
+            if index > 0:
+                self.verticalCRSsComboBox.setCurrentIndex(index)
         return
 
     def updateImagesData(self):
