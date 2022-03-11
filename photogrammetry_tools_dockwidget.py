@@ -467,8 +467,15 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
             msgBox.exec_()
             return
         altitudeIsMsl = True
-        if self.projectAltitudeEllipsoidRadioButton.isChecked():
-            altitudeIsMsl = False
+        altitudeIsMsl = True
+        verticalCrsEpsgCode = -1
+        if self.projVersionMajor < 8:
+            if self.projectAltitudeEllipsoidRadioButton.isChecked():
+                altitudeIsMsl = False
+        else:
+            verticalCrsStr = self.verticalCRSsComboBox.currentText()
+            if not verticalCrsStr == PTDefinitions.CONST_ELLIPSOID_HEIGHT:
+                verticalCrsEpsgCode = int(verticalCrsStr.replace('EPSG:',''))
         dbFileName = self.databaseLineEdit.text()
         if not dbFileName:
             msgBox = QMessageBox(self)
@@ -484,12 +491,20 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
                 strRoisShapefiles = strRoisShapefiles + self.parametersFromPythonStringSeparator
             strRoisShapefiles = strRoisShapefiles + roiShapefile
             cont = cont + 1
-        ret = self.iPyProject.ptCreateProject(dbFileName,
-                                              projectType,
-                                              strGridSize,  # gridSize,
-                                              crsEpsgCode,
-                                              altitudeIsMsl,
-                                              strRoisShapefiles)
+        if self.projVersionMajor < 8:
+            ret = self.iPyProject.ptCreateProject(dbFileName,
+                                                  projectType,
+                                                  strGridSize,  # gridSize,
+                                                  crsEpsgCode,
+                                                  altitudeIsMsl,
+                                                  strRoisShapefiles)
+        else:
+            ret = self.iPyProject.ptCreateProject(dbFileName,
+                                                  projectType,
+                                                  strGridSize,  # gridSize,
+                                                  crsEpsgCode,
+                                                  verticalCrsEpsgCode,
+                                                  strRoisShapefiles)
         if ret[0] == "False":
             msgBox = QMessageBox(self)
             msgBox.setIcon(QMessageBox.Information)

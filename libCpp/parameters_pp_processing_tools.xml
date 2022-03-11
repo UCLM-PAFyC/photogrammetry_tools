@@ -72,7 +72,7 @@
         <Description>Output path for rectifying homographies files, empty for images path.</Description>
         <PrintSize>200</PrintSize>
         <Unit>adimensional</Unit>
-        <Value>C:/uclm/EjemploCandado/export</Value>
+        <Value>C:/uclm/EjemploCandado/export_new</Value>
     </Parameter>
     <Parameter>
         <Command>Computing rectifying homographies</Command>
@@ -83,7 +83,7 @@
         <Description>Output path for report files, empty for images path.</Description>
         <PrintSize>200</PrintSize>
         <Unit>adimensional</Unit>
-        <Value>C:/uclm/EjemploCandado/export</Value>
+        <Value>C:/uclm/EjemploCandado/export_new</Value>
     </Parameter>
     <Parameter>
         <Command>Computing rectifying homographies</Command>
@@ -95,7 +95,7 @@
         <PrintSize>100</PrintSize>
         <Unit>adimensional</Unit>
         <ValueList>true;false</ValueList>
-        <Value>false</Value>
+        <Value>true</Value>
     </Parameter>
     <Parameter>
         <Command>Export_undistorted_to_colmap</Command>
@@ -260,7 +260,7 @@
         <Description>DSM raster file, same CRS as project and with no data value.</Description>
         <PrintSize>200</PrintSize>
         <Unit>adimensional</Unit>
-        <Value>D:/PhotogrammetryToolsProjects/EnriqueCaniaMarzo29/export/dsm_5cm_32618.tif</Value>
+        <Value>C:/uclm/EjemploCandado/metashape/dsm5cm.tif</Value>
     </Parameter>
     <Parameter>
         <Command>Get images footprints from DSM</Command>
@@ -308,7 +308,7 @@
         <Description>Report output file.</Description>
         <PrintSize>200</PrintSize>
         <Unit>adimensional</Unit>
-        <Value>D:/PhotogrammetryToolsProjects/EjemploCandado/reports/MarkersAccuracyAnalysis.tx</Value>
+        <Value>C:/uclm/EjemploCandado/export_new/analisis_precisiones.txt</Value>
     </Parameter>
     <Parameter>
         <Command>Multi-View statistics</Command>
@@ -2122,7 +2122,7 @@
         <Description>Report output file.</Description>
         <PrintSize>200</PrintSize>
         <Unit>adimensional</Unit>
-        <Value>C:/uclm/Ejemplo_PozoCanada/VueloFlirDuoProR/reports/SunArtifacts.txt</Value>
+        <Value>C:/uclm/EjemploCandado/export_new/Analisis_efectos_sol.txt</Value>
     </Parameter>
     <Parameter>
         <Command>Compute Sun artifacts in images: sun glint and hotspot</Command>

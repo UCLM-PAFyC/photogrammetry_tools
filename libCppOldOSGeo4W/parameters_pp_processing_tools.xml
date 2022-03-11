@@ -308,7 +308,7 @@
         <Description>Report output file.</Description>
         <PrintSize>200</PrintSize>
         <Unit>adimensional</Unit>
-        <Value>D:/PhotogrammetryToolsProjects/EjemploCandado/reports/MarkersAccuracyAnalysis.tx</Value>
+        <Value>C:/uclm/EjemploCandado/reports/GCPsAnalisis.txt</Value>
     </Parameter>
     <Parameter>
         <Command>Multi-View statistics</Command>
@@ -2111,7 +2111,7 @@
         <PrintSize>100</PrintSize>
         <Unit>adimensional</Unit>
         <ValueList>true;false</ValueList>
-        <Value>true</Value>
+        <Value>false</Value>
     </Parameter>
     <Parameter>
         <Command>Compute Sun artifacts in images: sun glint and hotspot</Command>
@@ -2122,7 +2122,7 @@
         <Description>Report output file.</Description>
         <PrintSize>200</PrintSize>
         <Unit>adimensional</Unit>
-        <Value>C:/uclm/Ejemplo_PozoCanada/VueloFlirDuoProR/reports/SunArtifacts.txt</Value>
+        <Value>C:/uclm/EjemploCandado/export_new/Analisis_efectos_sol.txt</Value>
     </Parameter>
     <Parameter>
         <Command>Compute Sun artifacts in images: sun glint and hotspot</Command>

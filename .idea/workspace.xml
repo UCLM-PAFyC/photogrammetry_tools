@@ -3,11 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="15eb851b-c3c4-4ce5-a6a4-c78a593877fb" name="Default Changelist" comment="error list initialize">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PTDefinitions.py" beforeDir="false" afterPath="$PROJECT_DIR$/PTDefinitions.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/libCppOldOSGeo4W/TestPyPhotogrammetryTools.exe" beforeDir="false" afterPath="$PROJECT_DIR$/libCppOldOSGeo4W/TestPyPhotogrammetryTools.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/photogrammetry_tools.py" beforeDir="false" afterPath="$PROJECT_DIR$/photogrammetry_tools.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/photogrammetry_tools_dockwidget.py" beforeDir="false" afterPath="$PROJECT_DIR$/photogrammetry_tools_dockwidget.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/photogrammetry_tools_dockwidget_base.ui" beforeDir="false" afterPath="$PROJECT_DIR$/photogrammetry_tools_dockwidget_base.ui" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -288,7 +284,8 @@
       <workItem from="1644940815468" duration="613000" />
       <workItem from="1644980613905" duration="1234000" />
       <workItem from="1645032528648" duration="1103000" />
-      <workItem from="1646193044943" duration="3674000" />
+      <workItem from="1646193044943" duration="3993000" />
+      <workItem from="1646296778765" duration="2146000" />
     </task>
     <task id="LOCAL-00001" summary="Remove key.txt">
       <created>1608031983901</created>
@@ -437,7 +434,14 @@
       <option name="project" value="LOCAL" />
       <updated>1645033400004</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="first new version and vertical crs">
+      <created>1646196939899</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1646196939899</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -530,7 +534,8 @@
     <MESSAGE value="Changes old OSGeo4W" />
     <MESSAGE value="dhl" />
     <MESSAGE value="fixed bug load in memory dtm" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed bug load in memory dtm" />
+    <MESSAGE value="first new version and vertical crs" />
+    <option name="LAST_COMMIT_MESSAGE" value="first new version and vertical crs" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
