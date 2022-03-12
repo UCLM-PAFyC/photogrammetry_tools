@@ -467,7 +467,6 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
             msgBox.exec_()
             return
         altitudeIsMsl = True
-        altitudeIsMsl = True
         verticalCrsEpsgCode = -1
         if self.projVersionMajor < 8:
             if self.projectAltitudeEllipsoidRadioButton.isChecked():
@@ -1039,6 +1038,49 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
             msgBox.exec_()
             self.projectsComboBox.setCurrentIndex(0)
             return
+        if self.projVersionMajor < 8:
+            ret = self.iPyProject.ptGetProjectCrsEpsgCode(connectionPath)
+            if ret[0] == "False":
+                msgBox = QMessageBox(self)
+                msgBox.setIcon(QMessageBox.Information)
+                msgBox.setWindowTitle(self.windowTitle)
+                msgBox.setText("Error:\n" + ret[1])
+                msgBox.exec_()
+                self.projectsComboBox.setCurrentIndex(0)
+                return
+            self.crsEpsgCode = ret[1]
+            # strCrsEpsgCode = PTDefinitions.CONST_EPSG_PREFIX + str(self.crsEpsgCode)
+            # self.addPCFsQgsProjectionSelectionWidget.setCrs(
+            #     QgsCoordinateReferenceSystem(strCrsEpsgCode))
+            # # self.addPCFsQgsProjectionSelectionWidget.setCrs(
+            # #     QgsCoordinateReferenceSystem(qLidarDefinitions.CONST_DEFAULT_CRS))
+            # self.addPCFsQgsProjectionSelectionWidget.setEnabled(False)
+        else:
+            ret = self.iPyProject.ptGetProjectCrsEpsgCodes(connectionPath)
+            if ret[0] == "False":
+                msgBox = QMessageBox(self)
+                msgBox.setIcon(QMessageBox.Information)
+                msgBox.setWindowTitle(self.windowTitle)
+                msgBox.setText("Error:\n"+ret[1])
+                msgBox.exec_()
+                self.projectsComboBox.setCurrentIndex(0)
+                return
+            self.crsEpsgCode = ret[1]
+            self.verticalCrsEpsgCode = ret[2]
+            # strCrsEpsgCode = PTDefinitions.CONST_EPSG_PREFIX + str(self.crsEpsgCode)
+            # self.addPCFsQgsProjectionSelectionWidget.setCrs(
+            #     QgsCoordinateReferenceSystem(strCrsEpsgCode))
+            # # self.addPCFsQgsProjectionSelectionWidget.setCrs(
+            # #     QgsCoordinateReferenceSystem(qLidarDefinitions.CONST_DEFAULT_CRS))
+            # self.setCrsAddPCFs()
+            # self.addPCFsVerticalCRSsComboBox.setCurrentIndex(0)
+            # if self.verticalCrsEpsgCode != -1:
+            #     strVerticalCrsEpsgCode = PTDefinitions.CONST_EPSG_PREFIX + str(self.verticalCrsEpsgCode)
+            #     index = self.addPCFsVerticalCRSsComboBox.findText(strVerticalCrsEpsgCode, Qt.MatchFixedString)
+            #     if index != -1:
+            #         self.addPCFsVerticalCRSsComboBox.setCurrentIndex(index)
+            # self.addPCFsQgsProjectionSelectionWidget.setEnabled(False)
+            # self.addPCFsVerticalCRSsComboBox.setEnabled(False)
 
         pt_parameters = self.iPyProject.ptGetProcessingToolsCommandParameters('Object point measurement')
         if pt_parameters[0] == "True":
