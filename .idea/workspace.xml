@@ -4,8 +4,6 @@
     <list default="true" id="15eb851b-c3c4-4ce5-a6a4-c78a593877fb" name="Default Changelist" comment="error list initialize">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/libCpp/libPhotogrammetryManager.dll" beforeDir="false" afterPath="$PROJECT_DIR$/libCpp/libPhotogrammetryManager.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/libCpp/libPyPhotogrammetryTools.pyd" beforeDir="false" afterPath="$PROJECT_DIR$/libCpp/libPyPhotogrammetryTools.pyd" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/photogrammetry_tools_dockwidget.py" beforeDir="false" afterPath="$PROJECT_DIR$/photogrammetry_tools_dockwidget.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,7 +56,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../qLidar" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../point_cloud_tools" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -289,6 +287,11 @@
       <workItem from="1646193044943" duration="3993000" />
       <workItem from="1646296778765" duration="2146000" />
       <workItem from="1647014780368" duration="3809000" />
+      <workItem from="1647088537184" duration="1234000" />
+      <workItem from="1647109364521" duration="155000" />
+      <workItem from="1647261782338" duration="1541000" />
+      <workItem from="1647314889598" duration="711000" />
+      <workItem from="1647330582586" duration="602000" />
     </task>
     <task id="LOCAL-00001" summary="Remove key.txt">
       <created>1608031983901</created>
@@ -458,7 +461,14 @@
       <option name="project" value="LOCAL" />
       <updated>1647014830560</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="dlls">
+      <created>1647088551923</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1647088551923</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -553,7 +563,8 @@
     <MESSAGE value="fixed bug load in memory dtm" />
     <MESSAGE value="first new version and vertical crs" />
     <MESSAGE value="libCpp" />
-    <option name="LAST_COMMIT_MESSAGE" value="libCpp" />
+    <MESSAGE value="dlls" />
+    <option name="LAST_COMMIT_MESSAGE" value="dlls" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
