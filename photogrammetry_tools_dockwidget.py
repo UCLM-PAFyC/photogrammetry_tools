@@ -1177,6 +1177,23 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
             self.action_digitize_feature.setEnabled(False)
             self.action_edit_vertex.setEnabled(False)
 
+        ret = self.iPyProject.ptSetProjectManagerTemporalPath(self.projectManagerTemporalPath)
+        if ret[0] == "False":
+            msgBox = QMessageBox(self)
+            msgBox.setIcon(QMessageBox.Information)
+            msgBox.setWindowTitle(self.windowTitle)
+            msgBox.setText("Error:\n" + ret[1])
+            msgBox.exec_()
+            return
+        ret = self.iPyProject.ptSetProjectManagerOutputPath(self.projectManagerOutputPath)
+        if ret[0] == "False":
+            msgBox = QMessageBox(self)
+            msgBox.setIcon(QMessageBox.Information)
+            msgBox.setWindowTitle(self.windowTitle)
+            msgBox.setText("Error:\n" + ret[1])
+            msgBox.exec_()
+            return
+        return
         tilesTableName = PTDefinitions.CONST_SPATIALITE_LAYERS_TILES_TABLE_NAME
         # layerList = QgsProject.instance().mapLayersByName(tilesTableName)
         # if not layerList:
