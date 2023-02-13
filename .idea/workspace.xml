@@ -3,6 +3,19 @@
   <component name="ChangeListManager">
     <list default="true" id="15eb851b-c3c4-4ce5-a6a4-c78a593877fb" name="Default Changelist" comment="error list initialize">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PhotogrammetryTools.ini" beforeDir="false" afterPath="$PROJECT_DIR$/PhotogrammetryTools.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/TestOSGeoLibraries.exe" beforeDir="false" afterPath="$PROJECT_DIR$/libCpp/TestOSGeoLibraries.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/libCRS.dll" beforeDir="false" afterPath="$PROJECT_DIR$/libCpp/libCRS.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/libICGAL.dll" beforeDir="false" afterPath="$PROJECT_DIR$/libCpp/libICGAL.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/libIGDAL.dll" beforeDir="false" afterPath="$PROJECT_DIR$/libCpp/libIGDAL.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/libIOpenCv.dll" beforeDir="false" afterPath="$PROJECT_DIR$/libCpp/libIOpenCv.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/libParameters.dll" beforeDir="false" afterPath="$PROJECT_DIR$/libCpp/libParameters.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/libPhotogrammetryManager.dll" beforeDir="false" afterPath="$PROJECT_DIR$/libCpp/libPhotogrammetryManager.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/libPyPhotogrammetryTools.pyd" beforeDir="false" afterPath="$PROJECT_DIR$/libCpp/libPyPhotogrammetryTools.pyd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/parameters_pp_processing_tools.xml" beforeDir="false" afterPath="$PROJECT_DIR$/libCpp/parameters_pp_processing_tools.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/temp.prj" beforeDir="false" afterPath="$PROJECT_DIR$/libCpp/temp.prj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/photogrammetry_tools_dockwidget.py" beforeDir="false" afterPath="$PROJECT_DIR$/photogrammetry_tools_dockwidget.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/images_pc.qml" beforeDir="false" afterPath="$PROJECT_DIR$/templates/images_pc.qml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -293,6 +306,16 @@
       <workItem from="1647330582586" duration="623000" />
       <workItem from="1647368479153" duration="694000" />
       <workItem from="1649687322841" duration="33000" />
+      <workItem from="1650868447658" duration="232000" />
+      <workItem from="1660755060966" duration="100000" />
+      <workItem from="1661185233029" duration="2660000" />
+      <workItem from="1661238319081" duration="1800000" />
+      <workItem from="1661327136439" duration="5328000" />
+      <workItem from="1661358010301" duration="599000" />
+      <workItem from="1661765574264" duration="706000" />
+      <workItem from="1661784040764" duration="610000" />
+      <workItem from="1661873151960" duration="1269000" />
+      <workItem from="1676276133742" duration="912000" />
     </task>
     <task id="LOCAL-00001" summary="Remove key.txt">
       <created>1608031983901</created>
@@ -476,7 +499,14 @@
       <option name="project" value="LOCAL" />
       <updated>1647333384609</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="set temporal and output path opening projects">
+      <created>1650868657786</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1650868657786</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -573,7 +603,8 @@
     <MESSAGE value="libCpp" />
     <MESSAGE value="dlls" />
     <MESSAGE value="new" />
-    <option name="LAST_COMMIT_MESSAGE" value="new" />
+    <MESSAGE value="set temporal and output path opening projects" />
+    <option name="LAST_COMMIT_MESSAGE" value="set temporal and output path opening projects" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

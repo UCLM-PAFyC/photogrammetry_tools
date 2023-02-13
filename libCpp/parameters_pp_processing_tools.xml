@@ -21,7 +21,7 @@
         <Description>DSM raster file, same CRS as project and with no data value.</Description>
         <PrintSize>200</PrintSize>
         <Unit>adimensional</Unit>
-        <Value>C:/uclm/EjemploCandado/metashape/dsm5cm.tif</Value>
+        <Value>D:/PhotogrammetryToolsProjects/20220426_Tarazona_Vid_A6000/export/20220426_Tarazona_Vid_DSM_25830_helip.tif</Value>
     </Parameter>
     <Parameter>
         <Command>Computing rectifying homographies</Command>
@@ -72,7 +72,7 @@
         <Description>Output path for rectifying homographies files, empty for images path.</Description>
         <PrintSize>200</PrintSize>
         <Unit>adimensional</Unit>
-        <Value>C:/uclm/EjemploCandado/export_new</Value>
+        <Value>D:/PhotogrammetryToolsProjects/20220426_Tarazona_Vid_A6000/homographies</Value>
     </Parameter>
     <Parameter>
         <Command>Computing rectifying homographies</Command>
@@ -83,7 +83,7 @@
         <Description>Output path for report files, empty for images path.</Description>
         <PrintSize>200</PrintSize>
         <Unit>adimensional</Unit>
-        <Value>C:/uclm/EjemploCandado/export_new</Value>
+        <Value>D:/PhotogrammetryToolsProjects/20220426_Tarazona_Vid_A6000/homographies</Value>
     </Parameter>
     <Parameter>
         <Command>Computing rectifying homographies</Command>
@@ -260,7 +260,7 @@
         <Description>DSM raster file, same CRS as project and with no data value.</Description>
         <PrintSize>200</PrintSize>
         <Unit>adimensional</Unit>
-        <Value>C:/uclm/EjemploCandado/metashape/dsm5cm.tif</Value>
+        <Value>D:/MetashapeProjects/20221028_Puertocalpe/Productos_geomaticos/20221028_Puertocalpe_3D_roi_DEM_cutted_expanded.tif</Value>
     </Parameter>
     <Parameter>
         <Command>Get images footprints from DSM</Command>
@@ -283,7 +283,7 @@
         <Description>Number of points to compute in each side of the footprint</Description>
         <PrintSize>100</PrintSize>
         <Unit>adimensional</Unit>
-        <Value>11</Value>
+        <Value>2</Value>
         <MaximumValue>999</MaximumValue>
         <MinimumValue>2</MinimumValue>
     </Parameter>
@@ -2122,7 +2122,7 @@
         <Description>Report output file.</Description>
         <PrintSize>200</PrintSize>
         <Unit>adimensional</Unit>
-        <Value>C:/uclm/EjemploCandado/export_new/Analisis_efectos_sol.txt</Value>
+        <Value>D:/QGisPAFyCTooolsProjects/20220426_Tarazona_Vid_A6000/analisis_efectos_sol/analisis_efectos_sol.txt</Value>
     </Parameter>
     <Parameter>
         <Command>Compute Sun artifacts in images: sun glint and hotspot</Command>

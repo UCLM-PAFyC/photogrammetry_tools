@@ -1599,7 +1599,7 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         strDir = QFileDialog.getExistingDirectory(self, "Select directory", self.projectManagerOutputPath,
                                                   QFileDialog.ShowDirsOnly | QFileDialog.DontResolveSymlinks)
         if strDir:
-            ret = self.iPyProject.ptSetProjectManagerOutputPath(self.projectManagerOutputPath)
+            ret = self.iPyProject.ptSetProjectManagerOutputPath(self.strDir)
             if ret[0] == "False":
                 msgBox = QMessageBox(self)
                 msgBox.setIcon(QMessageBox.Information)
@@ -1619,7 +1619,7 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         strDir = QFileDialog.getExistingDirectory(self, "Select directory", self.projectManagerTemporalPath,
                                                   QFileDialog.ShowDirsOnly | QFileDialog.DontResolveSymlinks)
         if strDir:
-            ret = self.iPyProject.ptSetProjectManagerTemporalPath(self.projectManagerTemporalPath)
+            ret = self.iPyProject.ptSetProjectManagerTemporalPath(self.strDir)
             if ret[0] == "False":
                 msgBox = QMessageBox(self)
                 msgBox.setIcon(QMessageBox.Information)
