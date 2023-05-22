@@ -21,7 +21,7 @@
         <Description>DSM raster file, same CRS as project and with no data value.</Description>
         <PrintSize>200</PrintSize>
         <Unit>adimensional</Unit>
-        <Value>D:/PhotogrammetryToolsProjects/20220426_Tarazona_Vid_A6000/export/20220426_Tarazona_Vid_DSM_25830_helip.tif</Value>
+        <Value>C:/uclm/EjemploCandado/metashape/dsm5cm.tif</Value>
     </Parameter>
     <Parameter>
         <Command>Computing rectifying homographies</Command>
@@ -72,7 +72,7 @@
         <Description>Output path for rectifying homographies files, empty for images path.</Description>
         <PrintSize>200</PrintSize>
         <Unit>adimensional</Unit>
-        <Value>D:/PhotogrammetryToolsProjects/20220426_Tarazona_Vid_A6000/homographies</Value>
+        <Value>C:/uclm/EjemploCandado/export</Value>
     </Parameter>
     <Parameter>
         <Command>Computing rectifying homographies</Command>
@@ -83,7 +83,7 @@
         <Description>Output path for report files, empty for images path.</Description>
         <PrintSize>200</PrintSize>
         <Unit>adimensional</Unit>
-        <Value>D:/PhotogrammetryToolsProjects/20220426_Tarazona_Vid_A6000/homographies</Value>
+        <Value>C:/uclm/EjemploCandado/export</Value>
     </Parameter>
     <Parameter>
         <Command>Computing rectifying homographies</Command>
@@ -95,7 +95,7 @@
         <PrintSize>100</PrintSize>
         <Unit>adimensional</Unit>
         <ValueList>true;false</ValueList>
-        <Value>true</Value>
+        <Value>false</Value>
     </Parameter>
     <Parameter>
         <Command>Export_undistorted_to_colmap</Command>
@@ -260,7 +260,7 @@
         <Description>DSM raster file, same CRS as project and with no data value.</Description>
         <PrintSize>200</PrintSize>
         <Unit>adimensional</Unit>
-        <Value>D:/MetashapeProjects/20221028_Puertocalpe/Productos_geomaticos/20221028_Puertocalpe_3D_roi_DEM_cutted_expanded.tif</Value>
+        <Value>D:/PhotogrammetryToolsProjects/EnriqueCaniaMarzo29/export/dsm_5cm_32618.tif</Value>
     </Parameter>
     <Parameter>
         <Command>Get images footprints from DSM</Command>
@@ -283,7 +283,7 @@
         <Description>Number of points to compute in each side of the footprint</Description>
         <PrintSize>100</PrintSize>
         <Unit>adimensional</Unit>
-        <Value>2</Value>
+        <Value>11</Value>
         <MaximumValue>999</MaximumValue>
         <MinimumValue>2</MinimumValue>
     </Parameter>
@@ -300,6 +300,159 @@
         <Value>true</Value>
     </Parameter>
     <Parameter>
+        <Command>Get objects footprints in images</Command>
+        <Code>GOFI_AIGeometryType</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Value list</Type>
+        <Description>AI geometry type</Description>
+        <PrintSize>10</PrintSize>
+        <Unit>adimensional</Unit>
+        <ValueList>bounding box;polygon</ValueList>
+        <Value>polygon</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Get objects footprints in images</Command>
+        <Code>GOFI_AIObjectsIdsFile</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>SaveFile</Type>
+        <Description>AI objects identifiers file.</Description>
+        <PrintSize>200</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>F:/2022_AICEDRONE/casos_uso/20230125_RAIL/Canal_VLC_MATRICE300_RTK/DJI_P1_35mm/fotogrametria/AIObjectsIds.txt</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Get objects footprints in images</Command>
+        <Code>GOFI_DsmRasterFile</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>File</Type>
+        <Description>DSM raster file for interpolate in features without altitudes, same CRS as project.</Description>
+        <PrintSize>200</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>F:/2022_AICEDRONE/casos_uso/20230125_RAIL/export/202301XX_RAIL_5cm_25830_dsm_clipped.tif</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Get objects footprints in images</Command>
+        <Code>GOFI_ImagesFootprintBufferDistance</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Double precision number</Type>
+        <Description>Images footprint buffer distance to check points within images</Description>
+        <PrintSize>20</PrintSize>
+        <Unit>meters</Unit>
+        <Value>0.100</Value>
+        <MaximumValue>200.000</MaximumValue>
+        <MinimumValue>0.010</MinimumValue>
+        <PrintPrecision>3</PrintPrecision>
+    </Parameter>
+    <Parameter>
+        <Command>Get objects footprints in images</Command>
+        <Code>GOFI_MultiProcess</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Value list</Type>
+        <Description>Use multi process</Description>
+        <PrintSize>10</PrintSize>
+        <Unit>adimensional</Unit>
+        <ValueList>true;false</ValueList>
+        <Value>false</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Get objects footprints in images</Command>
+        <Code>GOFI_OutputPath</Code>
+        <Enabled>No</Enabled>
+        <Tag></Tag>
+        <Type>Path</Type>
+        <Description>Output path.</Description>
+        <PrintSize>200</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>D:/PhotogrammetryToolsProjects/20230125_AicedroneRail/output</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Get objects footprints in images</Command>
+        <Code>GOFI_ProcessOnlyEnabledImages</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Value list</Type>
+        <Description>Process only enabled images</Description>
+        <PrintSize>10</PrintSize>
+        <Unit>adimensional</Unit>
+        <ValueList>true;false</ValueList>
+        <Value>true</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Get objects footprints in images</Command>
+        <Code>GOFI_ProcessOnlyEnabledObjects</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Value list</Type>
+        <Description>Process only enabled objects</Description>
+        <PrintSize>10</PrintSize>
+        <Unit>adimensional</Unit>
+        <ValueList>true;false</ValueList>
+        <Value>true</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Get objects footprints in images</Command>
+        <Code>GOFI_RemoveExistingAIFiles</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Value list</Type>
+        <Description>Remove AI files</Description>
+        <PrintSize>10</PrintSize>
+        <Unit>adimensional</Unit>
+        <ValueList>true;false</ValueList>
+        <Value>true</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Get objects footprints in images</Command>
+        <Code>GOFI_ReportFile</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>SaveFile</Type>
+        <Description>AI objects identifiers file.</Description>
+        <PrintSize>200</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>F:/2022_AICEDRONE/casos_uso/20230125_RAIL/Canal_VLC_MATRICE300_RTK/DJI_P1_35mm/fotogrametria/GetObjectsFootprintsInImages_report.txt</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Get objects footprints in images</Command>
+        <Code>GOFI_Shapefile</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>File</Type>
+        <Description>Features shapefile, same CRS as project.</Description>
+        <PrintSize>200</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>F:/2022_AICEDRONE/casos_uso/20230125_RAIL/restitucion/20230125_Railway_Restitution_sections_20230516.shp</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Get objects footprints in images</Command>
+        <Code>GOFI_WriteAILabelFiles</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Value list</Type>
+        <Description>Write AI label files</Description>
+        <PrintSize>10</PrintSize>
+        <Unit>adimensional</Unit>
+        <ValueList>true;false</ValueList>
+        <Value>true</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Get objects footprints in images</Command>
+        <Code>GOFI_WriteImages</Code>
+        <Enabled>No</Enabled>
+        <Tag></Tag>
+        <Type>Value list</Type>
+        <Description>Write features in images</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <ValueList>true;false</ValueList>
+        <Value>false</Value>
+    </Parameter>
+    <Parameter>
         <Command>Markers accuracy analysis</Command>
         <Code>MAA_OutputFile</Code>
         <Enabled>Yes</Enabled>
@@ -308,7 +461,7 @@
         <Description>Report output file.</Description>
         <PrintSize>200</PrintSize>
         <Unit>adimensional</Unit>
-        <Value>C:/uclm/EjemploCandado/export_new/analisis_precisiones.txt</Value>
+        <Value>D:/PhotogrammetryToolsProjects/EjemploCandado/reports/MarkersAccuracyAnalysis.tx</Value>
     </Parameter>
     <Parameter>
         <Command>Multi-View statistics</Command>
@@ -344,8 +497,8 @@
         <PrintSize>20</PrintSize>
         <Unit>meters</Unit>
         <Value>1.00</Value>
-        <MaximumValue>1.00</MaximumValue>
-        <MinimumValue>0.10</MinimumValue>
+        <MaximumValue>1.01</MaximumValue>
+        <MinimumValue>0.01</MinimumValue>
         <PrintPrecision>2</PrintPrecision>
     </Parameter>
     <Parameter>
@@ -357,9 +510,9 @@
         <Description>Coverages minimum NDVI</Description>
         <PrintSize>20</PrintSize>
         <Unit>meters</Unit>
-        <Value>0.51</Value>
-        <MaximumValue>1.00</MaximumValue>
-        <MinimumValue>0.10</MinimumValue>
+        <Value>0.01</Value>
+        <MaximumValue>1.01</MaximumValue>
+        <MinimumValue>0.01</MinimumValue>
         <PrintPrecision>2</PrintPrecision>
     </Parameter>
     <Parameter>
@@ -371,7 +524,7 @@
         <Description>Coverages points minimum height.</Description>
         <PrintSize>20</PrintSize>
         <Unit>meters</Unit>
-        <Value>-1.00</Value>
+        <Value>-0.10</Value>
         <MaximumValue>10.00</MaximumValue>
         <MinimumValue>-10.00</MinimumValue>
         <PrintPrecision>2</PrintPrecision>
@@ -385,7 +538,7 @@
         <Description>DSM raster file, same CRS as project and with no data value.</Description>
         <PrintSize>200</PrintSize>
         <Unit>adimensional</Unit>
-        <Value>D:/PhotogrammetryToolsProjects/20210729_Tarazona_Cebolla/export/DSM-302-Tarazona_Cebolla_20210729_25830_5cm.tif</Value>
+        <Value>D:/PhotogrammetryToolsProjects/20190814_Fuentealamo_Micasense/sonya5100/DSM-103_FuenteAlama_25830_20190814_6cm.tif</Value>
     </Parameter>
     <Parameter>
         <Command>Multi-View statistics</Command>
@@ -396,7 +549,7 @@
         <Description>DTM raster file, same CRS as project and with no data value.</Description>
         <PrintSize>200</PrintSize>
         <Unit>adimensional</Unit>
-        <Value>D:/PhotogrammetryToolsProjects/20210729_Tarazona_Cebolla/export/DTM-302-Tarazona_Cebolla_20210729_25830_5cm.tif</Value>
+        <Value>D:/PhotogrammetryToolsProjects/20190814_Fuentealamo_Micasense/sonya5100/dtm_50cm.tif</Value>
     </Parameter>
     <Parameter>
         <Command>Multi-View statistics</Command>
@@ -431,7 +584,7 @@
         <Description>Shapefile of features, polygon type, with enabled integer field (0/1) and a field (integer) for group of features</Description>
         <PrintSize>200</PrintSize>
         <Unit>adimensional</Unit>
-        <Value>D:/PhotogrammetryToolsProjects/20210729_Tarazona_Cebolla/data/malla_5x5_comoEM38_dhl.shp</Value>
+        <Value>D:/PhotogrammetryToolsProjects/20190814_Fuentealamo_Micasense/data/GeolocalizacionAreasCepas20200306_noFilters.shp</Value>
     </Parameter>
     <Parameter>
         <Command>Multi-View statistics</Command>
@@ -455,7 +608,7 @@
         <Description>Groups field name in features shapefile. Empty for no use groups. Must be an integer</Description>
         <PrintSize>80</PrintSize>
         <Unit>adimensional</Unit>
-        <Value>Fila</Value>
+        <Value>Tratamient</Value>
     </Parameter>
     <Parameter>
         <Command>Multi-View statistics</Command>
@@ -489,7 +642,7 @@
         <Description>Exterior percentage of sensor format ignored in images.</Description>
         <PrintSize>20</PrintSize>
         <Unit>percentage</Unit>
-        <Value>7.500</Value>
+        <Value>5.000</Value>
         <MaximumValue>10.000</MaximumValue>
         <MinimumValue>0.000</MinimumValue>
         <PrintPrecision>3</PrintPrecision>
@@ -631,7 +784,7 @@
         <Description>Orthoimage mosaic file for single view statistics to compare results</Description>
         <PrintSize>200</PrintSize>
         <Unit>adimensional</Unit>
-        <Value>D:/PhotogrammetryToolsProjects/20210729_Tarazona_Cebolla/export/ORT-302-RFL_Tarazona_Cebolla_20210729_25830_5cm.tif</Value>
+        <Value>D:/PhotogrammetryToolsProjects/20190814_Fuentealamo_Micasense/export/ORT-302-RFL_FuenteAlamo_20190814_25830_6cm_raw_01_qgis.tif</Value>
     </Parameter>
     <Parameter>
         <Command>Multi-View statistics</Command>
@@ -702,7 +855,7 @@
         <Description>Output Used area mask global orthoimage file</Description>
         <PrintSize>200</PrintSize>
         <Unit>adimensional</Unit>
-        <Value>D:/PhotogrammetryToolsProjects/20210729_Tarazona_Cebolla/export/ORT-302-RFL_Tarazona_Cebolla_20210729_25830_5cm_mask.tif</Value>
+        <Value>D:/PhotogrammetryToolsProjects/20190814_Fuentealamo_Micasense/export/ORT-302-RFL_FuenteAlamo_20190814_25830_6cm_raw_01_qgis_mask.tif</Value>
     </Parameter>
     <Parameter>
         <Command>Multi-View statistics</Command>
@@ -789,7 +942,7 @@
         <Description>Output report CSV file.</Description>
         <PrintSize>200</PrintSize>
         <Unit>adimensional</Unit>
-        <Value>D:/PhotogrammetryToolsProjects/20210729_Tarazona_Cebolla/reports/micasense_rededge/MultiViewStatisticsReport_byFeature.txt</Value>
+        <Value>D:/PhotogrammetryToolsProjects/20190814_Fuentealamo_Micasense/reports/MultiViewStatisticsReport_dsm6cm_byFeature_20230511_no_filters.txt</Value>
     </Parameter>
     <Parameter>
         <Command>Multi-View statistics</Command>
@@ -1085,7 +1238,7 @@
         <Description>DSM raster file, same CRS as project and with no data value.</Description>
         <PrintSize>200</PrintSize>
         <Unit>adimensional</Unit>
-        <Value>D:/PhotogrammetryToolsProjects/EjemploCandado/metashape/dsm5cm.tif</Value>
+        <Value>C:/uclm/EjemploCandado/metashape/dsm5cm.tif</Value>
     </Parameter>
     <Parameter>
         <Command>Object point measurement</Command>
@@ -1255,7 +1408,7 @@
         <Description>Path for report files, empty for ignore this process.</Description>
         <PrintSize>200</PrintSize>
         <Unit>adimensional</Unit>
-        <Value>D:/PhotogrammetryToolsProjects/EjemploCandado/reports</Value>
+        <Value>C:/uclm/EjemploCandado/reports_20230522</Value>
     </Parameter>
     <Parameter>
         <Command>Object point measurement</Command>
@@ -2122,7 +2275,7 @@
         <Description>Report output file.</Description>
         <PrintSize>200</PrintSize>
         <Unit>adimensional</Unit>
-        <Value>D:/QGisPAFyCTooolsProjects/20220426_Tarazona_Vid_A6000/analisis_efectos_sol/analisis_efectos_sol.txt</Value>
+        <Value>C:/uclm/Ejemplo_PozoCanada/VueloFlirDuoProR/reports/SunArtifacts.txt</Value>
     </Parameter>
     <Parameter>
         <Command>Compute Sun artifacts in images: sun glint and hotspot</Command>

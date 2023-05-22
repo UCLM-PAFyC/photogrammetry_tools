@@ -300,6 +300,147 @@
         <Value>true</Value>
     </Parameter>
     <Parameter>
+        <Command>Get objects footprints in images</Command>
+        <Code>GOFI_AIObjectsIdsFile</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>SaveFile</Type>
+        <Description>AI objects identifiers file.</Description>
+        <PrintSize>200</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>F:/2022_AICEDRONE/casos_uso/20230125_RAIL/Canal_VLC_MATRICE300_RTK/DJI_P1_35mm/fotogrametria/AIObjectsIds.txt</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Get objects footprints in images</Command>
+        <Code>GOFI_DsmRasterFile</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>File</Type>
+        <Description>DSM raster file for interpolate in features without altitudes, same CRS as project.</Description>
+        <PrintSize>200</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>F:/2022_AICEDRONE/casos_uso/20230125_RAIL/export/202301XX_RAIL_5cm_25830_dsm_clipped.tif</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Get objects footprints in images</Command>
+        <Code>GOFI_ImagesFootprintBufferDistance</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Double precision number</Type>
+        <Description>Images footprint buffer distance to check points within images</Description>
+        <PrintSize>20</PrintSize>
+        <Unit>meters</Unit>
+        <Value>0.100</Value>
+        <MaximumValue>200.000</MaximumValue>
+        <MinimumValue>0.010</MinimumValue>
+        <PrintPrecision>3</PrintPrecision>
+    </Parameter>
+    <Parameter>
+        <Command>Get objects footprints in images</Command>
+        <Code>GOFI_MultiProcess</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Value list</Type>
+        <Description>Use multi process</Description>
+        <PrintSize>10</PrintSize>
+        <Unit>adimensional</Unit>
+        <ValueList>true;false</ValueList>
+        <Value>false</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Get objects footprints in images</Command>
+        <Code>GOFI_OutputPath</Code>
+        <Enabled>No</Enabled>
+        <Tag></Tag>
+        <Type>Path</Type>
+        <Description>Output path.</Description>
+        <PrintSize>200</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>C:/uclm/Ejemplo_PozoCanada/VueloFlirDuoProR/features/output</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Get objects footprints in images</Command>
+        <Code>GOFI_ProcessOnlyEnabledImages</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Value list</Type>
+        <Description>Process only enabled images</Description>
+        <PrintSize>10</PrintSize>
+        <Unit>adimensional</Unit>
+        <ValueList>true;false</ValueList>
+        <Value>true</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Get objects footprints in images</Command>
+        <Code>GOFI_ProcessOnlyEnabledObjects</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Value list</Type>
+        <Description>Process only enabled objects</Description>
+        <PrintSize>10</PrintSize>
+        <Unit>adimensional</Unit>
+        <ValueList>true;false</ValueList>
+        <Value>true</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Get objects footprints in images</Command>
+        <Code>GOFI_RemoveExistingAIFiles</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Value list</Type>
+        <Description>Remove AI files</Description>
+        <PrintSize>10</PrintSize>
+        <Unit>adimensional</Unit>
+        <ValueList>true;false</ValueList>
+        <Value>true</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Get objects footprints in images</Command>
+        <Code>GOFI_ReportFile</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>SaveFile</Type>
+        <Description>AI objects identifiers file.</Description>
+        <PrintSize>200</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>F:/2022_AICEDRONE/casos_uso/20230125_RAIL/Canal_VLC_MATRICE300_RTK/DJI_P1_35mm/fotogrametria/GetObjectsFootprintsInImages_report.txt</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Get objects footprints in images</Command>
+        <Code>GOFI_Shapefile</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>File</Type>
+        <Description>Features shapefile, same CRS as project.</Description>
+        <PrintSize>200</PrintSize>
+        <Unit>adimensional</Unit>
+        <Value>F:/2022_AICEDRONE/casos_uso/20230125_RAIL/restitucion/20230125_Railway_Restitution_sections.shp</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Get objects footprints in images</Command>
+        <Code>GOFI_WriteAILabelFiles</Code>
+        <Enabled>Yes</Enabled>
+        <Tag></Tag>
+        <Type>Value list</Type>
+        <Description>Write AI label files</Description>
+        <PrintSize>10</PrintSize>
+        <Unit>adimensional</Unit>
+        <ValueList>true;false</ValueList>
+        <Value>true</Value>
+    </Parameter>
+    <Parameter>
+        <Command>Get objects footprints in images</Command>
+        <Code>GOFI_WriteImages</Code>
+        <Enabled>No</Enabled>
+        <Tag></Tag>
+        <Type>Value list</Type>
+        <Description>Write features in images</Description>
+        <PrintSize>100</PrintSize>
+        <Unit>adimensional</Unit>
+        <ValueList>true;false</ValueList>
+        <Value>false</Value>
+    </Parameter>
+    <Parameter>
         <Command>Markers accuracy analysis</Command>
         <Code>MAA_OutputFile</Code>
         <Enabled>Yes</Enabled>
@@ -308,7 +449,7 @@
         <Description>Report output file.</Description>
         <PrintSize>200</PrintSize>
         <Unit>adimensional</Unit>
-        <Value>C:/uclm/EjemploCandado/reports/GCPsAnalisis.txt</Value>
+        <Value>D:/PhotogrammetryToolsProjects/EjemploCandado/reports/MarkersAccuracyAnalysis.tx</Value>
     </Parameter>
     <Parameter>
         <Command>Multi-View statistics</Command>
@@ -489,7 +630,7 @@
         <Description>Exterior percentage of sensor format ignored in images.</Description>
         <PrintSize>20</PrintSize>
         <Unit>percentage</Unit>
-        <Value>7.500</Value>
+        <Value>5.000</Value>
         <MaximumValue>10.000</MaximumValue>
         <MinimumValue>0.000</MinimumValue>
         <PrintPrecision>3</PrintPrecision>
@@ -2111,7 +2252,7 @@
         <PrintSize>100</PrintSize>
         <Unit>adimensional</Unit>
         <ValueList>true;false</ValueList>
-        <Value>false</Value>
+        <Value>true</Value>
     </Parameter>
     <Parameter>
         <Command>Compute Sun artifacts in images: sun glint and hotspot</Command>
@@ -2122,7 +2263,7 @@
         <Description>Report output file.</Description>
         <PrintSize>200</PrintSize>
         <Unit>adimensional</Unit>
-        <Value>C:/uclm/EjemploCandado/export_new/Analisis_efectos_sol.txt</Value>
+        <Value>C:/uclm/Ejemplo_PozoCanada/VueloFlirDuoProR/reports/SunArtifacts.txt</Value>
     </Parameter>
     <Parameter>
         <Command>Compute Sun artifacts in images: sun glint and hotspot</Command>
