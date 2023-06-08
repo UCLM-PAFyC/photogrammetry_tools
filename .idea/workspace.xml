@@ -3,13 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="15eb851b-c3c4-4ce5-a6a4-c78a593877fb" name="Default Changelist" comment="error list initialize">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PhotogrammetryTools.ini" beforeDir="false" afterPath="$PROJECT_DIR$/PhotogrammetryTools.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/libCpp/libICGAL.dll" beforeDir="false" afterPath="$PROJECT_DIR$/libCpp/libICGAL.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/libCpp/libIGDAL.dll" beforeDir="false" afterPath="$PROJECT_DIR$/libCpp/libIGDAL.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/libCpp/libPhotogrammetryManager.dll" beforeDir="false" afterPath="$PROJECT_DIR$/libCpp/libPhotogrammetryManager.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/libCpp/parameters_pp_processing_tools.xml" beforeDir="false" afterPath="$PROJECT_DIR$/libCpp/parameters_pp_processing_tools.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/libCpp/temp.prj" beforeDir="false" afterPath="$PROJECT_DIR$/libCpp/temp.prj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/libCppOldOSGeo4W/parameters_pp_processing_tools.xml" beforeDir="false" afterPath="$PROJECT_DIR$/libCppOldOSGeo4W/parameters_pp_processing_tools.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ph_tools.log" beforeDir="false" afterPath="$PROJECT_DIR$/ph_tools.log" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -313,6 +306,8 @@
       <workItem from="1676276133742" duration="1172000" />
       <workItem from="1676282063740" duration="42000" />
       <workItem from="1684771394938" duration="56000" />
+      <workItem from="1684771536296" duration="758000" />
+      <workItem from="1684826911769" duration="612000" />
     </task>
     <task id="LOCAL-00001" summary="Remove key.txt">
       <created>1608031983901</created>
@@ -517,7 +512,14 @@
       <option name="project" value="LOCAL" />
       <updated>1676282080226</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="primera version prueba dami">
+      <created>1684771567773</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1684771567773</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -616,7 +618,8 @@
     <MESSAGE value="new" />
     <MESSAGE value="set temporal and output path opening projects" />
     <MESSAGE value="." />
-    <option name="LAST_COMMIT_MESSAGE" value="." />
+    <MESSAGE value="primera version prueba dami" />
+    <option name="LAST_COMMIT_MESSAGE" value="primera version prueba dami" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
