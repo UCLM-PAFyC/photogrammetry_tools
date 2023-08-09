@@ -9,7 +9,7 @@
 [general]
 name=Photogrammetry Tools
 qgisMinimumVersion=3.4
-# qgisMaximumVersion=3.16.4
+#qgisMaximumVersion=3.26.3
 description=A plugin for manage photogrammetry projects
 version=0.1
 author=David Hernandez Lopez

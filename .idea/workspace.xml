@@ -1,7 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="15eb851b-c3c4-4ce5-a6a4-c78a593877fb" name="Default Changelist" comment="error list initialize" />
+    <list default="true" id="15eb851b-c3c4-4ce5-a6a4-c78a593877fb" name="Default Changelist" comment="error list initialize">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/TestPyPhotogrammetryTools.exe" beforeDir="false" afterPath="$PROJECT_DIR$/libCpp/TestPyPhotogrammetryTools.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/libCRS.dll" beforeDir="false" afterPath="$PROJECT_DIR$/libCpp/libCRS.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/libICGAL.dll" beforeDir="false" afterPath="$PROJECT_DIR$/libCpp/libICGAL.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/libIGDAL.dll" beforeDir="false" afterPath="$PROJECT_DIR$/libCpp/libIGDAL.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/libIOpenCv.dll" beforeDir="false" afterPath="$PROJECT_DIR$/libCpp/libIOpenCv.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/libPhotogrammetryManager.dll" beforeDir="false" afterPath="$PROJECT_DIR$/libCpp/libPhotogrammetryManager.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/libPyPhotogrammetryTools.pyd" beforeDir="false" afterPath="$PROJECT_DIR$/libCpp/libPyPhotogrammetryTools.pyd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/libWidgets.dll" beforeDir="false" afterPath="$PROJECT_DIR$/libCpp/libWidgets.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCpp/parameters_pp_processing_tools.xml" beforeDir="false" afterPath="$PROJECT_DIR$/libCpp/parameters_pp_processing_tools.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/metadata.txt" beforeDir="false" afterPath="$PROJECT_DIR$/metadata.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ph_tools.log" beforeDir="false" afterPath="$PROJECT_DIR$/ph_tools.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/photogrammetry_tools.py" beforeDir="false" afterPath="$PROJECT_DIR$/photogrammetry_tools.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -306,6 +320,12 @@
       <workItem from="1684771536296" duration="758000" />
       <workItem from="1684826911769" duration="612000" />
       <workItem from="1686211871050" duration="122000" />
+      <workItem from="1689872978001" duration="28000" />
+      <workItem from="1691428479332" duration="843000" />
+      <workItem from="1691478854865" duration="1687000" />
+      <workItem from="1691515719660" duration="8000" />
+      <workItem from="1691515816885" duration="159000" />
+      <workItem from="1691581945861" duration="1615000" />
     </task>
     <task id="LOCAL-00001" summary="Remove key.txt">
       <created>1608031983901</created>
@@ -524,7 +544,14 @@
       <option name="project" value="LOCAL" />
       <updated>1686211883032</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary=".">
+      <created>1689872986923</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1689872986923</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -633,6 +660,36 @@
           <url>file://$PROJECT_DIR$/photogrammetry_tools_dockwidget.py</url>
           <line>351</line>
           <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/photogrammetry_tools_dockwidget.py</url>
+          <line>1800</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/photogrammetry_tools_dockwidget.py</url>
+          <line>1288</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/photogrammetry_tools_dockwidget.py</url>
+          <line>2080</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/photogrammetry_tools_dockwidget.py</url>
+          <line>2170</line>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/photogrammetry_tools_dockwidget.py</url>
+          <line>1235</line>
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/photogrammetry_tools_dockwidget.py</url>
+          <line>1977</line>
+          <option name="timeStamp" value="9" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

@@ -1408,7 +1408,7 @@
         <Description>Path for report files, empty for ignore this process.</Description>
         <PrintSize>200</PrintSize>
         <Unit>adimensional</Unit>
-        <Value>C:/uclm/EjemploCandado/reports_20230627</Value>
+        <Value>C:/uclm/EjemploCandado/reports_20230807</Value>
     </Parameter>
     <Parameter>
         <Command>Object point measurement</Command>

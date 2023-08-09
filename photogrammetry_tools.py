@@ -37,7 +37,26 @@ import sys
 
 from PyQt5.QtWidgets import QMessageBox,QFileDialog,QTabWidget,QInputDialog,QLineEdit
 from PyQt5.QtCore import QSettings, QTranslator, qVersion, QCoreApplication, QFileInfo, QDir, QObject, QFile
-from qgis.core import QgsApplication, QgsDataSourceUri
+from qgis.core import QgsApplication, QgsDataSourceUri, Qgis
+
+strQGISVersion = Qgis.QGIS_VERSION
+versionItems = strQGISVersion.split('.')
+qGisFirstVersion = int(versionItems[0])
+qGisSecondVersion = int(versionItems[1])
+strThirdVersion = versionItems[2]
+strThirdVersionItems = strThirdVersion.split('-')
+qGisThirdVersion = int(strThirdVersionItems[0])
+# if qGisSecondVersion <= 28:
+#     text = "QGIS version: " + strQGISVersion
+#     text += "\nFirst version: " + str(qGisFirstVersion)
+#     text += "\nSecond version: " + str(qGisSecondVersion)
+#     text += "\nThird version: " + str(qGisThirdVersion)
+#     msgBox = QMessageBox()
+#     msgBox.setIcon(QMessageBox.Information)
+#     msgBox.setText(text)
+#     msgBox.exec_()
+# else:
+#     raise ValueError('Invalid QGIS version')
 
 from osgeo import osr
 projVersionMajor = osr.GetPROJVersionMajor()
@@ -46,10 +65,13 @@ pluginsPath = QFileInfo(QgsApplication.qgisUserDatabaseFilePath()).path()
 pluginPath = os.path.dirname(os.path.realpath(__file__))
 pluginPath = os.path.join(pluginsPath, pluginPath)
 libCppPath = None
-if projVersionMajor < 8:
-    libCppPath = os.path.join(pluginPath, 'libCppOldOSGeo4W')
-else:
-    libCppPath = os.path.join(pluginPath, 'libCpp')
+if qGisSecondVersion < 28:
+    if projVersionMajor < 8:
+        libCppPath = os.path.join(pluginPath, 'libCppOldOSGeo4W')
+    else:
+        libCppPath = os.path.join(pluginPath, 'libCpp')
+else: # de momento no se si falla con versiones superiores a 3.28
+    libCppPath = os.path.join(pluginPath, 'libCppOSGeo4W_3_28_9')
 # libCppPath = os.path.join(pluginPath, 'libCpp')
 existsPluginPath = QDir(libCppPath).exists()
 sys.path.append(pluginPath)
@@ -58,12 +80,16 @@ os.environ["PATH"] += os.pathsep + libCppPath
 
 PhotogrammetyToolsDockWidget = None
 IPyPTProject = None
-if projVersionMajor < 8:
+if qGisSecondVersion < 28:
+    if projVersionMajor < 8:
+        from .photogrammetry_tools_dockwidget import PhotogrammetyToolsDockWidget
+        from libCppOldOSGeo4W.libPyPhotogrammetryTools import IPyPTProject
+    else:
+        from .photogrammetry_tools_dockwidget import PhotogrammetyToolsDockWidget
+        from libCpp.libPyPhotogrammetryTools import IPyPTProject
+else: # de momento no se si falla con versiones superiores a 3.28
     from .photogrammetry_tools_dockwidget import PhotogrammetyToolsDockWidget
-    from libCppOldOSGeo4W.libPyPhotogrammetryTools import IPyPTProject
-else:
-    from .photogrammetry_tools_dockwidget import PhotogrammetyToolsDockWidget
-    from libCpp.libPyPhotogrammetryTools import IPyPTProject
+    from libCppOSGeo4W_3_28_9.libPyPhotogrammetryTools import IPyPTProject
 
 # pluginsPath = QFileInfo(QgsApplication.qgisUserDatabaseFilePath()).path()
 # pluginPath = os.path.dirname(os.path.realpath(__file__))
