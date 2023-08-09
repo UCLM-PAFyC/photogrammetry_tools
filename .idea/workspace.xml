@@ -3,18 +3,15 @@
   <component name="ChangeListManager">
     <list default="true" id="15eb851b-c3c4-4ce5-a6a4-c78a593877fb" name="Default Changelist" comment="error list initialize">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/libCpp/TestPyPhotogrammetryTools.exe" beforeDir="false" afterPath="$PROJECT_DIR$/libCpp/TestPyPhotogrammetryTools.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/libCpp/libCRS.dll" beforeDir="false" afterPath="$PROJECT_DIR$/libCpp/libCRS.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/libCpp/libICGAL.dll" beforeDir="false" afterPath="$PROJECT_DIR$/libCpp/libICGAL.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/libCpp/libIGDAL.dll" beforeDir="false" afterPath="$PROJECT_DIR$/libCpp/libIGDAL.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/libCpp/libIOpenCv.dll" beforeDir="false" afterPath="$PROJECT_DIR$/libCpp/libIOpenCv.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/libCpp/libPhotogrammetryManager.dll" beforeDir="false" afterPath="$PROJECT_DIR$/libCpp/libPhotogrammetryManager.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/libCpp/libPyPhotogrammetryTools.pyd" beforeDir="false" afterPath="$PROJECT_DIR$/libCpp/libPyPhotogrammetryTools.pyd" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/libCpp/libWidgets.dll" beforeDir="false" afterPath="$PROJECT_DIR$/libCpp/libWidgets.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/libCpp/parameters_pp_processing_tools.xml" beforeDir="false" afterPath="$PROJECT_DIR$/libCpp/parameters_pp_processing_tools.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/metadata.txt" beforeDir="false" afterPath="$PROJECT_DIR$/metadata.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCppOSGeo4W_3_28_9/arrow.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCppOSGeo4W_3_28_9/arrow_dataset.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCppOSGeo4W_3_28_9/gdal307.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCppOSGeo4W_3_28_9/jxl.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCppOSGeo4W_3_28_9/jxl_threads.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCppOSGeo4W_3_28_9/libpng16.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCppOSGeo4W_3_28_9/zlib.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libCppOSGeo4W_3_28_9/zlib1.dll" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/ph_tools.log" beforeDir="false" afterPath="$PROJECT_DIR$/ph_tools.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/photogrammetry_tools.py" beforeDir="false" afterPath="$PROJECT_DIR$/photogrammetry_tools.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -325,7 +322,7 @@
       <workItem from="1691478854865" duration="1687000" />
       <workItem from="1691515719660" duration="8000" />
       <workItem from="1691515816885" duration="159000" />
-      <workItem from="1691581945861" duration="1615000" />
+      <workItem from="1691581945861" duration="3735000" />
     </task>
     <task id="LOCAL-00001" summary="Remove key.txt">
       <created>1608031983901</created>
@@ -551,7 +548,14 @@
       <option name="project" value="LOCAL" />
       <updated>1689872986923</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="3_28_9">
+      <created>1691584782107</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1691584782107</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -651,7 +655,8 @@
     <MESSAGE value="set temporal and output path opening projects" />
     <MESSAGE value="primera version prueba dami" />
     <MESSAGE value="." />
-    <option name="LAST_COMMIT_MESSAGE" value="." />
+    <MESSAGE value="3_28_9" />
+    <option name="LAST_COMMIT_MESSAGE" value="3_28_9" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
