@@ -2,11 +2,7 @@
 # -*- coding: utf-8 -*-
 __author__ = 'david.hernandez@uclm.es'
 
-# DGS: Prueba de merge.
-
 # icons: <div>Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/"             title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/"             title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
-
-# prueba merge 20231024 de davidd
 
 CONST_SETTINGS_PLUGIN_NAME = "photogrammetry_tools"
 CONST_SETTINGS_FILE_NAME = "PhotogrammetryTools.ini"
