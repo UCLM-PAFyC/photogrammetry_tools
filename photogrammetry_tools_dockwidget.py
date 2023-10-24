@@ -991,7 +991,41 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
             msgBox.setWindowTitle(self.windowTitle)
             msgBox.setText("Select project before")
             msgBox.exec_()
+            self.photogrammetryToolBox.setCurrentIndex(0)
             return
+        if not self.dbFileName:
+            msgBox = QMessageBox(self)
+            msgBox.setIcon(QMessageBox.Information)
+            msgBox.setWindowTitle(self.windowTitle)
+            msgBox.setText("Open project before")
+            msgBox.exec_()
+            self.photogrammetryToolBox.setCurrentIndex(0)
+            return
+        if index == 2:
+            pt_parameters = self.iPyProject.ptGetProcessingToolsCommandParameters('Object point measurement')
+            if pt_parameters[0] == "True":
+                self.tool_digitize_feature.parameters = pt_parameters[1]
+            else:
+                msgBox = QMessageBox(self)
+                msgBox.setIcon(QMessageBox.Information)
+                msgBox.setWindowTitle(self.windowTitle)
+                msgBox.setText("Error recovering parameters for command: Object point measurement")
+                msgBox.exec_()
+                self.photogrammetryToolBox.setCurrentIndex(0)
+                return
+            demFileName = self.tool_digitize_feature.parameters[PTDefinitions.CONST_COMMAND_OBJECT_POINT_MEASUREMENT_PARAMETER_DEM_CODE]
+            if not QFile.exists(demFileName):
+                msgBox = QMessageBox(self)
+                msgBox.setIcon(QMessageBox.Information)
+                msgBox.setWindowTitle(self.windowTitle)
+                text = "For command: Object point measurement"
+                text += "\nnot exists selected DEM file:\n"
+                text += demFileName
+                text += "\nSelect a velid DEM before"
+                msgBox.setText(text)
+                msgBox.exec_()
+                self.photogrammetryToolBox.setCurrentIndex(1)
+                return
         connectionPath = self.connections[connectionFileName]
         ret = self.iPyProject.ptGetChunks(connectionPath)
         if ret[0] == "False":

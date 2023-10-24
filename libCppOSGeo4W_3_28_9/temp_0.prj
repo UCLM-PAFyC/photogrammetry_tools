@@ -1,0 +1,14 @@
+Photogrammetry Project
+- Number of processes ......................................# 2
+- Process (CREATE_DB,ADD_POINTCLOUD,ADD_ROI,WRITE_PCFS) ....# CREATE_DB
+  - Database file name .....................................# "D:/PhotogrammetryToolsProjects/20230821_AicedroneRoad/AicedroneRoad.sqlite"
+  - Database CRS (libCRS/EPSG/proj4/wkt) ...................# 4083
+  - Vertical CRS EPSG Code (-1, ellipsoid) .................# 9396
+  - Grid size ..............................................# 50.000
+  - Project Type (Generic,Metashape) .......................# metashape
+  - Project parameters (par1@v@value1@p@par2@v@value2...) ..# Author@v@David Hernandez@p@Company@v@UCLM
+- Process (CREATE_DB,ADD_POINTCLOUD,ADD_ROI) ...............# ADD_ROI
+  - Database file name .....................................# "D:/PhotogrammetryToolsProjects/20230821_AicedroneRoad/AicedroneRoad.sqlite"
+  - ROI File ...............................................# "F:/2022_AICEDRONE/casos_uso/Swords_reprocesado/export/roi_4083.shp"
+    Field id (None for all features ) ......................# None
+      Field id values (separed by ; ignored si None) .......# 

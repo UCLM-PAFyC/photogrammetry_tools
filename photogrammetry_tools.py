@@ -33,6 +33,7 @@ import os.path
 import sys
 # sys.path.append("C:\Program Files\JetBrains\PyCharm 2018.3.3\debug-eggs\pycharm-debug.egg") # dhl
 # sys.path.append("C:\Program Files\JetBrains\PyCharm 2020.3\debug-eggs\pydevd-pycharm.egg") # dhl
+# sys.path.append("C:\Program Files\JetBrains\PyCharm 2023.2\debug-eggs\pydevd-pycharm.egg") # dhl
 # import pydevd
 
 from PyQt5.QtWidgets import QMessageBox,QFileDialog,QTabWidget,QInputDialog,QLineEdit
@@ -157,6 +158,13 @@ class PhotogrammetyTools:
 
         self.pluginIsActive = False
         self.dockwidget = None
+
+        self.iPyProject = None
+
+        self.pluginIsInitialized = False
+
+        # self.pluginIsActive = False
+        # self.dockwidget = None
 
 
     # noinspection PyMethodMayBeStatic
@@ -294,51 +302,53 @@ class PhotogrammetyTools:
 
     def run(self):
         """Run method that loads and starts the plugin"""
+        if self.pluginIsActive:
+            return
 
-        if self.projVersionMajor < 8:
-            egm08UncompressFileName = libCppPath + "/" + PTDefinitions.CONST_EGM08_25_FILE_NAME
-            if not QFile.exists(egm08UncompressFileName):
-                egm08compressFileName = libCppPath + "/" + PTDefinitions.CONST_EGM08_25_COMPRESS_FILE_NAME
-                text = "<p>Before opening the plugin for the first time<\p>"
-                text += "<p>you must download the file:</p>"
-                text += "<p><a href='https://github.com/UCLM-PAFyC/qLidar/tree/master/libCpp/egm08_25.7z'>egm08_25.7z</a></p>"
-                text += "<p>and unzip the file using: <a href='https://www.7-zip.org/'>7 zip</a></p>"
-                text += "<p>in the same path of the plugin, getting:</p>"
-                text += egm08UncompressFileName
-                text += "<p>The unzipped file could not be uploaded to Github due to account limitations</p>"
+        if not self.pluginIsInitialized:
+            if self.projVersionMajor < 8:
+                egm08UncompressFileName = libCppPath + "/" + PTDefinitions.CONST_EGM08_25_FILE_NAME
+                if not QFile.exists(egm08UncompressFileName):
+                    egm08compressFileName = libCppPath + "/" + PTDefinitions.CONST_EGM08_25_COMPRESS_FILE_NAME
+                    text = "<p>Before opening the plugin for the first time<\p>"
+                    text += "<p>you must download the file:</p>"
+                    text += "<p><a href='https://github.com/UCLM-PAFyC/qLidar/tree/master/libCpp/egm08_25.7z'>egm08_25.7z</a></p>"
+                    text += "<p>and unzip the file using: <a href='https://www.7-zip.org/'>7 zip</a></p>"
+                    text += "<p>in the same path of the plugin, getting:</p>"
+                    text += egm08UncompressFileName
+                    text += "<p>The unzipped file could not be uploaded to Github due to account limitations</p>"
+                    msgBox = QMessageBox()
+                    msgBox.setIcon(QMessageBox.Information)
+                    # msgBox.setWindowTitle(self.windowTitle)
+                    msgBox.setTextFormat(Qt.RichText)
+                    msgBox.setText(text)
+                    msgBox.exec_()
+                    return
+            # if self.projVersionMajor >= 8:
+            #     text = "<p>Invalid plugin for this QGIS version</p>"
+            #     msgBox = QMessageBox()
+            #     msgBox.setIcon(QMessageBox.Information)
+            #     # msgBox.setWindowTitle(self.windowTitle)
+            #     msgBox.setTextFormat(Qt.RichText)
+            #     msgBox.setText(text)
+            #     msgBox.exec_()
+            #     return
+
+            self.iPyProject = IPyPTProject()
+            self.iPyProject.setPythonModulePath(self.path_libCpp)
+            ret = self.iPyProject.initialize()
+            if ret[0] == "False":
                 msgBox = QMessageBox()
                 msgBox.setIcon(QMessageBox.Information)
                 # msgBox.setWindowTitle(self.windowTitle)
-                msgBox.setTextFormat(Qt.RichText)
-                msgBox.setText(text)
+                msgBox.setText("\n" + ret[1])
                 msgBox.exec_()
                 return
-        # if self.projVersionMajor >= 8:
-        #     text = "<p>Invalid plugin for this QGIS version</p>"
-        #     msgBox = QMessageBox()
-        #     msgBox.setIcon(QMessageBox.Information)
-        #     # msgBox.setWindowTitle(self.windowTitle)
-        #     msgBox.setTextFormat(Qt.RichText)
-        #     msgBox.setText(text)
-        #     msgBox.exec_()
-        #     return
-
-        self.iPyProject = IPyPTProject()
-        self.iPyProject.setPythonModulePath(self.path_libCpp)
-        ret = self.iPyProject.initialize()
-        if ret[0] == "False":
-            msgBox = QMessageBox()
-            msgBox.setIcon(QMessageBox.Information)
-            # msgBox.setWindowTitle(self.windowTitle)
-            msgBox.setText("\n" + ret[1])
-            msgBox.exec_()
-            return
-        path_file_qsettings = self.path_plugin + '/' + PTDefinitions.CONST_SETTINGS_FILE_NAME
-        self.settings = QSettings(path_file_qsettings, QSettings.IniFormat)
-
-        self.pluginIsActive = True
-
-        self.pt_qgis_project = PhToolsProject()
+            path_file_qsettings = self.path_plugin + '/' + PTDefinitions.CONST_SETTINGS_FILE_NAME
+            self.settings = QSettings(path_file_qsettings, QSettings.IniFormat)
+            self.pluginIsActive = True
+            self.pluginIsInitialized = True
+            self.pt_qgis_project = PhToolsProject()
 
         #print "** STARTING PhotogrammetyTools"
 
@@ -358,12 +368,17 @@ class PhotogrammetyTools:
                                                            self.toolbar)
 
         # connect to provide cleanup on closing of dockwidget
-        self.dockwidget.closingPlugin.connect(self.onClosePlugin)
+        #self.dockwidget.closingPlugin.connect(self.onClosePlugin)
 
         # show the dockwidget
         # TODO: fix to allow choice of dock location
+        # self.iface.addDockWidget(Qt.LeftDockWidgetArea, self.dockwidget)
+        # self.dockwidget.show()
+        self.dockwidget.closingPlugin.connect(self.onClosePlugin)
         self.iface.addDockWidget(Qt.LeftDockWidgetArea, self.dockwidget)
         self.dockwidget.show()
+        self.iface.mainWindow().showMaximized()
+        self.iface.mainWindow().update()
 
     def edit(self):
         # TODOC:
