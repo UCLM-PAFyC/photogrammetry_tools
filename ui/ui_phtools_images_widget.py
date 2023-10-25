@@ -414,6 +414,7 @@ class PhToolsQImagesWidget(QFrame,
                 if ret[0]:
                     self.reportGenerated.emit(ret[1])
 
+
 class QgsPhToolPan(QgsMapToolPan):
     canvasPressSignal = pyqtSignal(QgsPointXY)
     userZoomSignal = pyqtSignal(bool)

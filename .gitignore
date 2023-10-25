@@ -1,6 +1,7 @@
 .idea
 **/key.txt
 PhotogrammetryTools.ini
+ph_tools.log
 **/debug
 **/release
 
