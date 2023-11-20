@@ -5,6 +5,7 @@
 # is no longer supported since version 2.0.
 
 # This file should be included when you package your plugin.# Mandatory items:
+# Test GIT conflicto
 
 [general]
 name=Photogrammetry Tools

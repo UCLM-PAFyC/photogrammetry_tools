@@ -1238,7 +1238,7 @@
         <Description>DSM raster file, same CRS as project and with no data value.</Description>
         <PrintSize>200</PrintSize>
         <Unit>adimensional</Unit>
-        <Value>D:/PhotogrammetryToolsProjects/EjemploCandado/metashape/dsm5cm.tif</Value>
+        <Value>C:/uclm/EjemploCandado/metashape/dsm5cm.tif</Value>
     </Parameter>
     <Parameter>
         <Command>Object point measurement</Command>
