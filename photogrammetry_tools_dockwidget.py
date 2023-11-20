@@ -545,6 +545,8 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         return
 
     def getSpatialiteConnections(self):
+        import pydevd_pycharm
+        pydevd_pycharm.settrace('localhost', port=53100, stdoutToServer=True, stderrToServer=True)
         self.connections = {}
         settings = QSettings()
         settings.beginGroup('/SpatiaLite/connections')
