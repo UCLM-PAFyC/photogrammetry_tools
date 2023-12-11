@@ -375,6 +375,7 @@ class PhotogrammetyTools:
         self.dockwidget.closingPlugin.connect(self.onClosePlugin)
         
         # Get Layers Panel
+        # test
         layersPanel = [x for x in self.iface.mainWindow().findChildren(QDockWidget) if x.objectName() == 'Layers']         
         self.iface.addDockWidget(Qt.LeftDockWidgetArea, self.dockwidget)        
         if not layersPanel[0].isHidden() and not layersPanel[0].isFloating():            
