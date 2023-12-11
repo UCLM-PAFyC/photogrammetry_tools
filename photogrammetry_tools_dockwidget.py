@@ -30,7 +30,9 @@ from osgeo import osr
 from decimal import Decimal
 from PyQt5.QtCore import QSettings, QTranslator, qVersion, QCoreApplication, QFileInfo, QDir, QObject
 from PyQt5.QtWidgets import QMessageBox, QFileDialog, QTabWidget, QInputDialog, QLineEdit, QAction, QDockWidget
+from PyQt5.QtGui import QTextCursor
 from qgis.core import QgsApplication, QgsDataSourceUri, QgsProject, QgsCoordinateReferenceSystem
+
 # pluginPath = 'python/plugins/photogrammetry_tools'
 # pluginPath = os.path.join(QFileInfo(QgsApplication.qgisUserDatabaseFilePath()).path(), pluginPath)
 # libCppPath = os.path.join(pluginPath, 'libCpp')
@@ -545,8 +547,8 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         return
 
     def getSpatialiteConnections(self):
-        import pydevd_pycharm
-        pydevd_pycharm.settrace('localhost', port=53100, stdoutToServer=True, stderrToServer=True)
+        #import pydevd_pycharm
+        #pydevd_pycharm.settrace('localhost', port=53100, stdoutToServer=True, stderrToServer=True)
         self.connections = {}
         settings = QSettings()
         settings.beginGroup('/SpatiaLite/connections')
@@ -581,7 +583,7 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
 
     def initialize(self):
         self.enableMeasurements = False
-
+        
         self.dbFileName = None
         self.layerTreeName = None
         self.layerTree = None
@@ -828,8 +830,7 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         # Digitizing Tool
         ###################################################
 
-        self.action_digitize_feature = QAction(QIcon(":/plugins/photogrammetry_tools/icons/ph_polygon_create.png"),
-                                               "Create")
+        self.action_digitize_feature = QAction(QIcon(":/plugins/photogrammetry_tools/icons/ph_polygon_create.png"),"Create")        
         self.action_digitize_feature.setCheckable(True)
         self.action_digitize_feature.triggered.connect(self.digitize_feature)
         # self.digitizing_toolbar = self.iface.addToolBar("PH digitizing")
@@ -859,6 +860,7 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         self.tool_edit_vertex.deactivated.connect(self.onEditVertexToolDeactivate)
         self.tool_edit_vertex.deleteKeyPressSignal.connect(self.onDeleteKeyPressed)
         ######################################################################
+        self.toggle()
         self.debugTextEdit.readOnly = True
         self.accuracyTextEdit.readOnly = True
         # self.accuracyTextEdit.append('<!DOCTYPE html> <html> <head> <!-- head definitions go here --> </head> <body>'
@@ -1825,7 +1827,7 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
             # msgBox.exec_()
         strCrs = PTDefinitions.CONST_EPSG_PREFIX + str(crsEpsgCode)
         if strCrs == PTDefinitions.CONST_DEFAULT_CRS:
-            index = self.verticalCRSsComboBox.findText(PTDefinitions.CONST_DEFAULT_VERTICAL_CRS)#, QtCore.Qt.MatchFixedString)
+            index = self.verticalCRSsComboBox.findText(PTDefinitions.CONST_DEFAULT_VERTICAL_CRS) #, QtCore.Qt.MatchFixedString)
             if index > 0:
                 self.verticalCRSsComboBox.setCurrentIndex(index)
         return
@@ -2254,7 +2256,13 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
                     self.selectedFeature = None
 
     def onDebugTextGenerated(self, debug_str):
-        self.debugTextEdit.append(debug_str)
+        #oldText = self.debugTextEdit.toHtml()   
+        # Get the text cursor
+        cursor = self.debugTextEdit.textCursor()
+        # Move the cursor to the start
+        cursor.movePosition(QTextCursor.Start)                     
+        cursor.insertHtml(debug_str)
+        #self.debugTextEdit.setHtml(debug_str)
 
     def onReportGenerated(self, report_str):
         self.accuracyTextEdit.setText(report_str)

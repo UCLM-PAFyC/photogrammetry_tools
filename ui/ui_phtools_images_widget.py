@@ -380,33 +380,62 @@ class PhToolsQImagesWidget(QFrame,
                     if image_key not in self.list_qgsmapcavansses_dic.keys():
                         self.projected_images[image_key] = ret[5][image_key]
                         self.add_ribbon_images_map_canvas(image_key)
-                ##
 
-                self.debugTextGenerated.emit('Número de Imágenes: {}'.format(self.list_qgsmapcavansses_dic.__len__()))
-                self.debugTextGenerated.emit('\n---------------------------')
-                self.debugTextGenerated.emit('\nObject Point: {}, {}, {}'.format(ret[2][0], ret[2][1], ret[2][2]))
+                #self.debugTextGenerated.emit('Número de Imágenes: {}'.format(self.list_qgsmapcavansses_dic.__len__()))                
+                debug_html_str = '<h2 style="font-family:\'Calibri\'; font-weight:600; margin-bottom:16px;margin-top:10px;font-size:8pt;font-weight:600;">'
+                debug_html_str += 'Número de Imágenes: '
+                debug_html_str += str(self.list_qgsmapcavansses_dic.__len__())
+                debug_html_str += '</h2>'                                                            
+                debug_html_str += '<hr>'
+
+                #self.debugTextGenerated.emit('\nObject Point: {}, {}, {}'.format(ret[2][0], ret[2][1], ret[2][2]))
+                debug_html_str += '<h3 style="font-family:\'Calibri\';margin-top:0px;margin-bottom:0px;font-size:8pt;font-weight:600;">'
+                debug_html_str += 'Object Point: '
+                debug_html_str += '{}, {}, {}'.format(ret[2][0], ret[2][1], ret[2][2])
+                debug_html_str += '</h3>'                                              
+                debug_html_str += '<hr>'
+                
                 if len(ret[5]):
-                    self.debugTextGenerated.emit('\n---------------------------')
-                    self.debugTextGenerated.emit('\n---------------------------')
+                    #self.debugTextGenerated.emit('\n---------------------------')
+                    #self.debugTextGenerated.emit('\n---------------------------')
                     for image_key in ret[5].keys():
-                        debug_str = image_key
-                        if 'Matched' in ret[5][image_key].keys():
+                        #debug_str = image_key
+                        debug_html_str += '<p style="font-family:\'Consolas\';margin-top:0px;margin-bottom:4px; color:blue;">' 
+                        debug_html_str += image_key
+                        debug_html_str += '</p>'
+                        #self.debugTextGenerated.emit(debug_html_str)                        
+                        
+                        if 'Matched' in ret[5][image_key].keys():                            
                             matched_point = QgsPointXY(ret[5][image_key]['Matched'][0],
                                                        -1.0*ret[5][image_key]['Matched'][1])
-                            debug_str += '\nMatched: Point({} {})'.format(ret[5][image_key]['Matched'][0],
-                                                                        ret[5][image_key]['Matched'][1])
+                            #debug_str = '\nMatched: Point({} {})'.format(ret[5][image_key]['Matched'][0], ret[5][image_key]['Matched'][1])
+                            debug_html_str += '<p style="font-family:\'Consolas\'; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; text-indent:0px;"><span style=" color:#008000;">Matched:   Point</span><span style=" color:#000000;">'                            
+                            debug_html_str += '({} {})'.format(ret[5][image_key]['Matched'][0], ret[5][image_key]['Matched'][1])
+                            debug_html_str += '</span></p>'                            
+                            
                             self.list_qgsmapcavansses_dic[image_key].image_points[POINT_TYPE_MATCHED] = matched_point
                             if 'Measured' not in ret[5][image_key].keys():
                                 self.list_qgsmapcavansses_dic[image_key].centerCanvas(matched_point)
                                 self.list_qgsmapcavansses_dic[image_key].current_center = matched_point
 
                         if 'Measured' in ret[5][image_key].keys():
-                            debug_str += '\nMeasured: Point({} {})'.format(ret[5][image_key]['Measured'][0],
-                                                                            ret[5][image_key]['Measured'][1])
+                            # debug_str = '\nMeasured: Point({} {})'.format(ret[5][image_key]['Measured'][0], ret[5][image_key]['Measured'][1])
+                            debug_html_str += '<p style="font-family:\'Consolas\';margin-top:0px;margin-bottom:0px; color: Gray;">Measured: <span style="color: rgb(0, 0, 0);">'
+                            debug_html_str += 'Point({} {})'.format(ret[5][image_key]['Measured'][0], ret[5][image_key]['Measured'][1])
+                            debug_html_str += '</span></p>'                           
+                                                        
                         if 'Projected' in ret[5][image_key].keys():
-                            debug_str += '\nProjected: Point({} {})'.format(ret[5][image_key]['Projected'][0],
-                                                                            ret[5][image_key]['Projected'][1])
-                        self.debugTextGenerated.emit(debug_str + '\n---------------------------')
+                            # debug_str = '\nProjected: Point({} {})'.format(ret[5][image_key]['Projected'][0], ret[5][image_key]['Projected'][1])
+                            debug_html_str += '<p style="font-family:\'Consolas\';margin-top:0px;margin-bottom:0px; color: rgb(255, 0, 0);">Projected: <span style="color: rgb(0, 0, 0);">'
+                            debug_html_str += 'Point({} {})'.format(ret[5][image_key]['Projected'][0], ret[5][image_key]['Projected'][1])
+                            debug_html_str += '</span></p>'                            
+                                                
+                        #self.debugTextGenerated.emit(debug_str + '\n---------------------------')                        
+                        debug_html_str += '<p style="margin-top:0px; margin-bottom:0px; margin-left:0px;"><span style=" color:#000000;">------</span></p>'
+                        print(debug_html_str)
+                    
+                    self.debugTextGenerated.emit(debug_html_str)
+                    self.debugTextGenerated.emit('<br>')
 
                 # Report:
                 ret = self.i_py_project.ptGetObjectPointReport(self.connection_path, 'chunk 1',

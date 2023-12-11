@@ -23,7 +23,7 @@
 """
 from PyQt5.QtCore import QSettings, QTranslator, qVersion, QCoreApplication, Qt
 from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QAction
+from PyQt5.QtWidgets import QAction, QDockWidget
 # Initialize Qt resources from file resources.py
 from .resources import *
 
@@ -371,12 +371,16 @@ class PhotogrammetyTools:
         #self.dockwidget.closingPlugin.connect(self.onClosePlugin)
 
         # show the dockwidget
-        # TODO: fix to allow choice of dock location
-        # self.iface.addDockWidget(Qt.LeftDockWidgetArea, self.dockwidget)
-        # self.dockwidget.show()
+        # TODO: fix to allow choice of dock location        
         self.dockwidget.closingPlugin.connect(self.onClosePlugin)
-        self.iface.addDockWidget(Qt.LeftDockWidgetArea, self.dockwidget)
-        self.dockwidget.show()
+        
+        # Get Layers Panel
+        layersPanel = [x for x in self.iface.mainWindow().findChildren(QDockWidget) if x.objectName() == 'Layers']         
+        self.iface.addDockWidget(Qt.LeftDockWidgetArea, self.dockwidget)        
+        if not layersPanel[0].isHidden() and not layersPanel[0].isFloating():            
+            self.iface.mainWindow().tabifyDockWidget(layersPanel[0], self.dockwidget)
+        self.dockwidget.show()            
+            
         self.iface.mainWindow().showMaximized()
         self.iface.mainWindow().update()
 
