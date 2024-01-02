@@ -1,0 +1,9 @@
+Photogrammetry Project
+- Number of processes ......................................# 1
+- Process (CREATE_DB,ADD_POINTCLOUD,ADD_ROI,WRITE_PCFS) ....# ADD_MPFMF
+  - Database file name .....................................# "D:/Aicedrone/20231218_Villajoyosa/PhotogrammetryTool/PhTools_Villajoyosa_20231218.sqlite"
+  - Code ...................................................# Prj_1
+  - Metashape Markers XML File .............................# "D:/Aicedrone/20231218_Villajoyosa/Metashape/20231218_Villajoyosa_Markers.xml"
+  - Chunk to import (All or chunk code) ....................# 20231218_villajoyosa
+  - Height type (ORTHOMETRIC_HEIGHT,ELLIPSOID_HEIGHT) ......# ORTHOMETRIC_HEIGHT
+  - GCPs analysis output file (empty no or no GCPs ) .......# "D:/Aicedrone/20231218_Villajoyosa/Metashape/20231218_Villajoyosa_Markers_checkAccuracy.txt"
