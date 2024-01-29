@@ -60,6 +60,7 @@ from PyQt5.QtCore import pyqtSignal, QSettings
 from PyQt5.QtWidgets import QTextEdit, QPushButton, QVBoxLayout
 
 from .ui.ui_phtools_images_widget import PhToolsQImagesWidget
+from .ui.ui_phtools_accuracy_report_widget import PhToolsAccuracyReportWidget
 from PyQt5 import QtGui, QtWidgets, uic
 from PyQt5.QtCore import pyqtSignal
 from qgis.gui import QgsMapToolDigitizeFeature, QgsMapMouseEvent, QgsAdvancedDigitizingDockWidget, QgsMapToolPan, \
@@ -636,6 +637,15 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
             self.settings.setValue("output_path", self.outputPath)
             self.settings.sync()
         self.pmOutputPathLineEdit.setText(self.outputPath)
+        
+        self.measurementAccuracy2dDoubleSpinBox.valueChanged.connect(self.changed_doublespin_measurement_accuracy_2d)
+        self.measurementAccuracyHDoubleSpinBox.valueChanged.connect(self.changed_doublespin_measurement_accuracy_H)
+                
+        self.default_measurement_accuracy_2d = float(self.settings.value("default_measurement_accuracy_2d"))
+        self.measurementAccuracy2dDoubleSpinBox.setValue(self.default_measurement_accuracy_2d)
+
+        self.default_measurement_accuracy_H = float(self.settings.value("default_measurement_accuracy_H"))
+        self.measurementAccuracyHDoubleSpinBox.setValue(self.default_measurement_accuracy_H)
 
         self.roisShapefiles = []
         self.roisFileTypes = []
@@ -844,6 +854,9 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         self.tool_digitize_feature.canvasPressSignal.connect(self.onCanvasPressSignal)
         self.tool_digitize_feature.deactivated.connect(self.onDigitizeToolDeactivate)
         self.canvas.currentLayerChanged.connect(self.toggle)
+        
+        self.accuracyDetailReportButton.setEnabled(False)
+        self.accuracyDetailReportButton.clicked.connect(self.viewAccuracyDetailReport)
 
         ###################################################
         # Photogrammetric vertex edition tool
@@ -2265,4 +2278,93 @@ class PhotogrammetyToolsDockWidget(QtWidgets.QDockWidget, FORM_CLASS):
         #self.debugTextEdit.setHtml(debug_str)
 
     def onReportGenerated(self, report_str):
-        self.accuracyTextEdit.setText(report_str)
+        #self.accuracyTextEdit.setText(report_str)
+        self.parse_accuracy_detailed_report(report_str)
+        self.report_str = report_str
+        self.accuracyDetailReportButton.setEnabled(True)
+    
+    def changed_doublespin_measurement_accuracy_2d(self,
+                                                   float_current_value):        
+        self.settings.setValue("default_measurement_accuracy_2d",
+                               str(float_current_value))
+        self.default_measurement_accuracy_2d = float_current_value
+        accuracy_2d = self.acc2dDoubleSpinBox.value()
+        if  self.default_measurement_accuracy_2d >= accuracy_2d:
+            self.acc2dDoubleSpinBox.setStyleSheet("color: green;")
+        else:
+            self.acc2dDoubleSpinBox.setStyleSheet("color: red;")    
+        
+    def changed_doublespin_measurement_accuracy_H(self,
+                                                  float_current_value):        
+        self.settings.setValue("default_measurement_accuracy_H",
+                               str(float_current_value))
+        self.default_measurement_accuracy_H = float_current_value
+        accuracy_z = self.acczDoubleSpinBox.value()
+        if  self.default_measurement_accuracy_H >= accuracy_z:
+            self.acczDoubleSpinBox.setStyleSheet("color: green;")
+        else:
+            self.acczDoubleSpinBox.setStyleSheet("color: red;")   
+        
+    
+    def parse_accuracy_detailed_report(self,
+                                       report_str):
+        
+        report_str_split_lines = report_str.split("\n")
+        lst_lines = []
+        for line in report_str_split_lines:
+            lst_words = line.split()            
+            if len(lst_words) > 0 and lst_words[0] == 'DETAILED':
+                break
+            lst_lines.append(lst_words)        
+        coor_x = float(lst_lines[2][2])
+        coor_y = float(lst_lines[2][3])
+        coor_z = float(lst_lines[2][4])
+        accuracy_x = float(lst_lines[6][2])
+        accuracy_y = float(lst_lines[6][3])
+        accuracy_z = float(lst_lines[6][4])
+        accuracy_2d = (accuracy_x ** 2 + accuracy_y ** 2) ** 0.5
+        
+        self.coorxDoubleSpinBox.setValue(coor_x)
+        self.cooryDoubleSpinBox.setValue(coor_y)
+        self.coorzDoubleSpinBox.setValue(coor_z)
+        self.accxDoubleSpinBox.setValue(accuracy_x)
+        self.accyDoubleSpinBox.setValue(accuracy_y)
+        self.acczDoubleSpinBox.setValue(accuracy_z)
+        self.acc2dDoubleSpinBox.setValue(accuracy_2d)
+        
+        # setting style sheet                
+        if  self.default_measurement_accuracy_H >= accuracy_z:
+            self.acczDoubleSpinBox.setStyleSheet("color: green;")
+        else:
+            self.acczDoubleSpinBox.setStyleSheet("color: red;")           
+        
+        if  self.default_measurement_accuracy_2d >= accuracy_2d:
+            self.acc2dDoubleSpinBox.setStyleSheet("color: green;")
+        else:
+            self.acc2dDoubleSpinBox.setStyleSheet("color: red;")           
+        
+        self.accuracyTextEdit.clear()       
+        
+        report_str_html = "<table border=\"1\"><tr><th>Measured Image</th><th>Matched Image</th><th>Method-WindowSize</th><th>Diff.2d</th><th>Result</th></tr>"
+
+        for x in range(10, len(lst_lines) - 2):
+            report_str_html += "<tr><td>" + lst_lines[x][0] + "</td>"
+            report_str_html += "<td>" + lst_lines[x][1] + "</td>"
+            report_str_html += "<td>" + lst_lines[x][2] + "</td>"
+            report_str_html += "<td>" + lst_lines[x][7] + "</td>"
+            if len(lst_lines[x]) > 11:
+                report_str_html += "<td>" + lst_lines[x][11] + "</td>"                            
+            else:
+                report_str_html += "<td></td>"            
+            report_str_html += "</tr>"
+        report_str_html += "</table>"        
+        self.accuracyTextEdit.insertHtml(report_str_html)        
+    
+    def viewAccuracyDetailReport(self):        
+        
+        self.obj_tool_accuracy_report_widget = PhToolsAccuracyReportWidget(self.iface,
+                                                                           self.report_str)        
+        self.obj_tool_accuracy_report_widget.show()
+        
+        
+        

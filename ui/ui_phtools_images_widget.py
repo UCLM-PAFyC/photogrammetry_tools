@@ -381,9 +381,9 @@ class PhToolsQImagesWidget(QFrame,
                         self.projected_images[image_key] = ret[5][image_key]
                         self.add_ribbon_images_map_canvas(image_key)
 
-                #self.debugTextGenerated.emit('Número de Imágenes: {}'.format(self.list_qgsmapcavansses_dic.__len__()))                
+                #self.debugTextGenerated.emit('Number of images: {}'.format(self.list_qgsmapcavansses_dic.__len__()))                
                 debug_html_str = '<h2 style="font-family:\'Calibri\'; font-weight:600; margin-bottom:16px;margin-top:10px;font-size:8pt;font-weight:600;">'
-                debug_html_str += 'Número de Imágenes: '
+                debug_html_str += 'Number of images: '
                 debug_html_str += str(self.list_qgsmapcavansses_dic.__len__())
                 debug_html_str += '</h2>'                                                            
                 debug_html_str += '<hr>'
@@ -409,8 +409,8 @@ class PhToolsQImagesWidget(QFrame,
                             matched_point = QgsPointXY(ret[5][image_key]['Matched'][0],
                                                        -1.0*ret[5][image_key]['Matched'][1])
                             #debug_str = '\nMatched: Point({} {})'.format(ret[5][image_key]['Matched'][0], ret[5][image_key]['Matched'][1])
-                            debug_html_str += '<p style="font-family:\'Consolas\'; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; text-indent:0px;"><span style=" color:#008000;">Matched:   Point</span><span style=" color:#000000;">'                            
-                            debug_html_str += '({} {})'.format(ret[5][image_key]['Matched'][0], ret[5][image_key]['Matched'][1])
+                            debug_html_str += '<p style="font-family:\'Consolas\'; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; text-indent:0px;"><span style=" color:#008000;">Matched:   </span><span style=" color:#000000;">'                            
+                            debug_html_str += 'Point ({} {})'.format(ret[5][image_key]['Matched'][0], ret[5][image_key]['Matched'][1])
                             debug_html_str += '</span></p>'                            
                             
                             self.list_qgsmapcavansses_dic[image_key].image_points[POINT_TYPE_MATCHED] = matched_point
