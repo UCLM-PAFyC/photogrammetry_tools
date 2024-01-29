@@ -170,3 +170,5 @@ dmypy.json
 
 # Cython debug symbols
 cython_debug/
+ph_tools.log
+libCppOSGeo4W_3_28_9/parameters_pp_processing_tools.xml
